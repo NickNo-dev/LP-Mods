@@ -1,0 +1,12 @@
+ACTION_UNIQUEID: nn_organize_photoshoot
+ACTION_NAME: Organize a photo shooting (PE)
+WHERE: sexwork
+WHEN: 8 - 2
+MINUTES: 30 - 60
+TIMEOUT_MINUTES: 0
+ALSO_TIMEOUT: 
+EFFECTS: energy -50 (DURATION), mood -15 (INTERRUPTED)
+CONDITIONS: nnOpenedPornEmpire >= 1 (STAT_COMPARE), energy >= 60 (STAT_COMPARE)
+MOVE_FIRST: false
+SCENE_ALWAYS: nn_scene_organize_photoshoot
+ANIMATION: 

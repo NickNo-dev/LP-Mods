@@ -1,0 +1,27 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    //setBackground(street)
+    
+    "Should I start to work professionally in the porn industry and open my own porn business?"
+    0:: "Yes"
+    1:: "No"
+    
+    If 0
+        Player(Excited)::"Why not? This is a porn game and I got nothing else to do right now..."
+        Player(Excited)::"'<Player.Name>'s Porn Empire' sounds like the perfect business title!"
+        
+        Player:nnOpenedPornEmpire => 1
+        
+        // Set the next possible reporting date to today
+        daysSinceBirth = (Player:Age * 365)
+        Player.setActorVar(pe_LastBusinessCheck, daysSinceBirth)
+    Else
+        "Not at the moment. Maybe later, when I got the balls to do so."
+    Endif
+    
+    SceneEnd()

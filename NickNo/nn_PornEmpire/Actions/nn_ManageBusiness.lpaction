@@ -1,0 +1,12 @@
+ACTION_UNIQUEID: nn_pe_ManageBusiness
+ACTION_NAME: Manage your business (PE)
+WHERE: sexwork
+WHEN: 0 - 24
+MINUTES: 0
+TIMEOUT_MINUTES: 
+ALSO_TIMEOUT: 
+EFFECTS: energy -10 (DURATION), mood -5 (INTERRUPTED)
+CONDITIONS: nnOpenedPornEmpire >= 1 (STAT_COMPARE)
+MOVE_FIRST: false
+SCENE_ALWAYS: nn_scene_pe_manage_business
+ANIMATION:   

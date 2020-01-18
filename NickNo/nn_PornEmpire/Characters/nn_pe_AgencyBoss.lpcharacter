@@ -1,0 +1,67 @@
+// Information
+INFO Is_Male: 100% true
+INFO Interested_In_Men: 100% false
+INFO Interested_In_Women: 100% true
+INFO Interested_In_Transgender: 100% false
+INFO First_Name: 100% Henk
+INFO Last_Name: 100% Smith
+INFO Race: 100% Daz
+INFO Genital: 100% Penis
+
+// Morphs
+MORPH Genesis8Female__CTRLFaceOlderHD: 100% 0.10103
+MORPH Genesis8Female__CTRLFitness: 100% 0.785921
+MORPH Genesis8Female__CTRLBodybuilder: 100% 0.356409
+MORPH Genesis8Female__Ray: 100% 0.51164
+MORPH Genesis8Female__Mike: 100% 0.582714
+MORPH Genesis8Female__Christopher: 100% 0.686307
+MORPH Genesis8Female__FBMStocky: 100% 0.389268
+MORPH Genesis8FemaleEyelashes__CTRLFaceOlderHD: 100% 0.509819
+MORPH Genesis8FemaleEyelashes__Ray: 100% 0.51164
+MORPH Genesis8FemaleEyelashes__Mike: 100% 0.582714
+MORPH Genesis8FemaleEyelashes__Christopher: 100% 0.686307
+MORPH XY__CTRLFitness: 100% 0.785921
+MORPH XY__CTRLBodybuilder: 100% 0.356409
+MORPH XY__FBMStocky: 100% 0.389268
+MORPH XY__Plums size: 100% 0.113152
+MORPH XY__Penis size: 100% 0.02812
+MORPH XY__Foreskin01: 100% 0.160221
+SCALE X: 100% 1.0
+SCALE Y: 100% 1.0
+SCALE Z: 100% 1.0
+
+//Hair
+HAIR Hairstyle: 100% ColinHair
+HAIR Hair_Thickness: 100% 2.0
+HAIR Hair_Color_R: 100% 0.005
+HAIR Hair_Color_G: 100% 0.001
+HAIR Hair_Color_B: 100% 0.0
+HAIR Hair_Color_A: 100% 0.85
+
+HAIR Brow_Color_R: 100% 0.0
+HAIR Brow_Color_G: 100% 0.0
+HAIR Brow_Color_B: 100% 0.0
+HAIR Brow_Color_A: 100% 1.0
+
+// Skin
+SKIN Eye_Color_R: 100% 0.0
+SKIN Eye_Color_G: 100% 0.0
+SKIN Eye_Color_B: 100% 0.0
+SKIN Eye_Color_A: 100% 1.0
+SKIN Skin_Color_R: 100% 0.73
+SKIN Skin_Color_G: 100% 0.52
+SKIN Skin_Color_B: 100% 0.43
+SKIN Skin_Color_A: 100% 1.0
+SKIN BHairColor_R: 100% 0.026
+SKIN BHairColor_G: 100% 0.009
+SKIN BHairColor_B: 100% 0.0
+SKIN BHairColor_A: 100% 0.85
+SKIN Skin_Roughness: 100% 0.835963
+SKIN Skin_Oil: 100% 0.25
+SKIN Skin_Fresnel: 100% 0.119236
+SKIN Skin_Age: 100% 0.10103
+SKIN Skin_Sagging: 100% 0.0
+SKIN Muscle_Tone: 100% 0.000002
+SKIN BHairThickness: 100% 0.609114
+SKIN BHairstyle: 100% JPBH78-TorsoNG-01
+SKIN FHairstyle: 100% Facial_Hair__24_

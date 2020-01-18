@@ -1,0 +1,281 @@
+WHAT: all
+WHERE: all
+WHEN: 9 - 20
+WHO: none
+OTHER: none
+
+    // This is a randomly triggered scene
+    // One of the employees will ask for more money
+    
+    If Player:nnOpenedPornEmpire >= 1
+    
+        // Go to the office if any
+        officeSize = Player.getActorVar(pe_PlayerOfficeLocationSize)
+        If officeSize > 0
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+        EndIf
+        
+        // Get IDs of employees
+        photographerID = Player.getActorVar(pe_EmployedPhotographerId)
+        adminID = Player.getActorVar(pe_EmployedWebAdminId)
+        runScene = false
+        daysSinceBirth = (Player:Age * 365) // get the current date 
+        
+        // Get a random contact
+        Actor = getPerson(true)
+        While Actor.isValid() && !runScene
+            
+            currentId = Actor.getID()
+            
+            // Check if the contact is employed
+            job = ""
+            isCamModel = false
+            camFrequency = 0
+            employeeSalary = 0
+            
+            If currentId == photographerID
+                employeeSalary = Actor.getActorVar(pe_EmployeeSalary)
+                job = "my photographer"
+                runScene = true
+            ElseIf currentId == adminID
+                employeeSalary = Actor.getActorVar(pe_EmployeeSalary)
+                job = "my web administrator"
+                runScene = true
+            Else
+                camFrequency = Actor.getActorVar(pe_WebCammingFrequency)
+                    
+                If camFrequency > 0
+                    // Is a cam model
+                    isCamModel = true
+                    employeeSalary = Actor.getActorVar(pe_EmployeeSalary)
+                    job = "one of my web cam models"
+                    runScene = true
+                EndIf
+            EndIf
+            
+            If runScene
+                
+                SceneStart()
+                
+                Actor.dress()
+                Actor.show(1)
+                Player.dress()
+                Player.show()
+                
+                Player(Serene)::"<Actor.Name>, <job> approaches me..."
+                
+                Random
+                    Actor(Anxious)::"Listen <Player.Name>, I barely dare to ask, but I need some more money to get my life under control again."
+                    Actor(Shy)::"<Player.Name>, I had some unexpected expenses lately and therefore I need to ask about a small raise. Is that possible?"
+                    Actor(Shy)::"<Player.Name>, I am in financial trouble. I really do not like to ask about it, but could I get a raise to get out of debt quickly?"
+                    Actor(Flirty)::"Hey <Player.Name>, I think I am doing quite a good job for you. How about you honour that with a salary increase?"
+                    Actor(Flirty)::"Hey <Player.Name>, I bumped your porn empire a lot. How about showing a little appreciation by raising my salary a little?"
+                    Actor(Flirty)::"Hey Darling, I am short on money - as always in the middle of the month. I'd like to ask about a salary increase."
+                    Actor(Attentive)::"Hello <Player.Name>. I love working for you, but we need to talk about my salary. I got job offers where I could earn more..."
+                    Actor(Attentive)::"Hello <Player.Name>. I did not have a raise for quite some time. We need to talk about money please."
+                EndRandom
+                
+                needToHaveSex = false
+                requestDeclined = true
+                
+                lastNeg = Actor.getActorVar(pe_LastSalaryNegotiation)
+                deltaNeg = daysSinceBirth - lastNeg
+                
+                // "Debug: lastNeg=<lastNeg>, deltaNeg=<deltaNeg>"
+                
+                // When was the last negotiation?
+                If deltaNeg < 30
+                    // Less than 30 days ago?!
+                    // We get angry and the worker has to do some service
+                    Random
+                        Player(Annoyed)::"Hey, we talked about your salary no more than one month ago."
+                        Player(Angry)::"What? We did negotiate on that no more than a month ago!"
+                        Player(Angry)::"Hell, what? More money, again? Didn't you just ask a few days ago?"
+                        Player(Sarcastic)::"You are running out of money faster that I can earn it with your work performance."
+                    EndRandom
+                    
+                    needToHaveSex = true
+                Else
+                    Player(Confused)::"Will I be cool or angry about this inquiry?"
+                    0:: "Get angry"
+                    1:: "Stay calm"
+                    
+                    If 0
+                        // We get angry and want some extra service
+                        Random
+                            Player(Annoyed)::"More money? I cannot earn money as fast as I have to spend it on my inexperienced employees!"
+                            Player(Angry)::"Who gives me more money? I have to work hard. You did not. So why should I raise your salary?"
+                            Player(Sarcastic)::"You think your services are worth a raise? I got bad news for you, you need to improve a lot!"
+                            Player(Sarcastic)::"A raise? - Really? Your performance does not convince me..."
+                        EndRandom
+                        
+                        needToHaveSex = true
+                    Else
+                        Random
+                            Player(Attentive)::"Ok, you did quite a good job lately, so I think you deserve some reward."
+                            Player(Peaceful)::"Hmm... I am satisfied with your work performance. I will think about a little raise."
+                            Player(Serene)::"Well, I love your work. Really. You do a good job. It is time to honour it!"
+                            Player(Flirty)::"Well honey, I see your point. I love you. I love your work. You deserve a raise."
+                        EndRandom
+                        
+                        requestDeclined = false     // raise immediately
+                    EndIf
+                EndIf
+                    
+                If needToHaveSex
+                    Random
+                        Actor(Anxious)::"Eh, well I thought I did quite a good job for you! What's wrong?"
+                        Actor(Shy)::"What did I do wrong? I thought you were satisfied with my performance."
+                        Actor(Shy)::"Oh, I did not know you are not pleased with my work. What do I have to change?"
+                        Actor(Flirty)::"Oh, I see. I promise to do better from now."
+                        Actor(Flirty)::"Oh <Player.Name>, please don't be so rough. I promise I will improve my performance a lot! Ok?"
+                    EndRandom
+                    
+                    Random
+                        Player(Evil)::"<Actor.Name> really wants more money... How about I let <Actor.o> do some extra services?"
+                        Player(Evil)::"<Actor.Name> literally is on <Actor.p> knees... Should I use that circumstance and get a little extra from <Actor.o>?"
+                        Player(Evil)::"Looks like I could take advantage of <Actor.Name>'s situation and demand some extra service from <Actor.o>. Should I?"
+                        Player(Evil)::"I am horny and <Actor.Name> is quite hot. Should I request <Actor.o> to do some extra work?"
+                        Player(Evil)::"In <Actor.p> current situation <Actor.Name> looks really sexy. Begging for more... Give <Actor.o> some 'more'?"
+                    EndRandom
+                    0:: "Yes"
+                    1:: "No"
+                    
+                    If 1
+                        Random
+                            Player(Bored)::"Ok, listen. Go back to work and we will talk next month again."
+                            Player(Bored)::"You got to better hold on your money! Get back to your work ASAP!"
+                            Player(Angry)::"If you want more money do your job better! Ask about it next month!"
+                        EndRandom
+                    Else
+                        // Actor has to do some work for us...
+                        Random
+                            Player(Wink)::"Ok, you want more money? I have an idea how we both can get happy!"
+                            Player(Wink)::"Ok. How about some extra work for some extra money?"
+                            Player(Wink)::"Well you could earn some extra money right now, right here. Cash! Interested?"
+                            Player(Wink)::"I have a great Idea how we can solve two problems at once. I am horny and you are out of money. See?"
+                            Player(Wink)::"Ok. I'll give you some extra cash when you do some extra service. It's so easy. Is it?"
+                            Player(Wink)::"How about you put your sexual skills to some good use and earn yourself a bonus?"
+                            Player(Wink)::"You could use your sexy body to earn some bonus right now..."
+                        EndRandom
+                        
+                        chance = Random(1,4)
+                        If chance > 1.5
+                            // OK, lets have sex...
+                            Random
+                                Actor(Crying)::"You really exploit my situation. Come on. Get it done quickly!"
+                                Actor(Embarassed)::"Well, fucking my boss is something I usually don't do. But if you request it..."
+                                Actor(Flirty)::"Hah, I work in the porn biz, I sure can work it out!"
+                                Actor(Posing)::"This is how I earn my money! Let me show my perfect skills to you..."
+                                Actor(Posing)::"Nothing easier than that. Let me show you my skills boss!"
+                                Actor(Posing)::"I knew you could not resist me. Let me help you with that..."
+                            EndRandom
+                            
+                            Player.strip()
+                            Actor.strip()
+                            
+                            Sex(Player, Actor)
+                            
+                            Actor:perversion += 0.5
+                            Player:perversion += 0.5
+                            
+                            passTime(0.2, 0.5)
+                            
+                            Random
+                                Player(Attentive)::"Well good work. You should continue to work like that! I'll give you a little extra for that!"
+                                Player(Wink)::"That was a good job. I think you deserve some extra now!"
+                                Player(Wink)::"I like what you did right now. That deserves some reward!"
+                                Player(Wink)::"Good job. That was easy right? Let's talk about that raise again..."
+                                Player(Wink)::"Ahhh... That was good. What were we talking about earlier? Ah, your salary..."
+                            EndRandom
+                            
+                            requestDeclined = false
+                        Else
+                            // Actor declines
+                            Random
+                                Actor(Disgusted)::"You pervert. No I won't do that! I'll try to get along without your help!"
+                                Actor(Furious)::"I'll probably find another job very soon. Forget about it."
+                                Actor(Offended)::"I have not fallen so deep! Forget it!"
+                            EndRandom
+                        EndIf
+                    EndIf
+                Else
+                    
+                    
+                EndIf
+                
+                If !requestDeclined
+                    askingPrice = Actor.getActorVar(pe_EmployeeSalary)
+                    askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+                    txtUnit = "month"
+                    If isCamModel
+                        Player(Serene):: "How much should I increase <Actor.Name>'s salary? <Actor.P> current salary is <askingPriceLocal> for <camFrequency> sessions per week."
+                        
+                        txtUnit = "week"
+                    Else
+                        Player(Serene):: "How much should I increase <Actor.Name>'s salary? <Actor.P> current salary is <askingPriceLocal> per month."
+                    EndIf
+                    
+                    loc100 = 100.convertToLocalCurrency(true)
+                    loc200 = 200.convertToLocalCurrency(true)
+                    loc250 = 250.convertToLocalCurrency(true)
+                    loc400 = 400.convertToLocalCurrency(true)
+                    loc500 = 500.convertToLocalCurrency(true)
+                    loc800 = 800.convertToLocalCurrency(true)
+                    loc1000 = 1000.convertToLocalCurrency(true)
+                    loc2000 = 2000.convertToLocalCurrency(true)
+                    
+                    1:: "Offer <loc250> once"
+                    2:: "Offer <loc500> once"
+                    4:: "Offer <loc1000> once"
+                    8:: "Offer <loc2000> once"
+                    10:: "Offer <loc100> per <txtUnit>"
+                    20:: "Offer <loc200> per <txtUnit>"
+                    40:: "Offer <loc400> per <txtUnit>"
+                    80:: "Offer <loc800> per <txtUnit>"
+                    
+                    amount = 0
+                    asSalary = false
+                    
+                    If 1 || 2 || 4 || 8
+                        amount = 250 * choice
+                    Else
+                        amount = 10 * choice
+                        asSalary = true
+                    EndIf
+                    
+                    amountLocal = amount.convertToLocalCurrency(true)
+                    // "Debug choice=<choice>, amount=<amount> as local: <amountLocal>"
+                    
+                    If asSalary
+                        Random
+                            Player(Serene)::"I will increase your salary by <amountLocal> per <txtUnit>. Just keep improving."
+                            Player(Serene)::"Let's increase your salary by <amountLocal> per <txtUnit>. Please keep up the good work!"
+                            Player(Serene)::"I think I will increase your salary by <amountLocal> the <txtUnit>. But don't let up!"
+                        EndRandom
+                        
+                        employeeSalary += amount
+                        Actor.setActorVar(pe_EmployeeSalary, employeeSalary)
+                    Else
+                        Random
+                            Player(Serene)::"I will give you a bonus of <amountLocal>. Please keep up the good work!"
+                            Player(Serene)::"I pay you off <amountLocal> as a bonus. Just keep improving and we will see where we can go together."
+                            Player(Serene)::"Here, that is <amountLocal> for you. Just keep asking for more regularly."
+                        EndRandom
+                        
+                        money -= amount
+                        Actor:money += amount // TODO: Not sure this makes sense
+                    EndIf
+                EndIf
+                
+                // Remember today as last negotiation date
+                Actor.setActorVar(pe_LastSalaryNegotiation, daysSinceBirth) // remember last negotiation
+                
+                passTime(0.5, 1)
+                SceneEnd()
+            EndIf
+        
+            Actor = getPerson()
+        EndWhile
+    EndIf
+    

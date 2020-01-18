@@ -1,0 +1,67 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    // Find a location
+    hasOffice = Player.getActorVar(pe_PlayerOfficeLocationSize)
+    hotelRoomCost = 75
+    randCost = Random(1,8)
+    hotelRoomCost *= randCost
+    hotelRoomCostLocal = hotelRoomCost.convertToLocalCurrency(true)
+    
+    Player::"Where do I want to do the shooting?"
+    0:: "Right here"
+    1:: "In my bedroom"
+    20:: money>hotelRoomCost::"Nearby hotel for <hotelRoomCostLocal>"
+    30:: hasOffice>0::"In my office"
+    99:: "In the pool"
+    99:: "At the beach"
+    99:: "In the woods"
+    
+    If choice >= 0 && choice <= 99
+        
+        // Randomize the hotel room
+        If choice == 20
+            r = Random(0,2) // we got 3 room presets atm
+            r = r.round()
+            choice += r
+        EndIf
+        
+        // persist the location in a global variable
+        nnPE_NextShootingLocation.setGlobal(choice)
+        
+        // Get the desired location, main location for this code: nn_scene_organize_photoshoot.lpscene
+        desiredShootingLocation = choice
+        If desiredShootingLocation == 1 // home
+            moveTo(Home)
+        ElseIf desiredShootingLocation >= 20 && desiredShootingLocation <= 29 // hotel
+            If desiredShootingLocation == 21
+                setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_2.lpworld)
+            ElseIf desiredShootingLocation == 22
+                setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_3.lpworld)
+            Else
+                setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_1.lpworld)
+            EndIf
+        ElseIf desiredShootingLocation >= 3 desiredShootingLocation <= 39 //office
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+        EndIf
+        
+        // Set the scene we want to play after selecting an actor
+        nnPE_NextSceneSelection.setGlobal(1)
+        
+        // Hotel rooms cost money...
+        If choice == 2
+            money -= hotelRoomCost
+        EndIf
+        
+        // Select a MainActor
+        followUp(nn_scene_find_main_actor)
+    Else
+        "Well, that location does not exist yet. Please donate A LOT OF MONEY on Patreon so we can add these locations!!"
+    EndIf
+    
+    SceneEnd()

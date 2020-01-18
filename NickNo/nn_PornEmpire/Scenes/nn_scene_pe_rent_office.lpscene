@@ -1,0 +1,107 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    detailModeEnabled = Player.getActorVar(pe_EnableddDetailMode)
+    
+    // Go to the office if any
+    officeSize = Player.getActorVar(pe_PlayerOfficeLocationSize)
+    If officeSize > 0
+        setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+    EndIf
+    
+    // First check if we already have an office
+    wantNewOffice = true
+    movePrice = 4000
+    If officeSize > 0
+        
+        price = Player.getActorVar(pe_PlayerOfficePrice)
+        priceLocal = price.convertToLocalCurrency()
+        size = "very small"
+        If officeSize == 6
+            size = "very large"
+        ElseIf officeSize == 5
+            size = "large"
+        ElseIf officeSize == 4
+            size = "spacious"
+        ElseIf officeSize == 3
+            size = "adequate"
+        ElseIf officeSize == 2
+            size = "small"
+        EndIf
+        
+        movePriceLocal = movePrice.convertToLocalCurrency(true)
+        Player::"I already have a <size> office for <priceLocal>. Move to a new office for <movePriceLocal>?"
+        0:: "No, stay in the current office"
+        1:: "Yes look for a new one!"
+        
+        If 0 
+            wantNewOffice = false
+        EndIf
+    Else
+        // Explain what the office is good for
+        Player::"If I rent an office I can store more equipment, manage more employees and do so some 'castings' right in my office."
+        
+    EndIf
+    
+    looking = wantNewOffice
+    While looking
+    
+        chance = Random(1,15)
+        chance = chance.Round()
+        price = 500 * chance
+        priceLocal = price.convertToLocalCurrency()
+        numSize = 1
+        
+        size = "very small"
+        If chance >= 13
+            size = "very large"
+            numSize = 6
+        ElseIf chance >= 10
+            size = "large"
+            numSize = 5
+        ElseIf chance >= 7
+            size = "spacious"
+            numSize = 4
+        ElseIf chance >= 4
+            size = "adequate"
+            numSize = 3
+        ElseIf chance >= 2
+            size = "small"
+            numSize = 2
+        EndIf
+        
+        Player::"There is a <size> nearby office available for <priceLocal> per month. Shall I rent it?"
+        0::"Yes rent it"
+        1::"No look for another office"
+        99::"I don't want to rent an office now"
+        
+        If 0
+            looking = false
+            
+            If officeSize > 0   // moving
+                money -= 4000
+            EndIf
+            
+            officeSize = numSize
+            
+            Player(Happy)::"I signed the contract and can start to get some furniture for my office."
+            
+            // TODO: Choose different office styles...
+            
+            // Persist the office settings
+            Player.setActorVar(pe_PlayerOfficeLocationSize, numSize)
+            Player.setActorVar(pe_PlayerOfficePrice, price)
+            
+        ElseIf 99
+            looking = false
+        EndIf
+    EndWhile
+    
+    followUp(nn_scene_pe_manage_business)
+    
+    SceneEnd()

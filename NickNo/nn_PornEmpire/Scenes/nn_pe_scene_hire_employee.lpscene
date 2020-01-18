@@ -1,0 +1,278 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    // This scene is used to hire a new employee.
+    debugModeEnabled = Player.getActorVar(pe_DebugModeEnabled)
+    
+    // local variables for hiring people...
+    txtJobTitle = ""
+    currentEmployeeId = 0
+    actorIsGenerated = false
+    askingPrice = 0
+    jobBasePayment = 500
+    jobRandomPayment = 0
+    employeeSkillLvl = 1
+    
+    // Find out what to hire...
+    // See nn_pe_scene_manage_employees.lpscene for values
+    hireType = PEHireNewEmployeeJobType.getGlobal()
+    
+    If hireType == 1
+        txtJobTitle = "photographer"
+        currentEmployeeId = Player.getActorVar(pe_EmployedPhotographerId)
+        jobBasePayment = 500
+        jobRandomPayment = 3000
+    ElseIf hireType == 2
+        txtJobTitle = "cam operator"
+        currentEmployeeId = Player.getActorVar(pe_EmployedCamOperatorId)
+        jobBasePayment = 600
+        jobRandomPayment = 4000
+    ElseIf hireType == 3
+        txtJobTitle = "scene assistant"
+        currentEmployeeId = Player.getActorVar(pe_EmployedSceneAssistantId)
+        jobBasePayment = 400
+        jobRandomPayment = 2500
+    ElseIf hireType == 20
+        txtJobTitle = "web administrator"
+        currentEmployeeId = Player.getActorVar(pe_EmployedWebAdminId)
+        jobBasePayment = 750
+        jobRandomPayment = 5000
+    Else
+        "PANIC!! nn_pe_scene_hire_employee.lpscene called with unknown job type (<hireType>)!"
+    EndIf
+    
+    Player.dress()
+    Player.show(0)
+    
+    // Test if we already got this employee
+    MainActor = getSpecific(currentEmployeeId)
+    
+    // Already have a employee of this type?
+    If MainActor.isValid()
+        MainActor.dress()
+        MainActor.show(1)
+        Player::"I already have hired <MainActor.Name> as <txtJobTitle>."
+        Player::"If I want to hire someone else, I need to fire <MainActor.o> first."
+        
+        MainActor.hide()
+    Else
+        
+        // Go find a new one
+        MainActor = 0
+        Player(Wink)::"Should I ask one of my contacts or hire someone?"
+        0:: "Ask one of my contacts"
+        1:: "Hire someone else"
+        2:: "I don't need a <txtJobTitle>"
+        
+        If 0
+            foundEmployee = false
+            While !foundEmployee
+                selectNPC()
+                MainActor = getSelectedNPC()
+                
+                // Test if the selected actor is already employed
+                If MainActor.isValid()
+                    currentSalary = MainActor.getActorVar(pe_EmployeeSalary)
+                    If currentSalary > 0 
+                        Player::"<MainActor.Name> is already working for me. I cannot offer <MainActor.o> another job!"
+                        MainActor.hide()
+                        MainActor = 0
+                    Else
+                        foundEmployee = true
+                    EndIf
+                Else
+                    // User cancelled
+                    foundEmployee = true
+                EndIf
+            EndWhile
+        ElseIf 1
+            MainActor = generatePersonTemporary()
+            
+            foundEmployee = false
+            While !foundEmployee
+                
+                MainActor.dress()
+                MainActor.show(3)
+                
+                employeeSkillLvl = Random(1,100)
+                skillText = "has no skill"
+                
+                // write the stat that controls the skill level
+                If hireType >= 1 && hireType <= 19
+                    // "photographer"
+                    // "cam operator"
+                    // "scene assistant"
+                    MainActor:pornfame => employeeSkillLvl
+                    
+                    skillText = "completely unknown in the porn industry"
+                    If employeeSkillLvl >= 90
+                        skillText = "a god in the porn industry"
+                    ElseIf employeeSkillLvl >= 80
+                        skillText = "very famous  in the porn industry"
+                    ElseIf employeeSkillLvl >= 65
+                        skillText = "famous in the porn industry"
+                    ElseIf employeeSkillLvl >= 50
+                        skillText = "well known in the porn industry"
+                    ElseIf employeeSkillLvl >= 35
+                        skillText = "somewhat known in the porn industry"
+                    ElseIf employeeSkillLvl >= 25
+                        skillText = "little known in the porn industry"
+                    ElseIf employeeSkillLvl >= 10
+                        skillText = "very little known in the porn industry"
+                    EndIf
+                ElseIf hireType == 20
+                    // "web administrator"
+                    MainActor:intelligence => employeeSkillLvl
+                    
+                    skillText = "is a complete dumb ass"
+                    If employeeSkillLvl >= 90
+                        skillText = "is a real hacker kid"
+                    ElseIf employeeSkillLvl >= 80
+                        skillText = "is a real IT professional"
+                    ElseIf employeeSkillLvl >= 65
+                        skillText = "is highly intelligent"
+                    ElseIf employeeSkillLvl >= 50
+                        skillText = "has a good IT knowledge"
+                    ElseIf employeeSkillLvl >= 35
+                        skillText = "a nerd with some IT skills"
+                    ElseIf employeeSkillLvl >= 25
+                        skillText = "at least knows how to turn on a computer"
+                    ElseIf employeeSkillLvl >= 10
+                        skillText = "does not seem very clever"
+                    EndIf
+                EndIf
+                
+                Player::"<MainActor.Name> is available to hire. <MainActor.S> is <skillText>. Invite <MainActor.o> to a job interview?"
+                0:: "Yes"
+                1:: "No"
+                
+                If 0
+                    foundEmployee = true
+                Else
+                    MainActor.hide()
+                    MainActor = generatePersonTemporary()
+                EndIf
+            EndWhile
+            
+            actorIsGenerated = true
+        EndIf
+        
+        // If we found someone for the job interview
+        If MainActor.isValid()
+            
+            setBackground(work)
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+            
+            // get the stat that controls the skill level
+            If hireType >= 1 && hireType <= 19
+                // "photographer"
+                // "cam operator"
+                // "scene assistant"
+                employeeSkillLvl = MainActor:pornfame
+            ElseIf hireType == 20
+                // "web administrator"
+                employeeSkillLvl = MainActor:intelligence
+            EndIf
+            
+            askingPrice = jobBasePayment + (jobRandomPayment * (Random(0.35, 0.5) + (employeeSkillLvl/100)))
+            priceLocal = askingPrice.convertToLocalCurrency(true)
+            
+            Player::"<MainActor.Name> is available to hire for <priceLocal> / month. Hire <MainActor.o>?"
+            0:: "Yes, hire <MainActor.Name>"
+            1:: "Try to negotiate on salary"
+            2:: "No, look for someone else"
+            
+            If 0
+                // All good
+            ElseIf 1
+                chance = Random(1,5)
+                If chance >= 3
+                    askingPrice -= (chance*100)
+                    If askingPrice < 1100
+                        askingPrice = 1100
+                    EndIf
+                    askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+                    Player(Wink)::"I was able to talk <MainActor.Name> down to <askingPriceLocal>."
+                Else
+                    Random
+                        Player(Annoyed)::"<MainActor.Name> was not willing to negotiate."
+                        Player(Annoyed)::"My negotiations were unlucky."
+                        Player(Annoyed)::"<MainActor.Name> says this is <MainActor.p> minimum."
+                    EndRandom
+                    
+                    Player(Annoyed)::"I will have to pay what <MainActor.o> demands or find another <txtJobTitle> that I can afford."
+                    0:: "Pay what <MainActor.s> demands"
+                    1:: "Don't hire <MainActor.o>"
+                    
+                    If 1
+                        MainActor = 0
+                    Else
+                        // All good
+                    EndIf
+                EndIf
+            Else
+                MainActor = 0
+            EndIf
+        EndIf
+        
+        // Check if player can pay the negotiated salary
+        If MainActor.isValid() && money < askingPrice
+            Player(Sad)::"I don't have enough money to pay <MainActor.Name>."
+            Player(Curious)::"I need make some money first!"
+            MainActor = 0
+        EndIf
+        
+        // It the actor is still valid, all checks were OK, so employ him
+        If MainActor.isValid()
+        
+            If actorIsGenerated
+                MainActor.makePermanent()
+                exchangeContact(MainActor)
+            EndIf
+            
+            newId = MainActor.getID()
+            MainActor.setActorVar(pe_EmployeeSalary, askingPrice)
+            daysSinceBirth = (Player:Age * 365) // get the current date 
+            MainActor.setActorVar(pe_LastSalaryNegotiation, daysSinceBirth) // remember last salary negotiation
+            
+            // Persist the new employee
+            If hireType == 1            // photographer
+                Player.setActorVar(pe_EmployedPhotographerId, newId)
+                MainActor.setActorVar(tag_PEPhotographer, 1)
+                
+            ElseIf hireType == 2        // cam operator
+                Player.setActorVar(pe_EmployedCamOperatorId, newId)
+                MainActor.setActorVar(tag_PECamOperator, 1)
+            
+            ElseIf hireType == 3        // scene assistant
+                Player.setActorVar(pe_EmployedSceneAssistantId, newId)
+                MainActor.setActorVar(tag_PESceneAssistant, 1)
+            
+            ElseIf hireType == 20        // web admin
+                Player.setActorVar(pe_EmployedWebAdminId, newId)
+                MainActor.setActorVar(tag_PEAdmin, 1)
+            
+            Else
+                "PANIC!!? nn_pe_scene_hire_employee.lpscene called with unknown job type!"
+            EndIf
+            
+            If debugModeEnabled > 0
+                "Debug: New <txtJobTitle> <MainActor.Name>: id=<newId>, employeeSkillLvl=<employeeSkillLvl>, price=<askingPrice>"
+            EndIf
+            
+            Player(Happy)::"<MainActor.Name> and I signed the contract. <MainActor.S> is now working as my <txtJobTitle>."
+            Player(Happy)::"I added <MainActor.Name> to my address book."
+        EndIf
+    EndIf
+    
+    passTime(1,2)
+    
+    // Go back to the scene that called us...
+    followUp(nn_pe_scene_manage_employees)
+    
+    SceneEnd()

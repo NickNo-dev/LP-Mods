@@ -1,0 +1,20 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    //setBackground(street)
+    "Should I stop working in the porn business and close down my well running porn company?"
+    0:: "Yes"
+    1:: "No"
+    
+    If 0
+        "Well I want to be a brave person. I'll give up on that shit and never have sex again."
+        Player:nnOpenedPornEmpire => 0
+    Else
+        "HELL, what was I thinking? Giving up that easy is not my style."
+    Endif
+    
+    SceneEnd()

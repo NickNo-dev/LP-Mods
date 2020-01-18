@@ -1,0 +1,216 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    If money < -50000 
+        Player(Anxious)::"I am in debt. The stores will not sell me anything."
+        Player(Curious)::"Let's make some money with what we already got."
+    Else
+    
+        // Go to the office if any
+        officeSize = Player.getActorVar(pe_PlayerOfficeLocationSize)
+        If officeSize > 0
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+        EndIf
+        
+        Player(Curious)::"There is a lot of cool stuff you can buy for money." 
+        Player(Wink)::"If I get better equipment my content will get better and make more money."
+        
+        // Get current equipment types
+        photoCamType = Player.getActorVar(pe_PhotoCameraEquipmentType)
+        videoCamType = Player.getActorVar(pe_VideoCameraEquipmentType)
+        lightType = Player.getActorVar(pe_LightEquipmentType)
+        sceneType = Player.getActorVar(pe_SceneEquipmentType)
+        toyType = Player.getActorVar(pe_ToyEquipmentType)
+        
+        Player(Curious)::"Which type of equipment shall I buy?"
+        0:: "Photo camera equipment"
+        1:: "Video camera equipment"
+        2:: "Lighting equipment"
+        3:: "Scene equipment"
+        4:: "Toys for the models"
+        99:: "Don't buy anything"
+        
+        If 0
+            If photoCamType >= 4
+                Player(Sad)::"I already own the best camera equipment that money can buy."
+            Else
+                Player(Excited)::"Let's see what cameras they have got in store."
+                1:: photoCamType == 0:: "Funji FixPix 100 MPix camera with 32x optical zoom (3599)"
+                2:: photoCamType == 1:: "Sophy EasyShot 120 MPix camera with 40x optical zoom and wifi upload (7999)"
+                3:: photoCamType == 2:: "Canyon MegaShot 150 MPix camera with 60x optical zoom, wifi and automatic stabilizer (16500)"
+                4:: photoCamType == 3:: "Vinfamy UltaCrisp 200 MPix camera with 120x optical zoom, stabilizer, wifi and infinity shot (35000)"
+                5:: "Don't buy anything"
+                
+                If 1
+                    Player.setActorVar(pe_PhotoCameraEquipmentType, 1)
+                    money -= 3599;
+                    Player(Excited)::"That should do way better than the cheap tech I used before."
+                ElseIf 2
+                    Player.setActorVar(pe_PhotoCameraEquipmentType, 2)
+                    money -= 7999;
+                    Player(Excited)::"WiFi upload: Point, shoot and done. Must be worth its money."
+                ElseIf 3
+                    Player.setActorVar(pe_PhotoCameraEquipmentType, 3)
+                    money -= 16500;
+                    Player(Excited)::"Hmmm, automatic stabilizer. That will come handy in some 'action' scenes."
+                ElseIf 4
+                    Player.setActorVar(pe_PhotoCameraEquipmentType, 4)
+                    money -= 35000;
+                    Player(Excited)::"I just bought the holy grail of photography. We will shoot details nobody ever saw before..."
+                EndIf
+            EndIf
+            
+            followUp(nn_pe_scene_buy_equipment)
+        ElseIf 1
+            If videoCamType >= 4
+                Player(Sad)::"I already own the best video equipment that exists on this planet - at least for now."
+            Else
+                Player(Excited)::"Which video camera upgrade should I get?"
+                1:: videoCamType == 0:: "Sonie VideoStar 4K camera with 8x optical zoom (6899)"
+                2:: videoCamType == 1:: "NiCoy StudioMate 8K camera with 12x optical zoom and auto focus, 80 FPS (18499)"
+                3:: videoCamType == 2:: "NuShot All Star 8K camera with 24x optical zoom, auto focus and night vision, 120 FPS (37599)"
+                4:: videoCamType == 3:: "Vinfamy Hyper Cam 24K camera with 40x optical zoom, auto focus+stabilizer, night vision and 3D recording, 200 FPS (48999)"
+                5:: "Don't buy anything"
+                
+                If 1
+                    Player.setActorVar(pe_VideoCameraEquipmentType, 1)
+                    money -= 6899;
+                    Player(Excited)::"Now I will now get some flicker free high resolution footage!"
+                    Player(Excited)::"That low quality that my shitty smart phone produces..."
+                ElseIf 2
+                    Player.setActorVar(pe_VideoCameraEquipmentType, 2)
+                    money -= 18499;
+                    Player(Excited)::"8K is what you need to record now."
+                    Player(Excited)::"Especially if you want to be successful in porn biz!"
+                ElseIf 3
+                    Player.setActorVar(pe_VideoCameraEquipmentType, 3)
+                    money -= 37599;
+                    Player(Excited)::"You know. Night shootings require some special equipment."
+                    Player(Excited)::"It has special prices as well."
+                ElseIf 4
+                    Player.setActorVar(pe_VideoCameraEquipmentType, 4)
+                    money -= 48999;
+                    Player(Excited)::"If you want to jerk off in VR I am the one who can help you now."
+                    Player(Excited)::"But my dear customers... you pay the price!"
+                EndIf
+            EndIf
+            
+            followUp(nn_pe_scene_buy_equipment)
+        ElseIf 2
+            If lightType >= 4
+                Player(Sarcastic)::"Of course there is more lighting equipment available."
+                Player(Sarcastic)::"For example if you need to light a football stadium."
+                Player(Sarcastic)::"I think we got everything what is required in our business."
+            ElseIf lightType >= 2 && officeSize < 1
+                Player(Sarcastic)::"I can't put any more stuff into my bedroom."
+                Player(Sarcastic)::"Maybe I should rent an office first?"
+            Else
+                Player(Excited)::"Which lighting equipment should I buy?"
+                1:: lightType == 0:: "Movie Tech mobile 10W LED light (899)"
+                2:: lightType == 1:: "NuShot Movie LED Light, 4x25W, dimmable (15599)"
+                3:: lightType == 2:: "HighRise VirtuaSun 4x35W LED spots, dimmable, adjustable color (23499)"
+                4:: lightType == 3:: "Vinfamy MovieRay 8x50W LED spots, auto dimmer, adjustable color, intelli link (36599)"
+                5:: "Don't buy anything"
+                
+                If 1
+                    Player.setActorVar(pe_LightEquipmentType, 1)
+                    money -= 899;
+                    Player(Excited)::"That should bring some light into the darkness."
+                ElseIf 2
+                    Player.setActorVar(pe_LightEquipmentType, 2)
+                    money -= 15599;
+                    Player(Excited)::"Now we can start making professional video and photo footage."
+                ElseIf 3
+                    Player.setActorVar(pe_LightEquipmentType, 3)
+                    money -= 23499;
+                    Player(Excited)::"This will allow us to get some advanced scenery. Good buy!"
+                ElseIf 4
+                    Player.setActorVar(pe_LightEquipmentType, 4)
+                    money -= 36599;
+                    Player(Excited)::"Now we can turn the night into day and do recording where and whenever we want."
+                EndIf
+            EndIf
+            
+            followUp(nn_pe_scene_buy_equipment)
+        ElseIf 3
+            If sceneType >= 4
+                Player(Sarcastic)::"We could try getting a shoot in the white house ..."
+                Player(Sarcastic)::"... or on the moon ..."
+                Player(Sarcastic)::"... but I think I cannot afford this at all. For now we got the best equipment."
+            ElseIf sceneType >= 1 && officeSize < 1
+                Player(Sarcastic)::"I cant put any more stuff into my bedroom."
+                Player(Sarcastic)::"Maybe I should rent an office first?"
+            Else
+                Player(Excited)::"What scene equipment should I buy?"
+                1:: sceneType == 0:: "InstaShot mobile pop up walls (499)"
+                2:: sceneType == 1:: "HomeMart plastic plants and cheap furniture (1850)"
+                3:: sceneType == 2:: "PerfectSet high quality set furniture (8999)"
+                4:: sceneType == 3:: "WarnerMovs luxury set furniture (17399)"
+                5:: "Don't buy anything"
+                
+                If 1
+                    Player.setActorVar(pe_SceneEquipmentType, 1)
+                    money -= 499;
+                    Player(Excited)::"Now at least my neighbours won't recognize my living room any more."
+                ElseIf 2
+                    Player.setActorVar(pe_SceneEquipmentType, 2)
+                    money -= 1850;
+                    Player(Excited)::"Not that much but already a good start."
+                ElseIf 3
+                    Player.setActorVar(pe_SceneEquipmentType, 3)
+                    money -= 8999;
+                    Player(Excited)::"This will increase the value of our footage."
+                ElseIf 4
+                    Player.setActorVar(pe_SceneEquipmentType, 4)
+                    money -= 17399;
+                    Player(Excited)::"Hmm, quite expensive but why not. Hope the footage sells much better now!"
+                EndIf
+            EndIf
+            
+            followUp(nn_pe_scene_buy_equipment)
+        ElseIf 4
+            If toyType >= 4
+                Player(Confused)::"The porn industry has yet to come up with more toys. Right now we got them all..."
+            ElseIf toyType >= 2 && officeSize < 1
+                Player(Sarcastic)::"I cant put any more stuff into my bedroom."
+                Player(Sarcastic)::"Maybe I should rent an office first?"
+            Else
+                Player(Excited)::"What toys should I buy?"
+                1:: toyType == 0:: "Get some cheap no name dildos, plugs and lube (199)"
+                2:: toyType == 1:: "Orgasmic 'Advanced Glass Toys' set (2650)"
+                3:: toyType == 2:: "Tesla 'Electro Toy series for professional porn producers' (12899)"
+                4:: toyType == 3:: "DeepView 'Camera Toys' set with build in cameras (28699)"
+                
+                If 1
+                    Player.setActorVar(pe_ToyEquipmentType, 1)
+                    money -= 199;
+                    Player(Excited)::"Not high quality but enough to get started."
+                ElseIf 2
+                    Player.setActorVar(pe_ToyEquipmentType, 2)
+                    money -= 2650;
+                    Player(Excited)::"Let's reveal the spots that the toys just went into."
+                ElseIf 3
+                    Player.setActorVar(pe_ToyEquipmentType, 3)
+                    money -= 12899;
+                    Player(Evil)::"Haha... Let's get the models electrified. Hope the toys last some shootings."
+                ElseIf 4
+                    Player.setActorVar(pe_ToyEquipmentType, 4)
+                    money -= 28699;
+                    Player(Excited)::"First person 'dildo' shots coming right along!"
+                EndIf
+            EndIf
+            
+            followUp(nn_pe_scene_buy_equipment)
+        Else
+            followUp(nn_scene_pe_manage_business)
+        EndIf
+    EndIf
+    
+    passTime(2, 3)
+    
+    SceneEnd()

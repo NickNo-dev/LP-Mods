@@ -1,0 +1,183 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    debugModeEnabled = Player.getActorVar(pe_DebugModeEnabled)
+    
+    setBackground(work)
+    Player.dress()
+    Player.show()
+    
+    // Calculate the time in days since the last check
+    // We use the players age for that
+    // It is incremented by 1/365 every day
+    daysSinceBirth = (Player:Age * 365)
+    lastCampaignDate = Player.getActorVar(pe_DayLastAdvCampaignBought)
+    lastChangeDate = Player.getActorVar(pe_DayLastAdvContractSigned)
+    currentAdvertisingMode = Player.getActorVar(pe_OnlineAdvertisingMode)
+    deltaLastChange = daysSinceBirth - lastChangeDate
+    deltaLastCampaign = daysSinceBirth - lastCampaignDate
+    
+    If debugModeEnabled > 0
+        "Debug: currentAdvertisingMode=<currentAdvertisingMode>, daysSinceBirth=<daysSinceBirth>, lastChangeDate=<lastChangeDate>, deltaLastChange=<deltaLastChange> # lastCampaignDate=<lastCampaignDate>, deltaLastCampaign=<deltaLastCampaign>"
+    EndIf
+    
+    Player(Serene)::"Online advertising increases the visitor count of my website."
+    
+    If currentAdvertisingMode == 1
+        locPrice = 750.convertToLocalCurrency(true)(true)
+        Player(Serene)::"I have booked basic banner advertising for <locPrice> per month."
+    ElseIf currentAdvertisingMode == 2
+        locPrice = 4750.convertToLocalCurrency(true)(true)
+        Player(Serene)::"I have booked animated banner ads and joined an affiliate program for <locPrice> per month."
+    ElseIf currentAdvertisingMode == 3
+        locPrice = 7250.convertToLocalCurrency(true)(true)
+        Player(Serene)::"I have booked advanced online advertising and joined an affiliate program for <locPrice> per month."
+    ElseIf currentAdvertisingMode == 4
+        locPrice = 15000.convertToLocalCurrency(true)(true)
+        Player(Serene)::"I booked adv. online ads, joined an affiliate program and publish teasers on third party sites for <locPrice> per month."
+    EndIf
+    
+    Player(Serene)::"What do I want to do now?"
+    
+    stayInMenu = true
+    While stayInMenu
+        0:: "Check visitor count"
+        1:: "Book a one time ad campaign"
+        2:: "Sign a monthly advertising contract"
+        99:: "Nothing"
+        
+        If 0
+            numberOfVisitors = Player.getActorVar(pe_OnlineVisitorLevel)
+            Player(Serene)::"My website has about <numberOfVisitors> visitors daily."
+        ElseIf 1
+            Player(Serene)::"One time ad campaigns will increase the number of visitors once. I can only have one campaign every week."
+            
+            If deltaLastCampaign <= 7
+                timeToWait = 7 - deltaLastCampaign
+                Player(Serene)::"The current campaign is still running for <timeToWait> days. I will have to wait for its end."
+            Else
+                If currentAdvertisingMode > 0
+                    Player(Serene)::"I already have booked a monthly ad package but can try to increase the visitor count this way too."
+                EndIf
+                
+                packOnePrice = 5000
+                packTwoPrice = 12500
+                packThreePrice = 50000
+                
+                packOnePriceLoc = packOnePrice.convertToLocalCurrency(true)
+                packTwoPriceLoc = packTwoPrice.convertToLocalCurrency(true)
+                packThreePriceLoc = packThreePrice.convertToLocalCurrency(true)
+                
+                pending = Player.getActorVar(pe_OnlineVisitorPendingChange)
+                old = pending
+                
+                Player(Curious)::"Which advertising campaign should I go for?"
+                1:: "Book advertising campaign 'Basic' (50-250 visitors/day) for <packOnePriceLoc>."
+                2:: "Book advertising campaign 'Premium' (200-650 visitors/day) for <packTwoPriceLoc>."
+                3:: "Book advertising campaign 'Elite' (700-1500 visitors/day) for <packThreePriceLoc>."
+                0:: "I don't want to book a campaign now"
+                
+                lockCampaignChanges = true
+                If 1
+                    If money < packOnePrice
+                        Player(sad)::"I cannot afford this advertising campaign."
+                        lockCampaignChanges = false
+                    Else
+                        inc = Random(50,250)
+                        //TODO: inc.Round()
+                        pending += inc
+                        money -= packOnePrice
+                    EndIf
+                ElseIf 2
+                    If money < packTwoPrice
+                        Player(sad)::"I cannot afford this advertising campaign."
+                        lockCampaignChanges = false
+                    Else
+                        inc = Random(200, 650)
+                        //TODO: inc.Round()
+                        pending += inc
+                        money -= packTwoPrice
+                    EndIf
+                ElseIf 3
+                    If money < packThreePrice
+                        Player(sad)::"I cannot afford this advertising campaign."
+                        lockCampaignChanges = false
+                    Else
+                        inc = Random(700, 1500)
+                        //TODO: inc.Round()
+                        pending += inc
+                        money -= packThreePricePrice
+                    EndIf
+                ElseIf 0
+                    lockCampaignChanges = false
+                EndIf
+                
+                // Lock for one week and add pending changes
+                If lockCampaignChanges
+                    Player.setActorVar(pe_OnlineVisitorPendingChange, pending)
+                    Player.setActorVar(pe_DayLastAdvCampaignBought, daysSinceBirth)
+                    
+                    Player(Serene)::"I have booked an advertising campaign for 7 days."
+                    
+                    // Prevent immediate changes while in the menu loop
+                    deltaLastCampaign = daysSinceBirth
+                EndIf
+                
+                If debugModeEnabled > 0 
+                    "Debug: Campaign: old=<old>, pending=<pending>"
+                EndIf
+            EndIf
+            
+        ElseIf 2
+            If currentAdvertisingMode > 0 && deltaLastChange < 30
+                timeToWait = 30 - deltaLastChange
+                Player(Serene)::"I already have signed an advertising contract for the current month. I will have to wait <timeToWait> days to change it."
+            Else
+                Player(Curious)::"Which advertisings should I go for the next month?"
+                0:: "My business does not need any advertising"
+                1:: "Book some basic banner ads (costs 750/month)"
+                2:: "Book some animated banner ads and join an affiliate program (costs 4750/month)"
+                3:: "Book advanced online advertising and join an affiliate program (costs 7250/month)"
+                4:: "As before but also upload teasers to third party porn sites (costs 15000/month)"
+                5:: "I do not want to touch anything. Never change a winning team. (cancel)"
+                
+                lockAdvChanges = true
+                If choice >= 0 && choice <= 4
+                    Player.setActorVar(pe_OnlineAdvertisingMode, choice)
+                    
+                    If choice > 0
+                        Player::"I signed a new advertising contract."
+                    Else
+                        If currentAdvertisingMode == 0
+                            Player::"I did not sign an advertising contract"
+                        Else
+                            Player::"I cancelled the current advertising contract."
+                        EndIf
+                        lockAdvChanges = false
+                    EndIf
+                Else
+                    lockAdvChanges = false
+                EndIf
+                
+                If lockAdvChanges
+                    // Remember the current date to "lock" the player in the contract
+                    Player.setActorVar(pe_DayLastAdvContractSigned, daysSinceBirth)
+                    
+                    // Prevent immediate changes while in the menu loop
+                    deltaLastChange = 0
+                EndIf
+            EndIf
+        ElseIf 99
+            stayInMenu = false
+            followUp(nn_scene_pe_manage_business)
+        EndIf
+    EndWhile
+    
+    passTime(0.5, 1)
+    
+    SceneEnd()

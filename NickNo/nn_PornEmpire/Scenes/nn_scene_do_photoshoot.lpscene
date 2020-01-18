@@ -1,0 +1,850 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: MainActor = getSpecific(PassedOn)
+OTHER: none
+
+    // get some settings
+    debugModeEnabled = Player.getActorVar(pe_DebugModeEnabled)
+    allowTransModels = Player.getActorVar(pe_AllowTransModels)
+    
+    SceneStart()
+    
+    If debugModeEnabled>0
+        "DEBUG nn_scene_do_photoshoot.lpscene -> Called with Actor: <MainActor.Name>, locationID=<desiredShootingLocation>"
+    EndIf
+    
+    // Get the desired location, main location for this code: nn_scene_organize_photoshoot.lpscene
+    desiredShootingLocation = nnPE_NextShootingLocation.getGlobal()
+    If desiredShootingLocation == 1 // home
+        moveTo(Home)
+    ElseIf desiredShootingLocation >= 20 && desiredShootingLocation <= 29 // hotel
+        If desiredShootingLocation == 21
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_2.lpworld)
+        ElseIf desiredShootingLocation == 22
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_3.lpworld)
+        Else
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_1.lpworld)
+        EndIf
+    ElseIf desiredShootingLocation >= 3 desiredShootingLocation <= 39 //office
+        setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+    EndIf
+    
+    shootCosts = 0
+    thisShootVal = 0
+    didShooting = false
+    
+    // Find the MainActor
+    Player.dress()
+    SecondActor = 0
+    ThirdActor = 0  // Not used currently
+    
+    sa_isGenerated = false  // true if SecondActor is generated 
+    sa_pornFame = 0
+    sa_attractiveness = 0
+    
+    // Calculate salary for the shoot
+    If MainActor.isValid() 
+        MainActor.dress()
+        MainActor.show(1)
+        
+        isAgencyModel = MainActor.getActorVar(pe_IsAgencyModel)
+        
+        If MainActor.isProstitute()    // prostitutes get a lower salary
+            askingPrice = 650
+            MainActor.setActorVar(pe_EmployeeSalary, askingPrice)
+            askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+            
+            Player(Serene)::"<MainActor.Name> is one of my sex workers. I will pay <MainActor.o> <askingPriceLocal> for this shooting."
+        
+        ElseIf isAgencyModel > 0
+            // Price is higher than with normal npcs
+            price = Random(45, 75) * (MainActor:attractiveness + MainActor:pornFame)
+            priceLocal = price.convertToLocalCurrency(true)
+            "<MainActor.Name> is a PornAgency model and is available to book for <priceLocal>. Book <MainActor.o>?"
+            0:: "Yes"
+            1:: "Try to negotiate on the price"
+            
+            If 1
+                AgencyBoss = generatePersonTemporary(nn_pe_AgencyBoss)
+                dressFormal()
+                AgencyBoss.dress()
+                dressFormal()
+                AgencyBoss.show(3)
+                Random
+                    AgencyBoss::"Listen buddy, you pay my price, or my models won't work for you. Easy as is uh?"
+                    AgencyBoss::"If you want to do a shooting with one of my models, you will pay my price. Right?"
+                    AgencyBoss::"Who are you, trying to negotiate with me? At least you have some balls... I like you!"
+                    AgencyBoss::"Really? You want to pay less for <MainActor.Name>? Maybe you need to book someone else??"
+                    AgencyBoss::"If you don't have money; then I don't have models. Understood?"
+                EndRandom
+                0:: "Pay what <AgencyBoss.Name> - <MainActor.Name>'s boss - demands"
+                1:: "Don't do a shooting with <MainActor.Name>"
+                
+                If 1
+                    MainActor = 0
+                Else
+                    shootCosts += price
+                EndIf
+                
+                AgencyBoss.hide()
+                AgencyBoss.delete()
+            EndIf
+        Else    // normal NPC
+            
+            If debugModeEnabled > 0
+                "Debug: Calculate askingPrice: intelligence=<MainActor:intelligence> attractiveness=<MainActor:attractiveness>"
+            EndIf
+            
+            // Shooting price is based on attractiveness and intelligence
+            askingPrice = 75 * MainActor:intelligence
+            If MainActor:attractiveness > 50
+                askingPrice = 100 * MainActor:intelligence
+            ElseIf MainActor:attractiveness > 75
+                askingPrice = 150 * MainActor:intelligence
+            ElseIf MainActor:attractiveness > 90
+                askingPrice = 200 * MainActor:intelligence
+            EndIf
+            
+            askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+            
+            Random
+                Player(Bored)::"<MainActor.Name> is asking for <askingPriceLocal>. Will I pay that for <MainActor.o>?"
+                Player(Serene)::"<MainActor.Name> requests a salary of <askingPriceLocal>. Pay that?"
+                Player(Serene)::"<MainActor.Name> thinks <MainActor.s> is worth <askingPriceLocal>. Accept that?"
+            EndRandom
+            0:: "Yes"
+            1:: "Try to negotiate"
+            
+            If 1
+                chance = Random(1,5)
+                If chance >= 3
+                    askingPrice -= (chance*100)
+                    If askingPrice < 350
+                        askingPrice = 350
+                    EndIf
+                    askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+                    Player(Wink)::"I was able to talk <MainActor.Name> down to <askingPriceLocal>."
+                Else
+                    Random
+                        Player(Annoyed)::"<MainActor.Name> was not willing to negotiate."
+                        Player(Annoyed)::"I will have to pay what <MainActor.o> demands or find another model that I can afford."
+                        Player(Annoyed)::"My negotiations were unlucky."
+                        Player(Annoyed)::"Bah! <MainActor.Name> says this is <MainActor.p> minimum."
+                    EndRandom
+                    0:: "Pay what <MainActor.s> demands"
+                    1:: "Don't do a shooting with <MainActor.o>"
+                    
+                    If 1
+                        MainActor = 0
+                    EndIf
+                EndIf
+            EndIf
+        EndIf
+        
+        shootCosts += askingPrice
+    EndIf
+    
+    If money < -200000 && MainActor.isValid()
+        Player(Sad)::"I don't have enough money to pay <MainActor.Name>."
+        Player(Curious)::"I need to find another way to make money!"
+    
+    ElseIf MainActor.isValid()  // Actor found? Go.
+    
+        MainActor.setActorVar(pe_HasDoneShootings, 1)
+        MainActor.setActorVar(tag_PEModel, 1)
+        
+        // Check what equipment type is available for photos
+        photoCamType = Player.getActorVar(pe_PhotoCameraEquipmentType)
+        lightType = Player.getActorVar(pe_LightEquipmentType)
+        sceneType = Player.getActorVar(pe_SceneEquipmentType)
+        toyType = Player.getActorVar(pe_ToyEquipmentType)
+        photographerId = Player.getActorVar(pe_EmployedPhotographerId)
+        
+        thisShootVal = (MainActor:attractiveness/100.0) + (photoCamType/4) + (lightType/4) + (sceneType/4) + (toyType/4)
+        
+        If debugModeEnabled>0
+            attr = MainActor:attractiveness
+            tsv = thisShootVal*100
+            "DEBUG: ShootValue=<tsv>/100 (photoCamType=<photoCamType>, lightType=<lightType>, sceneType=<sceneType>, toyType=<toyType>, attractiveness=<attr>)"
+        EndIf
+        
+        picCount = Random(100, 300)
+        
+        // Prepare scene
+        MainActor.dress()
+        MainActor.show(1)
+        
+        Player.show()
+        Player.dress()
+        
+        Player(Excited)::"I will be doing a photo shooting with <MainActor.name>."
+        Player(Excited)::"Who will be participating in the photo shoot?"
+        0:: "Just some solo action"
+        1:: "I will be participating (requires photographer)"
+        2:: "Someone else (contact or hired model)"
+        4:: "Whoops... Wrong button (cancel)"
+        
+        Photographer = 0
+        If 0
+            // Get a photographer
+            Photographer = getSpecific(photographerId)
+            If Photographer.isValid()
+                fame = Photographer:pornfame
+                thisShootVal += (fame/100)
+                
+                Photographer.dress()
+                Photographer.show(4)
+                Player(Serene)::"My photographer <Photographer.Name> arrived at the set."
+            Else
+                Player(Serene)::"As I did not hire a photographer yet, I will be taking the photos. The results may vary..."
+            EndIf
+            
+            
+            // Start the action
+            Player(Excited)::"Let's do a solo shoot <MainActor.name>!"
+            Photographer.hide()
+            MainActor.strip()
+            
+            Sex(MainActor)
+            
+            Player:perversion += 5
+            
+            passTime(2, 3)
+            
+            didShooting = true
+            
+            ////////////////////////////////////////////////////////
+            // Have some sex after the shooting?
+            ////////////////////////////////////////////////////////
+            
+            chance = Random( 1, 6 )
+            If !MainActor.isRelative() && MainActor.isInterestedIn(Player) && chance >= 2 && Player:perversion > 25
+                Random
+                    Player(Excited)::"I got horny while watching <MainActor.Name> do <MainActor.p> sexy job."
+                    Player(Excited)::"Watching <MainActor.Name> really turned me on."
+                    Player(Excited)::"I feel I want to fuck <MainActor.Name> right here after seeing <MainActorp> performance."
+                EndRandom
+                
+                Player(Excited)::"Do I want to add a 'private' part to the shooting?"
+                0:: "YES!!"
+                1:: "Not now"
+                
+                If 0
+                    Random
+                        Player(Excited)::"Listen, <MainActor.Name> you turned me on so hard. I have an 'extra job' for you..."
+                        Player(Excited)::"<MainActor.Name> mind if I join you over there for a second?"
+                        Player(Excited)::"How about I join you <MainActor.Name> and we give this a real happy ending?"
+                    EndRandom
+                    
+                    Random
+                        MainActor(Flirty)::"Well <Player.Name>, I am already naked. Just get over here!"
+                        MainActor(Excited)::"<Player.Name> you dirty dude! Let's make it quick. I got more on my schedule today."
+                        MainActor(Curious)::"You can't resist my naked body heh? Let me show you how I use it!"
+                        MainActor(Excited)::"I got some energy left! How about you? Still enough power to make me cum?"
+                        MainActor(Happy)::"*Oooohhhh* the boss wants to bang me! It is a pleasure for me!"
+                    EndRandom
+                    
+                    Player.strip()
+                    SexNoAffair(Player, MainActor)
+                    Player.dress()
+                    Player:perversion -= 40
+                    
+                    passTime(0.5, 1)
+                EndIf
+            EndIf
+            
+            // Dress and increase some porn stats
+            MainActor.dress()
+            
+            If Photographer.isValid()
+                Photographer:perversion += 5
+            EndIf
+            
+        ///////////////////////////////////////////////////////////////////////////////
+        ElseIf 1        // 1-on-1 shooting with player
+        ///////////////////////////////////////////////////////////////////////////////
+        
+            // Check if MainActor is interested in Players gender
+            If !MainActor.isInterestedIn(Player)
+                
+                plsx = "boys"
+                If !Player.isMale()
+                    plsx = "girls"
+                EndIf
+                Player(Sad):: "<MainActor.Name> is not interested in doing shootings with <plsx>."
+                Player(Sad):: "I will have to find another model."
+                
+                MainActor = 0
+                
+            Else
+                
+                If MainActor.isRelative()
+                    
+                    Player(Sad)::"Erm... no. I'm not going to do that with one of my relatives!"
+                    MainActor = 0
+                    sceneEnd()
+                    
+                Else
+                    
+                    // Get a photographer
+                    Photographer = getSpecific(photographerId)
+                    genPhotographerFame = 0
+                    If Photographer.isValid()
+                    
+                        If Photographer.isSameAs(MainActor)
+                            Player(Sad)::"While I am fucking the photographer neither of us can take pictures..."
+                            Player(Wink)::"Maybe we should do a normal date and ... do what needs to be done?"
+                            
+                            MainActor = 0
+                            sceneEnd()
+                            
+                        Else
+                            fame = Photographer:pornfame
+                            thisShootVal += (fame/100)
+                            
+                            Photographer.dress()
+                            Photographer.show(4)
+                            Player(Serene)::"My photographer <Photographer.Name> arrived at the set."
+                            Photographer.hide()
+                        EndIf
+                    Else
+                        
+                        Player(Sad)::"If I am taking part in the shoot I cannot photograph at the same time."
+                        Player(Serene)::"I need to hire a photographer first, before I can participate in shootings."
+                        MainActor = 0
+                        sceneEnd()
+                        
+                    EndIf
+                EndIf
+            EndIf
+            
+            // Start the action
+            If MainActor.isValid()
+                
+                Player.strip()
+                MainActor.strip()
+                
+                Random
+                    Player(Happy)::"That is going to be fun. I will do a shooting with <MainActor.name>..."
+                    Player(Curious)::"I wonder how <MainActor.name> tastes. C'mon lets do that!"
+                    Player(Excited)::"I can't wait to fuck <MainActor.name>. Come here now!"
+                    Player(Excited)::"<MainActor.name> I promise you never had so much fun..."
+                    Player(Excited)::"<MainActor.name> let me show you my porn super powers!"
+                    Player(Posing)::"<MainActor.name>, sweetie just lay down and let me do all the work."
+                    Player(Posing)::"<MainActor.name> we will have a shoot together today."
+                EndRandom
+                
+                SexNoAffair(Player, MainActor)
+                
+                // Dress and increase some porn stats
+                MainActor.dress()
+                
+                Player.dress()
+                Player:perversion -= 30
+                Photographer:perversion += 5
+                
+                thisShootVal += Player:attractiveness/100 + Player:pornFame/100
+                
+                didShooting = true
+                passTime(2, 3)
+                
+                ////////////////////////////////////////////////////////
+                // Have some sex after the shooting?
+                ////////////////////////////////////////////////////////
+                
+                If Photographer.isValid() && Photographer.isInterestedIn(Player)  // should be... but sanity check
+                
+                    chance = Random( 1, 6 )
+                    If chance >= 2 && Photographer:perversion > 25
+                        Photographer.show(4)
+                        Random
+                            Player(Excited)::"I can see how <Photographer.Name> got turned on during the shooting. Ask for a threesome?"
+                            Player(Excited)::"Watching <MainActor.Name> and me really turned <Photographer.Name> on. Invite <Photographer.o> to a private session?"
+                            Player(Excited)::"I noticed that <Photographer.Name> got horny while watching <MainActor.Name> being fucked. Ask <Photographer.Name> if <Photographer.s> wants to get a private performance?"
+                        EndRandom
+                        
+                        //Player(Excited)::"Do I want to invite <Photographer.Name> to join us?"
+                        0:: "YES!!"
+                        1:: "Not now"
+                        
+                        If 0
+                            Random
+                                Player(Excited)::"Listen, <Photographer.Name> I can see how horny you got while shooting us. Let us relieve your pain..."
+                                Player(Excited)::"<Photographer.Name> how are you? Did that shooting turn you on? Want some more? Come join us!"
+                                Player(Excited)::"Hey <Photographer.Name>, how about joining us over here? Let us do the work for you..."
+                            EndRandom
+                            
+                            Random
+                                MainActor(Flirty)::"Oh yes, you are a hot couple. I really want to join you!"
+                                MainActor(Excited)::"FUCK YES! I am so turned on right now. Let me join or I'll have to go to the bathroom..."
+                                MainActor(Curious)::"You don't have to say that twice! I want to taste <MainActor.Name>!"
+                                MainActor(Excited)::"Yeah, I am already dripping. Finish me off right now!"
+                                MainActor(Happy)::"Glad you ask. I am really turned on right now!"
+                            EndRandom
+                            
+                            Player.strip()
+                            MainActor.Strip()
+                            Photographer.strip()
+                            
+                            SexNoAffair(Player, MainActor, Photographer)
+                            
+                            Player.dress()
+                            Photographer.dress()
+                            
+                            Photographer:perversion -= 40
+                            Player:perversion -= 40
+                            
+                            passTime(0.5, 1.5)
+                        EndIf
+                    EndIf
+                EndIf
+            EndIf
+            
+        ///////////////////////////////////////////////////////////////////////////////
+        ElseIf 2        // shooting with other actor
+        ///////////////////////////////////////////////////////////////////////////////
+            
+            sa_isGenerated = false  // false for contacts, true for generated npcs
+            
+            Random
+                Player(Excited)::"I need to look for some actor to join <MainActor.name>."
+                Player(Flirty)::"Let's find a mate for <MainActor.name>."
+                Player(Excited)::"Who is going to join <MainActor.name>?"
+            EndRandom
+             
+            Player(Wink)::"Should I ask one of my contacts or book someone from the agency?"
+            0:: "Ask a contact"
+            1:: "Book someone"
+            
+            If 0
+                "You can only ask sex workers and other models to take part in shootings."
+                "You can filter all porn empire models using the tag 'PEM' (Models) or 'PEW' (WebCam models)."
+                foundActor = false
+                While !foundActor
+                    selectNPC()
+                    SecondActor = getSelectedNPC()
+                    If SecondActor.isValid()
+                        // Prevent inviting MainActor...
+                        If SecondActor.isSameAs(MainActor)
+                            "You selected the model that is already part of this shooting. Trying to test me uh?"
+                            SecondActor = 0
+                        EndIf
+                        
+                        // Get some actor stats
+                        sa_salary = SecondActor.getActorVar(pe_EmployeeSalary)
+                        sa_webCamState = SecondActor.getActorVar(pe_DeclinedDoingWebCam)
+                        sa_hasDoneShootings = SecondActor.getActorVar(pe_HasDoneShootings)
+                        
+                        // Prevent inviting employees...
+                        sa_id = SecondActor.getID()
+                        If SecondActor.isValid() && sa_id == photographerId
+                            "<SecondActor.Name> is my photographer and has to work here... Nice try!"
+                            SecondActor = 0
+                        EndIf
+                        
+                        If SecondActor.isValid() 
+                            If SecondActor.isProstitute() || sa_hasDoneShootings == 1 || sa_webCamState == 99 // 99 = does web camming
+                                If !MainActor.isInterestedIn(SecondActor) 
+                                    
+                                    actsx = "boys"
+                                    If !SecondActor.isMale()
+                                        actsx = "girls"
+                                    EndIf
+                                    Player(Sad):: "<MainActor.Name> is not interested in doing shootings with <actsx>."
+                                    Player(Sad):: "I will have to find another model."
+                                    
+                                    SecondActor = 0
+                                    
+                                ElseIf !SecondActor.isInterestedIn(MainActor)
+                                
+                                    actsx = "boys"
+                                    If !MainActor.isMale()
+                                        actsx = "girls"
+                                    EndIf
+                                    Player(Sad):: "<SecondActor.Name> is not interested in doing shootings with <actsx>."
+                                    Player(Sad):: "I will have to find another model."
+                                    
+                                    SecondActor = 0
+                                Else
+                                    foundActor = true
+                                EndIf
+                            Else 
+                                "This person did not model for us yet... You need to select someone who already models."
+                                0:: "OK, I got it!"
+                                1:: "Oh damn, cancel the shooting!"
+                                
+                                If 1
+                                    foundActor = true
+                                    SecondActor = 0
+                                EndIf
+                            EndIf
+                        EndIf
+                    Else
+                        // Cancel!
+                        foundActor = true
+                        SecondActor = 0
+                    EndIf
+                EndWhile
+                
+                // Do we have an actor?
+                If SecondActor.isValid()
+                
+                    SecondActor.dress()
+                    SecondActor.Show(2)
+                    
+                    sa_fame = SecondActor:pornfame
+                    sa_attractiveness = SecondActor:attractiveness
+                    
+                    isAgencyModel = SecondActor.getActorVar(pe_IsAgencyModel)
+                    price = 0
+                    
+                    If isAgencyModel > 0
+                        // Price is higher than with normal npcs
+                        price = Random(45, 75) * (SecondActor:attractiveness + SecondActor:pornFame)
+                        priceLocal = price.convertToLocalCurrency(true)
+                        "<SecondActor.Name> is a PornAgency model and is available to book for <priceLocal>. Book <SecondActor.o>?"
+                        0:: "Yes"
+                        1:: "Try to negotiate on the price"
+                        
+                        If 1
+                            AgencyBoss = generatePersonTemporary(nn_pe_AgencyBoss)
+                            dressFormal()
+                            AgencyBoss.dress()
+                            dressFormal()
+                            AgencyBoss.show(3)
+                            Random
+                                AgencyBoss::"Listen buddy, you pay my price, or my models won't work for you. Easy as is uh?"
+                                AgencyBoss::"If you want to do a shooting with one of my models, you will pay my price. Right?"
+                                AgencyBoss::"Who are you, trying to negotiate with me? At least you have some balls... I like you!"
+                                AgencyBoss::"Really? You want to pay less for <SecondActor.Name>? Maybe you need to book someone else??"
+                                AgencyBoss::"If you don't have money; then I don't have models. Understood?"
+                            EndRandom
+                            0:: "Pay what <AgencyBoss.Name> - <SecondActor.Name>'s boss - demands"
+                            1:: "Don't do a shooting with <SecondActor.Name>"
+                            
+                            If 1
+                                SecondActor = 0
+                            Else
+                                shootCosts += price
+                            EndIf
+                            
+                            AgencyBoss.hide()
+                            AgencyBoss.delete()
+                        EndIf
+                    Else
+                        price = Random(30, 55) * (sa_attractiveness + sa_fame)
+                        priceLocal = price.convertToLocalCurrency(true)
+                        
+                        "<SecondActor.Name> is available to book for <priceLocal>. Book <SecondActor.o>?"
+                        0:: "Yes"
+                        1:: "Try to negotiate on the price"
+                        
+                        If 0
+                            shootCosts += price
+                        Else
+                            chance = Random(1,5)
+                            If chance >= 3
+                                price -= (chance*100)
+                                If price < 350
+                                    price = 350
+                                EndIf
+                                askingPriceLocal = price.convertToLocalCurrency(true)
+                                Player(Wink)::"I was able to talk <SecondActor.Name> down to <askingPriceLocal>."
+                                shootCosts += price
+                            Else
+                                Random
+                                    Player(Annoyed)::"<SecondActor.Name> was not willing to negotiate."
+                                    Player(Annoyed)::"I will have to pay what <SecondActor.o> demands or find another model that I can afford."
+                                    Player(Annoyed)::"My negotiations were unlucky."
+                                    Player(Annoyed)::"Bah! <SecondActor.Name> says this is <SecondActor.p> minimum."
+                                EndRandom
+                                0:: "Pay what <SecondActor.s> demands"
+                                1:: "Don't do a shooting with <SecondActor.o>"
+                                
+                                If 1
+                                    SecondActor = 0
+                                    "Action cancelled."
+                                Else
+                                    shootCosts += price
+                                EndIf
+                            EndIf
+                        EndIf
+                    EndIf
+                    
+                EndIf
+            Else
+                sa_isGenerated = true
+                
+                Player(Excited)::"Let's check the PornAgency's list of available models..."
+                Player(Wink)::"Do I want to book a male or female model?"
+                0:: "Female"
+                1:: "Male"
+                
+                wantMale = false
+                If 1
+                    wantMale = true
+                EndIf
+                
+                
+                AgencyBoss = generatePersonTemporary(nn_pe_AgencyBoss)
+                dressFormal()
+                AgencyBoss.dress()
+                dressFormal()
+                AgencyBoss.show(3)
+                
+                SecondActor = generatePersonTemporary()
+                foundActor = false
+                While !foundActor
+                    If wantMale
+                        While [ !SecondActor.isMale() ] || [SecondActor.isTrans() && allowTransModels < 1]
+                            SecondActor = generatePersonTemporary()
+                        EndWhile
+                    Else
+                        While [ SecondActor.isMale() ] || [SecondActor.isTrans() && allowTransModels < 1]
+                            SecondActor = generatePersonTemporary()
+                        EndWhile
+                    EndIf
+                    
+                    SecondActor.dress()
+                    SecondActor.show(2)
+                    
+                    sa_pornFame = Random(1,100)
+                    fameText = "currently unknown"
+                    If sa_pornFame >= 90
+                        fameText = "a porn god"
+                    ElseIf sa_pornFame >= 80
+                        fameText = "famous"
+                    ElseIf sa_pornFame >= 65
+                        fameText = "very well known"
+                    ElseIf sa_pornFame >= 50
+                        fameText = "well known"
+                    ElseIf sa_pornFame >= 35
+                        fameText = "somewhat known"
+                    ElseIf sa_pornFame >= 25
+                        fameText = "little known"
+                    ElseIf sa_pornFame >= 10
+                        fameText = "very little known"
+                    EndIf
+                    
+                    sa_attractiveness = Random(1,100)
+                    attractText = "pug ugly"
+                    If sa_attractiveness >= 90
+                        attractText = "extremely beautiful"
+                    ElseIf sa_attractiveness >= 80
+                        attractText = "a real cutie"
+                    ElseIf sa_attractiveness >= 65
+                        attractText = "really sexy"
+                    ElseIf sa_attractiveness >= 50
+                        attractText = "good looking"
+                    ElseIf sa_attractiveness >= 35
+                        attractText = "looks acceptable"
+                    ElseIf sa_attractiveness >= 25
+                        attractText = "looks terrible"
+                    ElseIf sa_attractiveness >= 10
+                        attractText = "an ugly ass"
+                    EndIf
+                    
+                    // Price is higher than with normal npcs
+                    price = Random(45, 75) * (sa_attractiveness + sa_pornFame)
+                    priceLocal = price.convertToLocalCurrency(true)
+                    
+                    // "Debug: SecondActor: sa_pornFame=<sa_pornFame>, attractiveness=<sa_attractiveness>, shemale=<shemale>"
+                    
+                    decisionMade = false
+                    actorNaked = false
+                    sa_age = SecondActor:Age
+                    
+                    While !decisionMade
+                        If actorNaked
+                            Random
+                                AgencyBoss(Happy)::"Hah! I'm already getting horny seeing <SecondActor.Name> standing here naked. You want to book <SecondActor.o> now. Right?"
+                                AgencyBoss(Wink)::"Ohhh wow. I did not remember <SecondActor.Name> is so hot. Book <SecondActor.o> now before my offer expires!"
+                                AgencyBoss(Wink)::"Hmmmm... Did I mention that I only have the sexiest models alive in my agency? You better book <SecondActor.o> now before before someone else does!"
+                            EndRandom
+                        Else
+                            Random
+                                AgencyBoss(Serene)::"This is <SecondActor.Name>, age <sa_age>. You can book <SecondActor.o> for <priceLocal>. <SecondActor.S> is <fameText> in the porn industry."
+                                AgencyBoss(Serene)::"Ok, look at this cutie. <SecondActor.P> name is <SecondActor.Name>. <SecondActor.S> is <sa_age> years old and <fameText>. You can book <SecondActor.o> for <priceLocal>."
+                                AgencyBoss(Serene)::"I got the right model for you! Let me introduce you to <SecondActor.Name>. <SecondActor.S> is <sa_age> years old and <fameText>. You can book <SecondActor.o> for <priceLocal>."
+                                AgencyBoss(Serene)::"I found the perfect model for you! Check out <SecondActor.Name>. <SecondActor.S> is <sa_age> years old and <fameText>. You can book <SecondActor.o> for <priceLocal>."
+                                AgencyBoss(Serene)::"Hmmm... <SecondActor.Name>, age <sa_age> is available to book for <priceLocal>. <SecondActor.S> is <fameText> in our business!"
+                            EndRandom
+                        EndIf
+                        
+                        Player(Serene)::"<SecondActor.Name> is <attractText>. Do I want to book <SecondActor.o> for <priceLocal>?"
+                        0:: "Yes, book <SecondActor.o>"
+                        1:: "No, <SecondActor.s> does not meet my requirements"
+                        2:: !actorNaked:: "I need to see <SecondActor.o> naked first"
+                        
+                        If 0
+                            foundActor = true
+                            decisionMade = true
+                            
+                            shootCosts += price
+                        ElseIf 1
+                            decisionMade = true
+                            SecondActor.hide()
+                            SecondActor = generatePersonTemporary()
+                        ElseIf 2
+                             Random
+                                AgencyBoss(Serene)::"Everybody wants to see my models naked. Luckily for you it is their job to be naked. Come take a closer look!"
+                                AgencyBoss(Serene)::"This will cost you some extra my friend! <SecondActor.Name> would you please be so kind and show <Player.Name> what he asks for?"
+                                AgencyBoss(Serene)::"I know you are a horny bastard! Come check <SecondActor.Name> out! - BUT NO TOCUHING!!"
+                                AgencyBoss(Serene)::"Eh, you know what we are here for. <SecondActor.Name>, honey let's make it quick."
+                            EndRandom
+                            SecondActor.strip()
+                            actorNaked = true
+                        EndIf
+                        
+                    EndWhile
+                    
+                EndWhile
+                
+            EndIf
+                
+            If SecondActor.isValid()
+                
+                // Start the action
+                MainActor.strip()
+                SecondActor.strip()
+                
+                Player(Happy)::"<MainActor.name> and <SecondActor.name> let's get things going!"
+                
+                SexNoAffair(MainActor,SecondActor)
+                
+                SecondActor.show(2)
+                SecondActor.dress()
+                
+                // Dress and increase some porn stats
+                MainActor.dress()
+                MainActor.show(1)
+                Player:perversion += 5
+                
+                If Photographer.isValid()
+                    Photographer:perversion += 5
+                EndIf
+                
+                didShooting = true
+                
+                sa_attractiveness = SecondActor:attractiveness
+                sa_pornFame = SecondActor:pornfame
+                thisShootVal += sa_attractiveness/100 + sa_pornFame/100
+                
+                passTime(2, 4)
+                
+                ////////////////////////////////////////////////////////
+                // Have some sex after the shooting?
+                ////////////////////////////////////////////////////////
+                
+                chance = Random( 1, 6 )
+                If [ Player.isInterestedIn(MainActor) || Player.isInterestedIn(SecondActor) ] && chance >= 2 && Player:perversion > 25
+                    If !MainActor.isRelative() && !SecondActorActor.isRelative()
+                    
+                        Random
+                            Player(Excited)::"I got horny while watching <MainActor.Name> and <SecondActor.Name> fuck."
+                            Player(Excited)::"Watching <MainActor.Name> and <SecondActor.Name> really turned me on."
+                            Player(Excited)::"I urgently want to join <MainActor.Name> and <SecondActor.Name> right now."
+                        EndRandom
+                        
+                        Player(Excited)::"Do I want to add a 'private' part to the shooting?"
+                        0:: "YES!!"
+                        1:: "Not now"
+                        
+                        If 0
+                            Random
+                                Player(Excited)::"Listen, <MainActor.Name> and <SecondActor.Name> you turned me on so hard. I have an 'extra job' for you..."
+                                Player(Excited)::"<MainActor.Name> and <SecondActor.Name> mind if I join you over there for a second round?"
+                                Player(Excited)::"How about I join you two <MainActor.Name> and <SecondActor.Name> for a bonus round?"
+                            EndRandom
+                            
+                            Random
+                                MainActor(Flirty)::"<Player.Name>, we are ready and waiting here for you!"
+                                MainActor(Excited)::"<SecondActor.Name> what do you think? Should we allow the boss to play with us?"
+                                MainActor(Curious)::"I could see how you got horny while I fucked <SecondActor.Name>. Come join us!"
+                                SecondActor(Flirty)::"Do you think you can keep up with us?"
+                                SecondActor(Happy)::"Eh come over here boss! Let us play together!"
+                            EndRandom
+                            
+                            Player.strip()
+                            MainActor.strip()
+                            SecondActor.strip()
+                            SexNoAffair(Player, MainActor, SecondActor)
+                            Player.dress()
+                            Player:perversion -= 40
+                            
+                            passTime(1, 2)
+                        EndIf
+                    EndIf
+                EndIf
+            EndIf
+        Endif
+        
+        If didShooting
+            
+            MainActor.dress()
+            MainActor.show(1)
+            
+            If Photographer.isValid()
+                Photographer.show(4)
+            EndIf
+
+            // Increase the pending uploads counter for this actor and add the value to the pending queue
+            pendingUploads = MainActor.getActorVar(pe_PhotoSetCountPending)
+            pendingUploads += 1
+            MainActor.setActorVar(pe_PhotoSetCountPending, pendingUploads)
+            
+            actorShootVal = MainActor.getActorVar(pe_PhotoSetValuePending)
+            actorShootVal += thisShootVal
+            MainActor.setActorVar(pe_PhotoSetValuePending, actorShootVal)
+            
+            If debugModeEnabled > 0
+                tsv = thisShootVal*100
+                asv = actorShootVal*100
+                "Debug: thisShootVal=<tsv>/100 actorShootVal=<asv>/100 pendingUploads=<pendingUploads>"
+            EndIf
+            
+            shootCostsLocal = shootCosts.convertToLocalCurrency(true)
+            Player.show()
+            Player(Happy)::"We took <picCount> pictures during this shoot with <MainActor.name>. This shooting set me back <shootCostsLocal>."
+            
+            money -= shootCosts
+            
+            If sa_isGenerated
+                Random
+                    Player(Serene)::"That was a nice shooting with <SecondActor.Name>. Should I add <SecondActor.o> to my contats?"
+                    Player(Excited)::"<SecondActor.Name> did quite a good job. Should I exchange contacts with <SecondActor.o>?"
+                    Player(Excited)::"<SecondActor.Name> gave <MainActor.Name> hell of a great time. Maybe I should exchange contacts with <SecondActor.o>?"
+                    Player(Excited)::"<SecondActor.Name> did a good performance. Should I add <SecondActor.o> to my address book?"
+                EndRandom
+                0:: "Yes, add <SecondActor.o>"
+                1:: "No. Not this time."
+                
+                If 0
+                    SecondActor.makePermanent()
+                    exchangeContact(SecondActor)
+                    
+                    // does porn
+                    SecondActor.setActorVar(pe_DeclinedDoingShootings, 99)
+                    SecondActor.setActorVar(pe_HasDoneShootings, 1)
+                    SecondActor.setActorVar(pe_IsAgencyModel, 1)
+                    SecondActor.setActorVar(tag_PEModel, 1)
+                    
+                    // Set sexual interest
+                    SecondActor.makeInterested(MainActor)
+                    
+                    // Persist our values
+                    SecondActor:pornfame => sa_pornFame
+                    SecondActor:attractiveness => sa_attractiveness
+                EndIf
+            EndIf
+            
+            If Photographer.isValid()
+                Photographer:perversion += 5
+            EndIf
+        EndIf
+        
+    EndIf
+    
+    SceneEnd()
+    

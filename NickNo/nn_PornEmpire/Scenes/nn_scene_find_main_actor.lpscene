@@ -1,0 +1,237 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    // get some settings
+    debugModeEnabled = Player.getActorVar(pe_DebugModeEnabled)
+    allowTransModels = Player.getActorVar(pe_AllowTransModels)
+    
+    // Get the desired location, main location for this code: nn_scene_organize_photoshoot.lpscene
+    desiredShootingLocation = nnPE_NextShootingLocation.getGlobal()
+    If desiredShootingLocation == 1 // home
+        moveTo(Home)
+    ElseIf desiredShootingLocation >= 20 && desiredShootingLocation <= 29 // hotel
+        If desiredShootingLocation == 21
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_2.lpworld)
+        ElseIf desiredShootingLocation == 22
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_3.lpworld)
+        Else
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_hotelroom_1.lpworld)
+        EndIf
+    ElseIf desiredShootingLocation >= 3 desiredShootingLocation <= 39 //office
+        setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+    EndIf
+    
+    
+    Player.dress()
+    MainActor = CurrentCompanion
+    
+    // Find a companion
+    If MainActor.isValid()
+        Player::"I'm currently accompanied by <MainActor.Name>. Ask <MainActor.o> to be my model?"
+        0:: "Yes, <MainActor.Name> will be my model"
+        1:: "No, let's check my contacts"
+        99:: "I changed my mind. I don't want to do a shooting"
+        
+        If 1
+            Player::"Listen <MainActor.Name> I have some work to do. Thanks for being with me. See you later!"
+            endDate()
+            
+            selectNPC()
+            MainActor = getSelectedNPC()
+        ElseIf 99
+            MainActor = 0
+        EndIf
+    Else
+        Player::"I need a model to organize a shooting. Let's check my contacts."
+        selectNPC()
+        MainActor = getSelectedNPC()
+    EndIf
+
+    If MainActor.isValid() && !MainActor.isProstitute() // sex workers won't decline...
+        hasDoneShootings = MainActor.getActorVar(pe_HasDoneShootings)
+        participationState = MainActor.getActorVar(pe_DeclinedDoingShootings)
+        
+        If hasDoneShootings < 1
+            Player::"Let me ask <MainActor.name> if <MainActor.s> is interested in getting famous..."
+        Else
+            Player::"Let's ask <MainActor.name> if <MainActor.s> is interested in another shooting."
+        EndIf
+        
+        MainActor.dress()
+        MainActor.show(1)
+        
+        isAgencyModel = MainActor.getActorVar(pe_IsAgencyModel)
+        
+        If MainActor:perversion > 75 || hasDoneShootings > 0 || isAgencyModel > 0
+            If hasDoneShootings > 0 || isAgencyModel > 0
+                If MainActor:perversion > 75 || isAgencyModel > 0
+                    Random
+                        MainActor(Serene)::"Glad you ask again. I loved the last shooting."
+                        MainActor(Serene)::"I was waiting for you to ask again. Sure thing!"
+                        MainActor(Grin)::"Oh yeah! Last time was pretty much fun!"
+                        MainActor(Posing)::"One day I will be your most wanted model! Let's go."
+                    EndRandom
+                Else
+                    Random
+                        MainActor(Sad)::"Well I need the money. I will do it again. One last time. Really."
+                        MainActor(Anxious)::"I really hope my parents won't find out what we are doing here."
+                        MainActor(Shy)::"Somehow I liked what we did last time. I think one more time is OK"
+                    EndRandom
+                EndIf
+            Else
+                Random
+                    MainActor(Sarcastic)::"Why not. My neighbours think I am a total slut, so lets make their wish come true."
+                    MainActor(Shy)::"Do you think I could do that? Really? Ok let's try..."
+                    MainActor(Posing)::"Hm... I always wanted to give this a try. Count me in!"
+                    MainActor(Surprised)::"Wow. I am amazed that you ask *me*. I never thought that I am attractive enough for that!"
+                    MainActor(Flirty)::"Well, you know I am a little pervert. This is going to be fun!"
+                EndRandom
+            EndIf
+        Else
+            If MainActor:masochist < -50
+                If participationState == 1
+                    Random
+                        MainActor(Embarassed)::"You are not giving up easily hm? I am still not convinced."
+                        MainActor(Shocked)::"I still don't think that I am the right person for that."
+                        MainActor(Shocked)::"I knew you would ask me some time again, but I think I am better not doing that."
+                        MainActor(Irritated)::"No. Since you asked me last time I have bad dreams about that."
+                    EndRandom
+                Else
+                    Random
+                        MainActor(Embarassed)::"I don't think I am beautiful enough for such things."
+                        MainActor(Shy)::"Ooooh no! My parents will kill me if I do that."
+                        MainActor(Shocked)::"I knew you would ask me some time, but I think I am better not doing that."
+                        MainActor(Irritated)::"I did that once in my dreams and it had a very bad ending."
+                        MainActor(Confused)::"Did you just ask me to get naked? In front of a camera? I never did such thing."
+                    EndRandom
+                EndIf
+                
+                Random
+                    Player(Curious)::"Seems <Actor.Name> is a little bit shy on that topic."
+                    Player(Curious)::"Well that was a NO. But a doubtful one."
+                    Player(Curious)::"Hmm... <Actor.Name> said 'no' but I feel <Actor.o> meant something else."
+                EndRandom
+                
+                Random
+                    Player(Curious)::"I think I could talk <Actor.o> into taking part."
+                    Player(Wink)::"Should I try to convince <MainActor.Name> to try it out?"
+                    Player(Wink)::"Should I use my charm and talk <MainActor.Name> into taking part?"
+                EndRandom
+                0:: "Yes"
+                1:: "No"
+                
+                If 0
+                    Random
+                        Player(Flirty)::"Listen honey, you are so beautiful. Not showing your body to the world would be a sin."
+                        Player(Wink)::"This is not going to hurt. If you do not like the results we simply don't release them. Ok?"
+                        Player(Flirty)::"You are such a beautiful and sexy person. You really should give it a try!"
+                        Player(Wink)::"I know that you, always wanted to try this. Now is your chance. Take it fast."
+                        Player(Wink)::"There is nothing wrong with being naked in front of a camera. It's like being at a nude beach."
+                        Player(Wink)::"Hey I know that you could use some money. You have a nice body. You could use it to make some easy cash."
+                        Player(Wink)::"Let's say I would give you some hundreds cash - Still not interested?"
+                    EndRandom
+                    
+                    chance = Random(1,4)
+                    
+                    If chance >= 3
+                        Random
+                            MainActor(Excited)::"Ok. You got me. But this is not going to be cheap for you!"
+                            MainActor(Anxious)::"I really need some money to pay my rent. I will do it once. Only this time!"
+                            MainActor(Shy)::"Hmm... Ok. But I want to see the results first."
+                            MainActor(Shy)::"You could be right. Ok! Let's do that. But don't tell any of my friends about that!"
+                            MainActor(Excited)::"Well I got some spare time. Convince me, that I am not wasting it right now..."
+                        EndRandom
+                    Else
+                        Random
+                            MainActor(Angry)::"Well you have good arguments, but I am way to reputable for that."
+                            MainActor(Angry)::"Did you just try to talk me into your dirty porn business? No. I said. NO!"
+                            MainActor(Shy)::"No. I really need to keep my job and I am afraid of getting fired for this."
+                            MainActor(Irritated)::"I think I am not really ready for that. Give me some time..."
+                            MainActor(Irritated)::"Uhh... My brain says yes. But my heart says no."
+                        EndRandom
+                        
+                        Random
+                            Player(Annoyed)::"Ok, this time <MainActor.s> declined. But I should ask <MainActor.o> again some time..."
+                            Player(Annoyed)::"Looks like <MainActor.Name> really is too shy at the moment. Let's open <MainActor.p> mind a bit and ask  again later..."
+                            Player(Sad)::"Damn! I want <MainActor.o> to take part in the shootings. I need to try harder."
+                            Player(Sad)::"I need to try harder to convince <MainActor.Name>. Let's try that again later!"
+                            Player(Sarcastic)::"I need to find some better arguments to turn <MainActor.Name> into a model. Let me try again later..."
+                            Player(Sarcastic)::"Seems <MainActor.Name> really doesn't know what's good for <MainActor.o>. I need to talk to <MainActor.o> again."
+                            Player(Sarcastic)::"This time I failed. I need to try that again."
+                        EndRandom
+                        
+                        MainActor.setActorVar(pe_DeclinedDoingShootings, 1)
+                        
+                        // Not taking part
+                        MainActor = 0
+                    EndIf
+                Else
+                    // Not taking part
+                    MainActor = 0
+                EndIf
+            Else
+                If participationState == 2  // Already asked!
+                    Random
+                        MainActor(Angry)::"Are you stupid or what?! I already said NO! - NO, do you understand?!!!"
+                        MainActor(Angry)::"OK. I see you are trying hard but: Thanks. No!"
+                        MainActor(Angry)::"NOT IN THIS LIFE! - Got it? NO. I. WON'T!"
+                        MainActor(Shocked)::"I   WILL   *NOT*   DO   PORN!"
+                        MainActor(Irritated)::"Do you remember what I said last time you were asking?! No means no."
+                        MainActor(Confused)::"I got a deja vu. You too? Right. You asked this not so long ago. AND I WONT DO THAT!!"
+                    EndRandom
+                Else
+                    Random
+                        MainActor(Angry)::"What? Do you think I am a complete slut or what? Get out of my face!"
+                        MainActor(Angry)::"No. Never. Ever. I AM NOT GOING TO DO THAT."
+                        MainActor(Shocked)::"He he! Nice try. Go find someone else!"
+                        MainActor(Shocked)::"Really an interesting offer but I am not into these things."
+                        MainActor(Angry)::"What? You must be joking. I am a successful business person."
+                    EndRandom
+                EndIf
+                
+                Random
+                    Player(Annoyed)::"All right, seems <MainActor.Name> really is not going to model for me."
+                    Player(Annoyed)::"Oops... I better find someone else to model for me..."
+                    Player(Sad)::"Damn! That was a definitive 'NO'. Luckily there are more people around."
+                    Player(Sad)::"Bad for me. I will have to look for someone else."
+                    Player(Sarcastic)::"Hah! If <MainActor.s> does not know hats good for <MainActor.o>! I will go find someone else."
+                    Player(Sarcastic)::"Honestly, I did not even expect <MainActor.Name> to say yes..."
+                EndRandom
+                
+                // Not taking part
+                MainActor.setActorVar(pe_DeclinedDoingShootings, 2)
+                MainActor = 0
+            EndIf
+            
+        EndIf
+    EndIf
+    
+    // If an actor was found jump to the next scene
+    If MainActor.isValid()
+        
+        // does porn...
+        MainActor.setActorVar(pe_DeclinedDoingShootings, 99)
+        
+        MainActor.passOn()
+        
+        jumpDestination = nnPE_NextSceneSelection.getGlobal()
+        
+        // If debugModeEnabled>0
+            // "DEBUG: nn_scene_find_main_actor.lpscene -> Jump ID: <jumpDestination>"
+        // EndIf
+        
+        If jumpDestination == 1
+            followUp(nn_scene_do_photoshoot)
+        Else
+            If debugModeEnabled>0
+                "PANIC: Don't know where to go now! ID: <jumpDestination>"
+            EndIf
+        EndIf
+    EndIf
+    
+    SceneEnd()

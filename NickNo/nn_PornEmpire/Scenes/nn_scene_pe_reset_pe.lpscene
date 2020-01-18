@@ -1,0 +1,64 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    "This will reset all stats from PornEmpire. Continue?"
+    0:: "YES?"
+    1:: "NO!!"
+    
+    If 0
+        // Business stats
+        daysSinceBirth = (Player:Age * 365)
+        Player.setActorVar(pe_LastBusinessCheck, daysSinceBirth)
+        
+        // Staff
+        Player.setActorVar(pe_EmployedPhotographerId, 0)
+        
+        // Advertising
+        Player.setActorVar(pe_OnlineAdvertisingMode, 0)
+        Player.setActorVar(pe_OnlineVisitorLevel, 0)
+        Player.setActorVar(pe_OnlineVisitorPendingChange, 0)
+        
+        // Equipment
+        Player.setActorVar(pe_PhotoCameraEquipmentType, 0)
+        Player.setActorVar(pe_VideoCameraEquipmentType, 0)
+        Player.setActorVar(pe_LightEquipmentType, 0)
+        Player.setActorVar(pe_SceneEquipmentType, 0)
+        Player.setActorVar(pe_ToyEquipmentType, 0)
+        
+        // Online prices
+        Player.setActorVar(pe_PhotoSetPrice, 2.5)
+        Player.setActorVar(pe_WebCamShowPrice, 5)
+        
+        // Reset models
+        Actor = getPerson(true)
+        While Actor.isValid()
+            
+            // photos
+            Actor.setActorVar(pe_PhotoSetCount, 0)
+            Actor.setActorVar(pe_PhotoSetValue, 0)
+            Actor.setActorVar(pe_PhotoSetCountPending, 0)
+            Actor.setActorVar(pe_PhotoSetValuePending, 0)
+            Actor.setActorVar(pe_HasDoneShootings, 0)
+            Actor.setActorVar(pe_DeclinedDoingShootings, 0)
+            Actor.setActorVar(tag_PEModel, 0)
+            
+            // webcamming
+            Actor.setActorVar(pe_DeclinedDoingWebCam, 0)
+            Actor.setActorVar(pe_EmployeeSalary, 0)
+            Actor.setActorVar(pe_WebCammingFrequency, 0)
+            Actor.setActorVar(tag_PEWebCam, 0)
+            
+            
+            Actor = getPerson(true)
+        EndWhile
+        
+        
+        "All done. All models and equipment / advertising stats have been reset."
+        
+    EndIf
+    SceneEnd()

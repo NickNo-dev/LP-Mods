@@ -1,0 +1,12 @@
+ACTION_UNIQUEID: nn_start_porn_empire
+ACTION_NAME: Start your own porn business (PE)
+WHERE: sexwork
+WHEN: 0 - 24
+MINUTES: 60 - 120
+TIMEOUT_MINUTES: 
+ALSO_TIMEOUT: 
+EFFECTS: money -5000 (END), energy -10 (DURATION), mood -5 (INTERRUPTED)
+CONDITIONS: nnOpenedPornEmpire < 1 (STAT_COMPARE)
+MOVE_FIRST: false
+SCENE_ALWAYS: nn_scene_start_porn_empire
+ANIMATION:   

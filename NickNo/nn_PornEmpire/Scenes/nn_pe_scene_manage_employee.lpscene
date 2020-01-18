@@ -1,0 +1,286 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    debugModeEnabled = Player.getActorVar(pe_DebugModeEnabled)
+    
+    // local variables for hiring people...
+    txtJobTitle = ""
+    currentEmployeeId = 0
+    askingPrice = 0
+    employeeSkillLvl = 1
+    employeeName = "nobody"
+    
+    // Find out what to hire...
+    // See nn_pe_scene_manage_employees.lpscene for values
+    manageEmployeeType = PEManageEmployeeJobType.getGlobal()
+    
+    If manageEmployeeType == 1
+        txtJobTitle = "photographer"
+        currentEmployeeId = Player.getActorVar(pe_EmployedPhotographerId)
+        jobTrainingCost = 5000
+    ElseIf manageEmployeeType == 2
+        txtJobTitle = "cam operator"
+        currentEmployeeId = Player.getActorVar(pe_EmployedCamOperatorId)
+        jobTrainingCost = 6000
+    ElseIf manageEmployeeType == 3
+        txtJobTitle = "scene assistant"
+        currentEmployeeId = Player.getActorVar(pe_EmployedSceneAssistantId)
+        jobTrainingCost = 4500
+    ElseIf manageEmployeeType == 20
+        txtJobTitle = "web administrator"
+        currentEmployeeId = Player.getActorVar(pe_EmployedWebAdminId)
+        jobTrainingCost = 7000
+    Else
+        "PANIC!! nn_pe_scene_manage_employee.lpscene called with unknown job type (<manageEmployeeType>)!"
+    EndIf
+    
+    employeeName = "my <txtJobTitle>"
+    traningPrice = jobTrainingCost * Random(0.8 , 1)   // Some discount?
+    
+    MainActor = getSpecific(currentEmployeeId)
+    If MainActor.isValid()
+        // get the stat that controls the skill level
+        If manageEmployeeType >= 1 && manageEmployeeType <= 19
+            // "photographer"
+            // "cam operator"
+            // "scene assistant"
+            employeeSkillLvl = MainActor:pornfame
+        ElseIf manageEmployeeType == 20
+            // "web administrator"
+            employeeSkillLvl = MainActor:intelligence
+        EndIf
+        
+        traningPrice += employeeSkillLvl * (Random(1,2)*10)   // Increase training price if employee already has good skill lvl
+        
+        MainActor.dress()
+        MainActor.show(1)
+
+        askingPrice = MainActor.getActorVar(pe_EmployeeSalary)
+        askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+        employeeName = "<MainActor.name>"
+        
+        Player()::"<MainActor.Name> is my current <txtJobTitle>. <MainActor.P> current salary is <askingPriceLocal>/month. <MainActor.O> skill level is <employeeSkillLvl>%."
+    EndIf
+    
+    traningPriceLocal = traningPrice.convertToLocalCurrency(true)
+    
+    Player.dress()
+    Player.show()
+    
+    stayInMenu = true
+    While stayInMenu
+        
+        Player(Serene):: "What about my <txtJobTitle>?"
+        1:: MainActor.isValid():: "Try to negotiate on salary (<askingPriceLocal>/month)"
+        2:: MainActor.isValid():: "Send <employeeName> to a job training for <traningPriceLocal>"
+        0:: MainActor.isValid():: "Fire <employeeName>"
+        10:: !MainActor.isValid()::"Hire a <txtJobTitle>"
+        99:: "Back"
+        
+        If 0
+            Player(Irritated)::"Am I sure about firing <MainActor.Name>?"
+            0:: "Yes"
+            1:: "No"
+            
+            If 0
+                willFireEmployee = true
+                
+                Random
+                    Player(Sad)::"Listen, <MainActor.Name>. I'm sorry to tell you, but I do not need your services any more."
+                    Player(Sad)::"<MainActor.Name>, I have bad news for you. I'm sorry to tell you, we have to part with each other."
+                    Player(Sad)::"I don't know how to start <MainActor.Name>... I will have to terminate our contract..."
+                EndRandom
+                Player(Sad)::"I wish you all the best in your future endeavours."
+                
+                Random
+                    MainActor(Sad)::"Oh no. I had so much fun working for you. Why? Why?"
+                    MainActor(Confused)::"What? I did my very best to suit your needs? What was wrong?"
+                    MainActor(Confused)::"Eh? You are joking, are you?"
+                EndRandom
+                
+                Player(Bored)::"What do I tell <MainActor.Name> why I am trying to get rid of <MainActor.o>?"
+                0:: "It's not you. I cannot afford any staff at the moment."
+                1:: "Honestly, your results are pretty good, but I met someone who is more experienced."
+                2:: "I found out that you fucked one of my models. That is not your damn job!"
+                
+                If 0
+                    chance = Random(1,5)
+                    If chance >= 3 && askingPrice > 1500
+                        cutDown = (chance * 100)
+                        askingPrice -= cutDown
+                        
+                        askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+                        cutDownLocal = cutDown.convertToLocalCurrency(true)
+                        
+                        MainActor(Sad)::"Oh, how about I cut down on my salary by <cutDownLocal>?"
+                        
+                        Player(Serene)::"What do I reply? With the cut down <MainActor.s> will get <askingPriceLocal>/month."
+                        0:: "Wow, that is really nice of you. Thanks for helping me out!"
+                        1:: "Well that is a great offer, but I still cannot afford your salary even with that reduction."
+                        
+                        If 0
+                            willFireEmployee = false
+                            MainActor.setActorVar(pe_EmployeeSalary, askingPrice)
+                            daysSinceBirth = (Player:Age * 365) // get the current date 
+                            MainActor.setActorVar(pe_LastSalaryNegotiation, daysSinceBirth) // remember last negotiation
+                        EndIf
+                    Else
+                        Random
+                            MainActor(Angry)::"Well then I will have to find someone with better management skills than you!"
+                            MainActor(Angry)::"Really? You spend hundreds on useless shit and cannot pay the salary of you staff?"
+                            MainActor(Sad)::"I really need the money. My salary was already at the pain barrier. I'll try to get lucky somewhere else..."
+                        EndRandom
+                    EndIf
+                ElseIf 1
+                    Random
+                        MainActor(Angry)::"What? Better than me? You must be joking! Get happy with your new <txtJobTitle> anyway. I'm out!"
+                        MainActor(Sad)::"Oh, I see. That is bad for me. Hope you remember me, if you have a new vacancy."
+                    EndRandom
+                ElseIf 2
+                    Random
+                        MainActor(Angry)::"Yeah, but that whore was bagging for that!"
+                        MainActor(Offended)::"Well at least I did better than your unskilled actors!"
+                    EndRandom
+                EndIf
+                
+                If willFireEmployee
+                    Player(Drained)::"<MainActor.Name> accepted <MainActor.p> fate and we terminated the contract."
+                    
+                    If manageEmployeeType == 1
+                        Player.setActorVar(pe_EmployedPhotographerId, 0)
+                        MainActor.setActorVar(tag_PEPhotographer, 0)
+                    ElseIf manageEmployeeType == 2
+                        Player.setActorVar(pe_EmployedCamOperatorId, 0)
+                        MainActor.setActorVar(tag_PECamOperator, 0)
+                    ElseIf manageEmployeeType == 3
+                        Player.setActorVar(pe_EmployedSceneAssistantId, 0)
+                        MainActor.setActorVar(tag_PESceneAssistant, 0)
+                    ElseIf manageEmployeeType == 20
+                        Player.setActorVar(pe_EmployedWebAdminId, 0)
+                        MainActor.setActorVar(tag_PEAdmin, 0)
+                    Else
+                        "PANIC!! nn_pe_scene_manage_employee.lpscene called with unknown job type (<manageEmployeeType>)!"
+                    EndIf
+                    
+                    MainActor.setActorVar(pe_EmployeeSalary, 0)
+                    MainActor.setActorVar(pe_LastSalaryNegotiation, 0)
+                    MainActor.setActorVar(pe_LastJobTraining, 0)
+                    
+                    MainActor.hide()
+                    MainActor = 0
+                    
+                    employeeName = "my <txtJobTitle>"
+                EndIf
+            EndIf
+        ElseIf 1
+            last = MainActor.getActorVar(pe_LastSalaryNegotiation)
+            daysSinceBirth = (Player:Age * 365) // get the current date 
+            MainActor.setActorVar(pe_LastSalaryNegotiation, daysSinceBirth) // remember last negotiation
+            delta = daysSinceBirth - last
+            If delta < 30
+                timeToWait = 30 - delta
+                Player(Annoyed)::"I already negotiated on <MainActor.Name>'s salary this month. I will have to wait <timeToWait> days."
+            Else
+                chance = Random(1,5)
+                If chance >= 3
+                    askingPrice -= (chance * 100)
+                    If askingPrice < 1100
+                        askingPrice = 1100
+                    EndIf
+                    askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+                    Player(Wink)::"I was able to talk <MainActor.Name> down to <askingPriceLocal>."
+                    
+                    MainActor.setActorVar(pe_EmployeeSalary, askingPrice)
+                Else
+                    Random
+                        Player(Annoyed)::"<MainActor.Name> was not willing to negotiate."
+                        Player(Annoyed)::"My negotiations were unlucky."
+                        Player(Annoyed)::"<MainActor.Name> says this is <MainActor.p> minimum."
+                    EndRandom
+                EndIf
+            EndIf
+        ElseIf 2    // job training
+            last = MainActor.getActorVar(pe_LastJobTraining)
+            daysSinceBirth = (Player:Age * 365) // get the current date 
+            delta = daysSinceBirth - last
+            
+            If delta < 7
+                timeToWait = 7 - delta
+                Player(Annoyed)::"<MainActor.Name> already had a job training this week. I will have to wait <timeToWait> days."
+            Else
+                Player(Serene)::"A job training improves <MainActor.Name>'s skills. Pay <traningPriceLocal> for <MainActor.p> training?"
+                0:: "Yes"
+                1:: "No"
+                
+                If 0
+                    MainActor.setActorVar(pe_LastJobTraining, daysSinceBirth) // remember last training
+                    
+                    MainActor.dress()
+                    MainActor.show(1)
+                    
+                    Random
+                        Player(Serene)::"Listen, <MainActor.Name> I want you to attend this job training."
+                        Player(Serene)::"<MainActor.Name> I got that offering for a job training and want you to attend."
+                        Player(Serene)::"<MainActor.Name> how about improving your skills a little?"
+                    EndRandom
+                    
+                    money -= traningPrice
+                    gain = Random(0.5,5)
+                    MainActor:pornfame += gain
+                    
+                    // get the stat that controls the skill level
+                    If manageEmployeeType >= 1 && manageEmployeeType <= 19
+                        // "photographer"
+                        // "cam operator"
+                        // "scene assistant"
+                        MainActor:pornfame += gain
+                        
+                        // Limit fame to 100%
+                        If MainActor:pornfame > 100
+                            MainActor:pornfame = 100
+                        EndIf
+                    ElseIf manageEmployeeType == 20
+                        // "web administrator"
+                        MainActor:intelligence += gain
+                        
+                        // Limit intelligence to 100%
+                        If MainActor:intelligence > 100
+                            MainActor:intelligence = 100
+                        EndIf
+                    EndIf
+                    
+                    
+                    If debugModeEnabled > 0 
+                        gain *= 1000
+                        "Debug TRANING: gain=<gain>/1000"
+                    EndIf
+                    
+                    Random
+                        MainActor(Serene)::"Thanks for the job training. I learned a lot!"
+                        MainActor(Serene)::"That was really cool. I really need to try out the things I learned today!"
+                        MainActor(Serene)::"That was an awesome workshop. Thanks for having me attend it!"
+                    EndRandom
+                EndIf
+            EndIf
+        ElseIf 10
+            
+            // Switch scene
+            PEHireNewEmployeeJobType.setGlobal(manageEmployeeType)
+            followUp(nn_pe_scene_hire_employee)
+            
+            sceneEnd()
+            
+        ElseIf 99
+            stayInMenu = false
+        EndIf
+    EndWhile
+    
+    // Back to main employee menu
+    followUp( nn_pe_scene_manage_employees )
+    
+    SceneEnd()

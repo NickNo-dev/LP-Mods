@@ -1,0 +1,94 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    If Player:nnOpenedPornEmpire >= 1
+
+        // Go to the office if any
+        officeSize = Player.getActorVar(pe_PlayerOfficeLocationSize)
+        If officeSize > 0
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+        EndIf
+        
+        Player.dress()
+        
+        detailModeEnabled = Player.getActorVar(pe_EnabledDetailMode)
+        
+        If Player:nnOpenedPornWebsite >= 1
+            
+            // If the player is dating someone we need to end the date, so we can check this NPCs stats as well
+            If CurrentCompanion.isValid()
+                Player::"<CurrentCompanion.Name>, I need to take care of my business. See you later!"
+                endDate()
+            EndIf
+            
+            // Iterate through all NPCs and check those with sets to calculate earnings
+            pendingPictureSetCount = 0          // Sets to be uploaded
+
+            Actor = getPerson(true)
+            While Actor.isValid()
+            
+                // Get the number of pending uploads 
+                pendingUploads = Actor.getActorVar(pe_PhotoSetCountPending)
+                
+                If pendingUploads > 0
+                    pendingPictureSetCount += pendingUploads
+                    
+                    // Add the pending sets to the released ones
+                    setsCurrent = Actor.getActorVar(pe_PhotoSetCount)
+                    setsCurrent += pendingUploads
+                    Actor.setActorVar(pe_PhotoSetCount, setsCurrent)
+                    
+                    // Get the value of the pending uploads
+                    actorShootVal = Actor.getActorVar(pe_PhotoSetValue)
+                    plusShootVal = Actor.getActorVar(pe_PhotoSetValuePending)
+                    actorShootVal += plusShootVal
+                    Actor.setActorVar(pe_PhotoSetValue, actorShootVal)
+                    
+                    // Reset pending
+                    Actor.setActorVar(pe_PhotoSetCountPending,0)
+                    Actor.setActorVar(pe_PhotoSetValuePending, 0)
+                    
+                    If detailModeEnabled > 0
+                        Actor.dress()
+                        Actor.show(1)
+                        
+                        Random
+                            Player::"I have uploaded <pendingUploads> new sets of <Actor.Name>. Let's see how these perform tomorrow."
+                            Player::"I added <pendingUploads> sets of <Actor.Name>. Hope our visitors enjoy <Actor.o>."
+                            Player::"<pendingUploads> new sets from <Actor.Name> added. Our horny users will be happy."
+                        EndRandom
+                        
+                        Actor.hide()
+                    EndIf
+                    
+                    passTime(0.1, 0.2)
+                EndIf
+                Actor = getPerson(true)
+            EndWhile
+        Else
+            Player(Annoyed)::"Without a porn website uploading does not make any sense uh?"
+            Player(Excited)::"I need to get my website up and running ASAP."
+        EndIf
+        
+        If pendingPictureSetCount > 0 
+            Player(Happy)::"I have uploaded <pendingPictureSetCount> new picture sets."
+            
+            currentAdvertisingMode = Player.getActorVar(pe_OnlineAdvertisingMode)
+            If( currentAdvertisingMode<1 )
+                Random
+                    Player(Curious)::"Maybe I should do some advertising as well?"
+                    Player(Curious)::"If I book some ads, I might increase the number of visitors..."
+                    Player(Curious)::"Some online advertising could help increase our visitor number."
+                EndRandom
+            EndIf
+        Else
+            Player(Sad)::"Nothing to upload this time. I need to do more shootings."
+        EndIf
+    EndIf
+    
+    SceneEnd()

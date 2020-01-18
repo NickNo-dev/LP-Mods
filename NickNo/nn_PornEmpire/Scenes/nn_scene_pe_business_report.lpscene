@@ -1,0 +1,570 @@
+WHAT: none
+WHERE: none
+WHEN: 0 - 24
+WHO: none
+OTHER: none
+
+    SceneStart()
+    
+    
+    debugModeEnabled = Player.getActorVar(pe_DebugModeEnabled)
+    
+    MAX_PHOTO_SET_VALUE = 10        // max set value. see thisShootVal in nn_scene_do_photoshoot.lpscene
+    
+    If Player:nnOpenedPornEmpire >= 1
+
+        Player.dress()
+        setBackground(work)
+        
+        // Go to the office if any
+        officeSize = Player.getActorVar(pe_PlayerOfficeLocationSize)
+        If officeSize > 0
+            setBackground3D(Modules/nn_PornEmpire/Rooms/nn_pe_office_1.lpworld)
+        EndIf
+        
+        // Calculate the time in days since the last check
+        // We use the players age for that
+        // It is incremented by 1/365 every day
+        daysSinceBirth = (Player:Age * 365)
+        daysSinceBirth += 0.5
+        daysSinceBirth = daysSinceBirth.round()
+        daysSinceBirth -= 1
+        
+        lastCheckDays = Player.getActorVar(pe_LastBusinessCheck)
+        deltaLastCheck = daysSinceBirth - lastCheckDays
+        
+        // "DEBUG: daysSinceBirth=<daysSinceBirth>, lastCheckDays=<lastCheckDays> # deltaLastCheck=<deltaLastCheck>"
+        
+        // Calculate the weeks since the last check, used for webcamming
+        weeksSinceLastCheck = 0.5 + [deltaLastCheck / 7]
+        weeksSinceLastCheck = weeksSinceLastCheck.round()
+        weeksSinceLastCheck -= 1
+        daysThisWeekRemain = deltaLastCheck - (weeksSinceLastCheck*7)
+        
+        // "DEBUG: weeksSinceLastCheck=<weeksSinceLastCheck>, daysThisWeekRemain=<daysThisWeekRemain>"
+        
+        // Prevent cheating
+        If deltaLastCheck < 1
+            If deltaLastCheck < 0
+                // Seems the player is younger than yesterday...
+                "Seems you had a rejuvenation. Business report will work tomorrow again..."
+                Player.setActorVar(pe_LastBusinessCheck, daysSinceBirth)
+            Else
+                Player(Annoyed)::"I already checked the business statistics today."
+                Player(Curious)::"Maybe I should go find some models and produce new footage?"
+            EndIf
+        Else
+            
+            // Remember the current date as last check time
+            Player.setActorVar(pe_LastBusinessCheck, daysSinceBirth)
+            
+            // If the player is dating someone we need to end the date, so we can check this NPCs stats as well
+            If CurrentCompanion.isValid()
+                Player::"<CurrentCompanion.Name>, I need to take care of my business. See you later!"
+                endDate()
+            EndIf
+            
+            Player(Excited)::"Time to check how my porn empire is doing..."
+            
+            daysSinceLastCheck = deltaLastCheck
+            earningsTotal = 0                   // Total earnings
+            expensesTotal = 0                   // Total expenses
+            generalInterest = 0                 // General interest in our offerings
+            totalPendingUploadCount = 0
+            
+            detailModeEnabled = Player.getActorVar(pe_EnabledDetailMode)
+            currentAdvertisingMode = Player.getActorVar(pe_OnlineAdvertisingMode)
+            
+            If Player:nnOpenedPornWebsite >= 1
+                
+                //////////////////////////////////////////////////////////////////////////////////////
+                // Expenses calculation
+                //////////////////////////////////////////////////////////////////////////////////////
+                
+                // The web hosting
+                expensesTotal += 500 / 30 * daysSinceLastCheck
+                
+                // The photographer
+                photographerId = Player.getActorVar(pe_EmployedPhotographerId)
+                Photographer = getSpecific(photographerId)
+                If Photographer.isValid()
+                    price = Photographer.getActorVar(pe_EmployeeSalary)
+                    price /= 30
+                    price *= daysSinceLastCheck
+                    
+                    expensesTotal += price
+                    If debugModeEnabled > 0
+                        "Debug: Photographer <Photographer.Name> cost = <price>/<daysSinceLastCheck> days."
+                    EndIf
+                EndIf
+                
+                // The web admin
+                adminId = Player.getActorVar(pe_EmployedWebAdminId)
+                WebAdmin = getSpecific(adminId)
+                If WebAdmin.isValid()
+                    price = WebAdmin.getActorVar(pe_EmployeeSalary)
+                    price /= 30
+                    price *= daysSinceLastCheck
+                    
+                    expensesTotal += price
+                    If debugModeEnabled>0
+                        "Debug: WebAdmin <WebAdmin.Name> cost = <price>/<daysSinceLastCheck> days."
+                    EndIf
+                EndIf
+                
+                // The SceneAssistant
+                sceneAssistId = Player.getActorVar(pe_EmployedSceneAssistantId)
+                SceneAssistant = getSpecific(sceneAssistId)
+                If SceneAssistant.isValid()
+                    price = SceneAssistant.getActorVar(pe_EmployeeSalary)
+                    price /= 30
+                    price *= daysSinceLastCheck
+                    
+                    expensesTotal += price
+                    If debugModeEnabled>0
+                        "Debug: SceneAssistant <SceneAssistant.Name> cost = <price>/<daysSinceLastCheck> days."
+                    EndIf
+                EndIf
+                
+                // The CamOperator
+                camOpId = Player.getActorVar(pe_EmployedCamOperatorId)
+                CamOperator = getSpecific(camOpId)
+                If CamOperator.isValid()
+                    price = CamOperator.getActorVar(pe_EmployeeSalary)
+                    price /= 30
+                    price *= daysSinceLastCheck
+                    
+                    expensesTotal += price
+                    If debugModeEnabled>0
+                        "Debug: CamOperator <CamOperator.Name> cost = <price>/<daysSinceLastCheck> days."
+                    EndIf
+                EndIf
+                
+                // The office
+                If officeSize>0
+                    price = Player.getActorVar(pe_PlayerOfficePrice)
+                    price /= 30
+                    price *= daysSinceLastCheck
+                    
+                    expensesTotal += price
+                    If debugModeEnabled>0
+                        "Debug: Office cost = <price>/<daysSinceLastCheck> days."
+                    EndIf
+                EndIf
+                
+                //////////////////////////////////////////////////////////////////////////////////////
+                // Visitor number calculation
+                //////////////////////////////////////////////////////////////////////////////////////
+                
+                // Read the current visitor level (visitors / day)
+                numberOfVisitors = Player.getActorVar(pe_OnlineVisitorLevel)
+                
+                // Read the pending visitor level changes (visitors / day)
+                // These can be affected by ad campaigns etc
+                // They are also affected by general interest in out stuff, see below
+                pendingVisitorChanges = Player.getActorVar(pe_OnlineVisitorPendingChange)
+                Player.setActorVar(pe_OnlineVisitorPendingChange, 0)
+                visitorChange = pendingVisitorChanges
+                
+                // Apply the advertising mode and add it to the expenses
+                If currentAdvertisingMode == 1
+                    expensesTotal += 750 / 30 * daysSinceLastCheck
+                    visitorChange += Random(-5, 15)
+                ElseIf currentAdvertisingMode == 2
+                    expensesTotal += 4750 / 30 * daysSinceLastCheck
+                    visitorChange += Random(-5, 40)
+                ElseIf currentAdvertisingMode == 3
+                    expensesTotal += 7250 / 30 * daysSinceLastCheck
+                    visitorChange += Random(-5, 70)
+                ElseIf currentAdvertisingMode == 4
+                    expensesTotal += 15000 / 30 * daysSinceLastCheck
+                    visitorChange += Random(-5, 100)
+                Else
+                    // No ads
+                    visitorChange += Random(-5, 7)
+                EndIf
+                
+                // "Debug: Visitor calc: numberOfVisitors=<numberOfVisitors> visitorChange=<visitorChange>"
+                numberOfVisitors += visitorChange
+                numberOfVisitors = numberOfVisitors.round()
+                
+                If numberOfVisitors < 0
+                    numberOfVisitors = 0
+                EndIf
+                
+                // Remember the daily visitor level for the next run
+                Player.setActorVar(pe_OnlineVisitorLevel, numberOfVisitors) 
+                
+                // Output some info
+                totalNV = numberOfVisitors * daysSinceLastCheck
+                Player(Serene)::"We had <totalNV> visitors in the last <daysSinceLastCheck> days (<numberOfVisitors> per day)."
+                numberOfVisitors = totalNV
+                
+                ///////////////////////////////////////////////////////////////////////////////////////
+                // Iterate through all contacts and calculate earnings
+                ///////////////////////////////////////////////////////////////////////////////////////
+                
+                totalPhotoSetCount = 0              // All picture sets in stock
+                videoCount = 0                      // All videos in stock
+                downloadCount = 0                   // Number of total downloads
+                modelCount = 0                      // Number of photo / video models
+                webCamModelCount = 0                // Number of cam models
+                
+                photoSetPrice = Player.getActorVar(pe_PhotoSetPrice)
+                If photoSetPrice <= 0
+                    photoSetPrice = 2.5
+                EndIf
+
+                camShowPrice = Player.getActorVar(pe_WebCamShowPrice)
+                If camShowPrice <= 0
+                    camShowPrice = 5
+                EndIf
+                
+                Actor = getPerson(true)
+                While Actor.isValid()
+                    actorVisible = false
+
+                    //////////////////////////////////////////////////////////////////////////
+                    // Photo+Video downloads
+                    //////////////////////////////////////////////////////////////////////////
+                    
+                    // Get the number of sets
+                    actorPhotoSets = Actor.getActorVar(pe_PhotoSetCount)
+                    
+                    // Get the number of pending uploads
+                    pendingActorUploads = Actor.getActorVar(pe_PhotoSetCountPending)
+                    
+                    // If we have hired an admin he will do uploading for us
+                    If WebAdmin.isValid() && pendingActorUploads > 0
+                        adminIntelligence = WebAdmin:intelligence
+
+                        // Add the pending sets to the released ones
+                        setsCurrent = actorPhotoSets
+                        setsCurrent += pendingActorUploads
+                        Actor.setActorVar(pe_PhotoSetCount, setsCurrent)
+                        
+                        // Get the value of the pending uploads
+                        actorShootVal = Actor.getActorVar(pe_PhotoSetValue)
+                        plusShootVal = Actor.getActorVar(pe_PhotoSetValuePending)
+                        actorShootVal += plusShootVal * (1 + adminIntelligence/300)     // Admin intelligence increases value of sets a little (better tagging, SEO you know...)
+                        Actor.setActorVar(pe_PhotoSetValue, actorShootVal)
+                        
+                        // Reset pending
+                        Actor.setActorVar(pe_PhotoSetCountPending,0)
+                        Actor.setActorVar(pe_PhotoSetValuePending, 0)
+                        
+                        If debugModeEnabled > 0
+                            "Debug: WebAdmin: pendingActorUploads=<pendingActorUploads>, plusShootVal=<plusShootVal>, actorShootVal=<actorShootVal>, totalPendingUploadCount=<totalPendingUploadCount>"
+                        EndIf
+                        
+                        actorPhotoSets += pendingActorUploads
+                    Else
+                        totalPendingUploadCount += pendingActorUploads
+                    EndIf
+                    
+                    totalPhotoSetCount += actorPhotoSets
+                    
+                    If actorPhotoSets > 0
+                        
+                        // If NPC has photo sets, it is a model
+                        modelCount += 1
+                        
+                        // DEBUG ONLY - Reset the value of the photo sets
+                        // Actor.setActorVar(pe_PhotoSetValue, actorPhotoSets)
+                        
+                        // Get the current value of the picture sets
+                        actorShootVal = Actor.getActorVar(pe_PhotoSetValue)
+                        
+                        // Calculate the 'value' of the downloads
+                        
+                        // actorShootVal is the value of all shootings of one model and decreases every run of this scene (see below)
+                        // 'actorPhotoSets' is the total count of sets we got from that model
+                        // Attractiveness is not added in here as it is already applied in nn_scene_do_photoshoot_companion.lpscene
+                        // Porn fame is added here again as it may change over time...
+                        // Attractiveness only affects the shoot, as pictured models do not change afterwards...
+                        value = 100.0 * actorShootVal/actorPhotoSets
+                        valueWithFame = value + Actor:pornfame
+                        
+                        // The maximum value a set can have is defined by MAX_PHOTO_SET_VALUE
+                        value = valueWithFame / MAX_PHOTO_SET_VALUE
+                        
+                        // Calculate generalInterest in our offerings
+                        If generalInterest == 0 
+                            generalInterest = value
+                        Else
+                            generalInterest += value
+                            generalInterest /= 2
+                        EndIf
+                        
+                        // Calculate number of downloads
+                        visits = (numberOfVisitors * (value/100.0))
+                        
+                        If visits > numberOfVisitors 
+                            visits = numberOfVisitors       // Can't have more downloads than visits
+                        EndIf
+                        
+                        downloads = visits
+                        
+                        // Each visitor can download multiple sets 
+                        // We expect 50-90% of all users to download more than 1 set
+                        r = Random(50,90)
+                        dlCnt = r * actorPhotoSets / 100
+                        downloads *= dlCnt
+                        
+                        downloadCount += downloads
+                        
+                        If debugModeEnabled > 0
+                            asv = actorShootVal*100
+                            "Debug PHOTOS <Actor.Name>: actorPhotoSets=<actorPhotoSets> actorShootVal=<asv>/100 value=<value> visitors=<visits>/<numberOfVisitors> dlCnt=<dlCnt> downloads=<downloads>"
+                        EndIf
+                        
+                        // Calculate earnings
+                        // TODO: If fame is too low and price too high: drop some visitors
+                        earnings = downloads * photoSetPrice
+                        earningsTotal += earnings
+                        
+                        // Increase fame by the number of downloads
+                        If downloads < 1000
+                            Actor:pornfame += 0.1
+                        ElseIf downloads < 5000
+                            Actor:pornfame += 0.2
+                        Else
+                            Actor:pornfame += 0.3
+                        EndIf
+                        
+                        // Limit fame to 100%
+                        If Actor:pornfame > 100
+                            Actor:pornfame = 100
+                        EndIf
+                        
+                        If detailModeEnabled > 0
+                            Actor.dress()
+                            Actor.show(1)
+                            actorVisible = true
+                            
+                            earningsLocal = earnings.convertToLocalCurrency(true)
+                            fame = Actor:pornfame
+                            Player::"<Actor.Name>'s sets were downloaded <downloads> times in the last <daysSinceLastCheck> days. I earned <earningsLocal>. <Actor.Name> is known by <fame>% of our visitors." // The interest in <Actor.p> sets is <valueWithFame>%.
+                        EndIf
+                        
+                        // Decrease shootings values over time 
+                        // (if an actor is more famous they will be worth more for a longer time)
+                        If actorShootVal > 1
+                            fame = Actor:pornfame
+                            shootValChange = 110.0 - fame
+                            shootValChange /= 1000.0
+                            
+                            // TODO: Maybe a good webAdmin could help here as well...
+                            
+                            actorShootVal -= shootValChange
+                            Actor.setActorVar(pe_PhotoSetValue, actorShootVal)
+                            
+                            If debugModeEnabled > 0
+                                shootValChange *= 1000
+                                "Debug: actorShootVal changes by <shootValChange>/1000 to <actorShootVal>, fame=<fame>"
+                            EndIf
+                            
+                        ElseIf actorShootVal < 0
+                            // Sanity check
+                            actorShootVal = 0
+                            Actor.setActorVar(pe_PhotoSetValue, actorShootVal)
+                        EndIf
+                    EndIf
+                    
+                    //////////////////////////////////////////////////////////////////////////
+                    // WebCamming
+                    //////////////////////////////////////////////////////////////////////////
+                    
+                    // Get web cam schedule and price
+                    askingPrice = Actor.getActorVar(pe_EmployeeSalary)
+                    webcammingFrequency = Actor.getActorVar(pe_WebCammingFrequency)
+                    
+                    If webcammingFrequency > 0
+                        
+                        // It is a model
+                        webCamModelCount += 1
+                        
+                        // Calculate the 'value' of the sessions
+                        // 100 is the max value a model with total beauty and god like porn fame
+                        // As sessions are live the current attractiveness is counted in as well
+                        value = Actor:pornfame/2 + Actor:attractiveness/2
+                        
+                        // Calculate number of viewers
+                        // If both above stats are 100% the shows will be watched by 60-80% of all visitors
+                        visits = numberOfVisitors * (value/100.0) * Random(0.6, 0.8)
+                                                
+                        If visits > numberOfVisitors
+                            // Can't have more downloads than visits
+                            // Should not happen at all...
+                            visits = numberOfVisitors
+                        EndIf
+                        
+                        // Calculate how many sessions were done
+                        // Web takes place webcammingFrequency times a week
+                        // So we calculate how many complete weeks passed since the last check
+                        // The remaining days are added to the actor and read next time
+                        
+                        completeWeeks = weeksSinceLastCheck
+                        daysRemain = Actor.getActorVar(pe_CamModelDaysRemain)
+                        daysRemain += daysThisWeekRemain
+                        
+                        weeksPlus =  0.5 + [daysRemain / 7]
+                        weeksPlus = weeksPlus.round()
+                        weeksPlus -= 1
+                        daysRemain -= weeksPlus * 7
+                        
+                        completeWeeks += weeksPlus
+                        Actor.setActorVar(pe_CamModelDaysRemain, daysRemain)
+                        
+                        sessions = completeWeeks * webcammingFrequency
+                        
+                        If completeWeeks >= 1
+                            If webcammingFrequency < 7
+                                visits /= 7 * completeWeeks - sessions
+                            EndIf
+                            viewers = visits.round()
+                            
+                            // Calculate generalInterest in our cam offerings
+                            // General interest is later used to increase / decrease visitor count
+                            // Based on interest in our offerings
+                            If generalInterest == 0 
+                                 generalInterest = value
+                            Else
+                                generalInterest += value
+                                generalInterest /= 2
+                            EndIf
+                            
+                            If debugModeEnabled > 0
+                                "Debug: WEBCAM <Actor.Name>: value=<value>, freq=<webcammingFrequency> visitors=<visits>/<numberOfVisitors> sessions=<sessions>"
+                            EndIf
+                            
+                            // Calculate earnings
+                            // TODO: If fame is too low and price too high: drop some visitors
+                            earnings = viewers * camShowPrice
+                            earningsTotal += earnings
+                            
+                            // Calculate salary
+                            askingPrice /= 7        // prices are negotiated for one week
+                            askingPrice *= daysSinceLastCheck
+                            expensesTotal += askingPrice
+                            
+                            // Increase fame by the number of views
+                            If viewers < 100
+                                Actor:pornfame += 0.1
+                            ElseIf viewers < 1000
+                                Actor:pornfame += 0.2
+                            Else
+                                Actor:pornfame += 0.3
+                            EndIf
+                            
+                            // Limit fame to 100%
+                            If Actor:pornfame > 100
+                                Actor:pornfame = 100
+                            EndIf
+                            
+                            If detailModeEnabled > 0
+                                // calling show twice makes the actor vanish and reappear...
+                                If !actorVisible
+                                    Actor.dress()
+                                    Actor.show(1) 
+                                EndIf
+                                
+                                earningsLocal = earnings.convertToLocalCurrency(true)
+                                askingPriceLocal = askingPrice.convertToLocalCurrency(true)
+                                fame = Actor:pornfame
+                                Player::"<Actor.Name>'s did <sessions> cam shows in <completeWeeks> week(s). There were <viewers> viewers. I earned <earningsLocal>. <Actor.Name> is known by <fame>% of our visitors."
+                            EndIf
+                        EndIf
+                    EndIf
+                    
+                    Actor.hide()
+                    Actor = getPerson(true)
+                EndWhile
+                
+                // Apply generalInterest to visitorChange
+                visitorDrift = numberOfVisitors * (4 / 100)     // 4%
+                interestChange = 0
+                If generalInterest > 150 
+                    interestChange = visitorDrift
+                ElseIf generalInterest < 50
+                    interestChange = visitorDrift
+                    interestChange *= -1        // Bug in script engine prevents -1 * visitorDrift
+                EndIf
+                
+                oldVal = Player.getActorVar(pe_OnlineVisitorPendingChange)
+                oldVal += interestChange
+                Player.setActorVar(pe_OnlineVisitorPendingChange, oldVal)
+                
+                If debugModeEnabled > 0
+                    "Debug: generalInterest=<generalInterest>, visitorDrift=<visitorDrift>, interestChange=<interestChange>, change=<oldVal>"
+                EndIf
+                
+                If totalPhotoSetCount < 1
+                    If totalPendingUploadCount > 0
+                        Random
+                            Player(Lazy)::"Well, if I would have uploaded those <totalPendingUploadCount> photo sets to my website I could have earned some money..."
+                            Player(Lazy)::"I have <totalPendingUploadCount> photo sets that I need to upload to my website."
+                            Player(Sad)::"Damn! I forgot to upload the <totalPendingUploadCount> photo sets that we made recently!"
+                        EndRandom
+                    ElseIf webCamModelCount < 1
+                        Random
+                            Player(Sad)::"I have no content on my website. Nobody will pay me any attention."
+                            Player(Sarcastic)::"Empty websites do not attract visitors. Oh wait, my website is empty!"
+                            Player(Lazy)::"Well I do have a website but I still need to get some content for it."
+                        EndRandom
+                    EndIf
+                Else
+                    If totalPendingUploadCount > 0 
+                        If !WebAdmin.isValid()
+                            Player(Surprised)::"I have <totalPendingUploadCount> photo sets that need to be uploaded to my website."
+                        Else
+                            Player(Serene)::"My web admin <WebAdmin.Name> uploaded <totalPendingUploadCount> new photo sets."
+                        EndIf
+                        
+                    EndIf
+                    
+                    If detailModeEnabled > 0
+                        Player::"We have <modelCount> photo models and <webCamModelCount> web cam models."
+                        Player::"We have <totalPhotoSetCount> photo sets in stock."
+                    EndIf
+                EndIf
+                
+            Else
+                Random
+                    Player(Annoyed)::"Without a proper porn website it will be hard so sell any stuff to horny nerds."
+                    Player(Annoyed)::"Well, I got some porn material I would like to sell. Maybe I could try to sell that on-line?"
+                    Player(Excited)::"I need to set up a website ASAP."
+                    Player(Excited)::"I need a place to show off my porn collection to the world. I should launch a website."
+                    Player(Excited)::"There are lots of horny people sitting in front of their computers and phones. I want to be part of their life! Let's launch a website."
+                EndRandom
+            EndIf
+            
+            result = earningsTotal - expensesTotal
+            localResult = result.convertToLocalCurrency(true)
+            localExpensesTotal = expensesTotal.convertToLocalCurrency(true)
+            localEarningsTotal = earningsTotal.convertToLocalCurrency(true)
+            
+            If detailModeEnabled > 0
+                Player(Curious)::"I spend <localExpensesTotal> and earned <localEarningsTotal> in <daysSinceLastCheck> days. This sums up as <localResult>."
+            Else
+                If result > 0 
+                    Player::"We have <totalPhotoSetCount> photo sets and <webCamModelCount> web cams on-line."
+                    
+                    Random
+                        Player(Happy)::"My business earned <localResult> in <daysSinceLastCheck> days. Yeah!"
+                        Player(Happy)::"We earned <localResult> in <daysSinceLastCheck> days. Cool!"
+                        Player(Happy)::"Revenue <localResult> in <daysSinceLastCheck> days. Easy money!"
+                    EndRandom
+                Else
+                    Player(Sad)::"Well, my business made a loss of <localResult> in the last <daysSinceLastCheck> days."
+                    Player(Sad)::"I need to upload some more content to my website or launch some live cams."
+                EndIf
+            EndIf
+            
+            money += result
+            
+            
+        EndIf
+    EndIf
+    
+    SceneEnd()

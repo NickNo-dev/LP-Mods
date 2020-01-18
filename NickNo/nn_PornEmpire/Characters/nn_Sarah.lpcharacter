@@ -1,0 +1,89 @@
+// Information
+INFO Is_Male: 100% false
+INFO Interested_In_Men: 100% true
+INFO Interested_In_Women: 100% true
+INFO Interested_In_Transgender: 100% false
+INFO First_Name: 100% Sarah
+INFO Last_Name: 100% D
+INFO Race: 100% Daz
+INFO Genital: 100% Vagina
+
+// Morphs
+MORPH Genesis8Female__SCLPropagatingHead: 100% -0.02094
+MORPH Genesis8Female__FBMEmaciated: 100% 0.437794
+MORPH Genesis8Female__PBMSternumDepth: 100% 0.236625
+MORPH Genesis8Female__PBMRibcageSize: 100% 0.161687
+MORPH Genesis8Female__PBMBreastsSmall: 100% 0.968204
+MORPH Genesis8Female__PBMBreastsSize: 100% 0.355972
+MORPH Genesis8Female__PBMBreastsShape08: 100% 0.602863
+MORPH Genesis8Female__PBMBreastsGone: 100% 0.4803
+MORPH Genesis8Female__PBMBreastsDiameter: 100% -0.337306
+MORPH Genesis8Female__FBMThin: 100% 0.772664
+MORPH MysticalHair__SCLPropagatingHead: 100% -0.02094
+SCALE X: 100% 1.0
+SCALE Y: 100% 1.0
+SCALE Z: 100% 1.0
+
+//Hair
+HAIR Hairstyle: 100% MysticalHair
+HAIR Hair_Thickness: 100% 1.0
+HAIR Hair_Color_R: 100% 0.7
+HAIR Hair_Color_G: 100% 0.6
+HAIR Hair_Color_B: 100% 0.4
+HAIR Hair_Color_A: 100% 0.85
+
+HAIR Brow_Color_R: 100% 0.0
+HAIR Brow_Color_G: 100% 0.0
+HAIR Brow_Color_B: 100% 0.0
+HAIR Brow_Color_A: 100% 1.0
+
+// Skin
+SKIN Eye_Color_R: 100% 0.0
+SKIN Eye_Color_G: 100% 0.8
+SKIN Eye_Color_B: 100% 0.2
+SKIN Eye_Color_A: 100% 0.8
+SKIN Face_Texture: 100% Elvira
+SKIN Skin_Color_R: 100% 0.83
+SKIN Skin_Color_G: 100% 0.58
+SKIN Skin_Color_B: 100% 0.43
+SKIN Skin_Color_A: 100% 1.0
+SKIN BHairColor_R: 100% 0.005
+SKIN BHairColor_G: 100% 0.001
+SKIN BHairColor_B: 100% 0.0
+SKIN BHairColor_A: 100% 0.85
+SKIN Skin_Roughness: 100% 1.0
+SKIN Skin_Oil: 100% 1.0
+SKIN Skin_Fresnel: 100% 0.13422
+SKIN Skin_Age: 100% 0.0
+SKIN Skin_Sagging: 100% 0.0
+SKIN Muscle_Tone: 100% 0.0
+SKIN BHairThickness: 100% 0.5
+SKIN BHairstyle: 100% Pubes07
+
+// Stats
+STAT prostitutechildfather: 100% 0.0
+STAT prostitutechildren: 100% 0.0
+STAT prostitutefame: 100% 0.0
+STAT totalcustomers: 100% 0.0
+STAT totalincome: 100% 0.0
+STAT totalmovies: 100% 0.0
+STAT fertility: 100% 5.499861
+STAT vasectomy: 100% 0.0
+STAT age: 100% 33.955627
+STAT attractiveness: 100% 46.862637
+STAT cooking: 100% 13.769952
+STAT dance: 100% 59.877319
+STAT fitness: 100% 57.249672
+STAT intelligence: 100% 32.367992
+STAT interpersonal: 100% 86.358284
+STAT martial: 100% 49.128696
+STAT masochist: 100% 12.436295
+STAT muscle: 100% 27.896971
+STAT music: 100% 84.557632
+STAT perversion: 100% 98.072235
+STAT pornfame: 100% 4.153822
+STAT sneak: 100% 38.413647
+STAT attractiontoplayer: 100% 100.0
+STAT rapportwithplayer: 100% 100.0
+STAT arousal: 100% 14.309622
+STAT intoxication: 100% 0.107297
