@@ -1,9 +1,0 @@
-STAT_ID: nnOpenedPornEmpire
-STAT_NAME: Has a porn business; 1 if you have your own porn business (PornEmpire)
-PLAYER_ONLY: true
-HIGHER_BETTER: true
-STAT_MIN: 0
-STAT_MAX: 1
-DAILY_CHANGE: 0
-DEFAULT_VALUE: 0
-NPC_ONLY: false
