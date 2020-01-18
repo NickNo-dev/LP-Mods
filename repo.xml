@@ -1,3 +1,4 @@
 <Repo>
-  <Mod Name="Porn Empire" Version="0.05" Path="NickNo/nn_PornEmpire-0.05.zip"/>
+  <Mod Id="nn_PornEmpire" Name="Porn Empire" Version="0.05" Path="NickNo/nn_PornEmpire-0.05.zip" Msg="Thanks for installing! This is still an early Alpha version!"/>
+  <Mod Id="nn_PornEmpire" Name="Porn Empire - Dev preview" Version="0.06" Path="NickNo/nn_PornEmpire-0.06.zip" Msg="Thanks for installing! This is still an early Alpha version!"/>
 </Repo>
