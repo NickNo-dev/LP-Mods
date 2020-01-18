@@ -1,4 +1,11 @@
 <Repo>
   <Mod Id="nn_PornEmpire" Name="Porn Empire" Version="0.05" Path="NickNo/nn_PornEmpire-0.05.zip" Msg="Thanks for installing! This is still an early Alpha version!"/>
   <Mod Id="nn_PornEmpire" Name="Porn Empire - Dev preview" Version="0.06" Path="NickNo/nn_PornEmpire-0.06.zip" Msg="Thanks for installing! This is still an early Alpha version!"/>
+  
+  <Mod Id="sb_BeautyExpansion" Name="Beauty Expansion (Plastic Surgery)" Version="1.3" Path="SexyBastardo/sb_BeautyExpansion-1.3.zip"/>
+  <Mod Id="sb_BetterPregnancy" Name="Better Pregnancy (Pregnancy Improvement)" Version="1.6b" Path="SexyBastardo/sb_BetterPregnancy-1.6b.zip"/>
+  <Mod Id="sb_PimpYourGirl" Name="Pimp Your Girl (Sexwork Improvement)" Version="1.3" Path="SexyBastardo/sb_PimpYourGirl-1.3.zip"/>
+  <Mod Id="sb_TheNewGoodbye" Name="The New Goodbye (Date Improvements)" Version="1.0a" Path="SexyBastardo/sb_TheNewGoodbye-1.0a.zip"/>
+  
+  <Mod Id="LL_SlaveTrainer" Name="LL Slaver Trainer Mod" Version="3.3" Path="LostLegends/LL_SlaveTrainer-3.3.zip"/>
 </Repo>
