@@ -23,8 +23,8 @@
     Path="LostLegends/LL_SlaveTrainer-3.3.zip"/>
 
     <!-- Vima's Mods -->
-    <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.0" 
-    Description="10 bed room presets for you" Path="Vima/vim_RoomPresets.zip"/>
+    <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.1" 
+    Description="10 bed room presets for you (updated: 23.01.2020)" Path="Vima/vim_RoomPresets.zip"/>
 
     <!-- Yarla's Mods -->
     <Mod Id="yarla_CharacterPack1" Name="Yarla's Character Pack" 
