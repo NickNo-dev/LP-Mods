@@ -47,6 +47,16 @@
     Description="Lets you set the releationship of two NPCs." 
     Path="LostLegends/LL_setRelationship.zip"/>
     
+    <!-- tkwas' mods -->
+    <Mod Id="r8kie_additional_activities" Name="Additional Scenes" Version="1.0" 
+    Description="Add additional scenes during all type of activities." 
+    Path="tkwas/r8kie_additional_activities.zip"/>
+    
+    <!-- VinnyB's mods -->
+    <Mod Id="breaking_not_bad" Name="Better Breakups" Version="v2" 
+    Description="Adds and modifies some events so that NPC breakups happen with or without you." 
+    Path="VinnyB/breaking_not_bad.zip"/>
+    
     <!-- Vima's Mods -->
     <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.1" 
     Description="10 bed room presets for you (updated: 23.01.2020)" 
