@@ -48,7 +48,7 @@
     Path="LostLegends/LL_setRelationship.zip"/>
     
     <!-- tkwas' mods -->
-    <Mod Id="r8kie_additional_activities" Name="Additional Scenes" Version="1.0" 
+    <Mod Id="r8kie_additional_activities" Name="Additional Scenes" Version="31.10.2019" 
     Description="Add additional scenes during all type of activities." 
     Path="tkwas/r8kie_additional_activities.zip"/>
     
