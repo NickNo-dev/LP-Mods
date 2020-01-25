@@ -7,38 +7,57 @@
     
     <!-- SexyBastatrdo's Mods -->
     <Mod Id="sb_BeautyExpansion" Name="Beauty Expansion (Plastic Surgery)" 
+    Description="Adds different beauty treatments to salons and plastic surgery with some story events."
     Version="1.3" Path="SexyBastardo/sb_BeautyExpansion-1.3.zip"/>
-
+    
     <Mod Id="sb_BetterPregnancy" Name="Better Pregnancy (Pregnancy Improvement)" 
+    Description="This is a HUGE addition to base pregnancy (around 1200% more content, not a joke :D)." 
     Version="1.6b" Path="SexyBastardo/sb_BetterPregnancy-1.6b.zip"/>
-
+    
     <Mod Id="sb_PimpYourGirl" Name="Pimp Your Girl (Sexwork Improvement)" Version="1.3" 
+    Description="Adding a lot of possibilities to pimp out your girls." 
     Path="SexyBastardo/sb_PimpYourGirl-1.3.zip"/>
-
+    
     <Mod Id="sb_TheNewGoodbye" Name="The New Goodbye (Date Improvements)" Version="1.0a" 
+    Description="Complete rework of the 'Say goodbye to your companion' scenes" 
     Path="SexyBastardo/sb_TheNewGoodbye-1.0a.zip"/>
-
+    
+    <Mod Id="sb_PartyAndNightlife" Name="Party And Nightlife (House Party and Events)" Version="1.0" 
+    Description="Improves the house party and adds new nightlife stuff."
+    Path="SexyBastardo/sb_PartyAndNightlife-1.0.zip"/>
+    
+    <Mod Id="sb_WeightAndFitness" Name="Body Weight and Fitness" Version="1.0" 
+    Description="Adds weight gain and loss for player and NPCs"
+    Path="SexyBastardo/sb_WeightAndFitness-1.0.zip"/>
+    
     <!-- LostLegends Mods -->
     <Mod Id="LL_SlaveTrainer" Name="LL Slaver Trainer Mod" Version="3.4" 
-	Description="Dungeon and Harem Mod"
+    Description="Dungeon and Harem Mod by LostLegends" 
     Path="LostLegends/LL_SlaveTrainer.zip"/>
-	
-	<Mod Id="LL_MagicMod" Name="LL Magic Mod" Version="0.2.7" 
-	Description="You find a long lost grimoire. Learn spells as you level up, increase mana..."
+    
+    <Mod Id="LL_MagicMod" Name="LL Magic Mod" Version="0.2.7" 
+    Description="You find a long lost grimoire. Learn spells as you level up, increase mana etc." 
     Path="LostLegends/LL_MagicMod-0.2.7.zip"/>
-	
-	<Mod Id="LL_ActiveMods" Name="LL SugarDaddy++" Version="(15/01/2020)" 
-	Description="Have up to 5 suger babes. Fully functioning date system."
-    Path="LostLegends/LL_ActiveMods.zip"/>    
-	
-	<!-- Vima's Mods -->
+    
+    <Mod Id="LL_ActiveMods" Name="LL SugarDaddy++" Version="(15/01/2020)" 
+    Description="Have up to 5 suger babes. Fully functioning date system." 
+    Path="LostLegends/LL_ActiveMods.zip"/>
+    
+    <Mod Id="LL_setReleationship" Name="LL Set Releationship" Version="2.0" 
+    Description="Lets you set the releationship of two NPCs." 
+    Path="LostLegends/LL_setRelationship.zip"/>
+    
+    <!-- Vima's Mods -->
     <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.1" 
-    Description="10 bed room presets for you (updated: 23.01.2020)" Path="Vima/vim_RoomPresets.zip"/>
-
+    Description="10 bed room presets for you (updated: 23.01.2020)" 
+    Path="Vima/vim_RoomPresets.zip"/>
+    
     <!-- Yarla's Mods -->
     <Mod Id="yarla_CharacterPack1" Name="Yarla's Character Pack" 
-    Description="20 male and female character presets" Version="1.1" Path="Yarla/yarla_characterpack.zip"/>
-
+    Description="20 male and female character presets" 
+    Version="1.1" Path="Yarla/yarla_characterpack.zip"/>
+    
     <Mod Id="yarla_CharacterPack2" Name="Yarla's Character Pack 2" 
-    Description="28 male and female character presets" Version="1.0" Path="Yarla/yarla_characterpack2.zip"/>
+    Description="28 male and female character presets" 
+    Version="1.0" Path="Yarla/yarla_characterpack2.zip"/>
 </Repo>
