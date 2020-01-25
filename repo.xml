@@ -26,7 +26,7 @@
     Description="Improves the house party and adds new nightlife stuff."
     Path="SexyBastardo/sb_PartyAndNightlife-1.0.zip"/>
     
-    <Mod Id="sb_WeightAndFitness" Name="Body Weight and Fitness" Version="1.0" 
+    <Mod Id="sb_WeightAndFitness" Name="Body Weight and Fitness" Version="V1.0" 
     Description="Adds weight gain and loss for player and NPCs"
     Path="SexyBastardo/sb_WeightAndFitness-1.0.zip"/>
     
@@ -60,4 +60,11 @@
     <Mod Id="yarla_CharacterPack2" Name="Yarla's Character Pack 2" 
     Description="28 male and female character presets" 
     Version="1.0" Path="Yarla/yarla_characterpack2.zip"/>
+    
+    <!-- n1ck's mods -->
+    <Mod Id="n1ck_DazPresets" Name="n1cks character presets" 
+    Description="13 male and female characters and 44 presets" 
+    Version="1.0" Path="n1ck/n1ck_DazPresets.zip"/>
+    
+    
 </Repo>
