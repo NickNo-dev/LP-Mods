@@ -19,10 +19,19 @@
     Path="SexyBastardo/sb_TheNewGoodbye-1.0a.zip"/>
 
     <!-- LostLegends Mods -->
-    <Mod Id="LL_SlaveTrainer" Name="LL Slaver Trainer Mod" Version="3.3" 
-    Path="LostLegends/LL_SlaveTrainer-3.3.zip"/>
-
-    <!-- Vima's Mods -->
+    <Mod Id="LL_SlaveTrainer" Name="LL Slaver Trainer Mod" Version="3.4" 
+	Description="Dungeon and Harem Mod"
+    Path="LostLegends/LL_SlaveTrainer.zip"/>
+	
+	<Mod Id="LL_MagicMod" Name="LL Magic Mod" Version="0.2.7" 
+	Description="You find a long lost grimoire. Learn spells as you level up, increase mana..."
+    Path="LostLegends/LL_MagicMod-0.2.7.zip"/>
+	
+	<Mod Id="LL_ActiveMods" Name="LL SugarDaddy++" Version="(15/01/2020)" 
+	Description="Have up to 5 suger babes. Fully functioning date system."
+    Path="LostLegends/LL_ActiveMods.zip"/>    
+	
+	<!-- Vima's Mods -->
     <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.1" 
     Description="10 bed room presets for you (updated: 23.01.2020)" Path="Vima/vim_RoomPresets.zip"/>
 
