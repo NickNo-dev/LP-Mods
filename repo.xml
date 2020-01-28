@@ -32,23 +32,6 @@
     Description="Adds weight gain and loss for player and NPCs"
     Path="SexyBastardo/sb_WeightAndFitness-1.0.zip"/>
     
-    <!-- LostLegends Mods -->
-    <Mod Id="LL_SlaveTrainer" Name="LL Slaver Trainer Mod" Version="3.4" 
-    Description="Dungeon and Harem Mod by LostLegends" 
-    Path="LostLegends/LL_SlaveTrainer.zip"/>
-    
-    <Mod Id="LL_MagicMod" Name="LL Magic Mod" Version="0.2.7" 
-    Description="You find a long lost grimoire. Learn spells as you level up, increase mana etc." 
-    Path="LostLegends/LL_MagicMod-0.2.7.zip"/>
-    
-    <Mod Id="LL_ActiveMods" Name="LL SugarDaddy++" Version="(15/01/2020)" 
-    Description="Have up to 5 suger babes. Fully functioning date system." 
-    Path="LostLegends/LL_ActiveMods.zip"/>
-    
-    <Mod Id="LL_setReleationship" Name="LL Set Releationship" Version="2.0" 
-    Description="Lets you set the releationship of two NPCs." 
-    Path="LostLegends/LL_setRelationship.zip"/>
-    
     <!-- tkwas' mods -->
     <Mod Id="r8kie_additional_activities" Name="Additional Scenes" Version="31.10.2019" 
     Description="Add additional scenes during all type of activities." 
