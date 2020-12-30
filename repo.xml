@@ -11,9 +11,9 @@
     Path="NickNo/nn_NPCManager_1.2.zip" 
     Description="Manage NPCs, Relatives, Relationships etc. Use with care!"/>
     
-    <Mod Id="nn_HomeExpander" Name="NickNo's Home Expander" Version="0.2 Beta" 
-    Path="NickNo/nn_HomeExpander-0.2.zip" 
-    Description="Add more rooms to your home."/>
+    <Mod Id="nn_HomeExpander" Name="NickNo's Home Extensions" Version="0.3 Beta" 
+    Path="NickNo/nn_HomeExpander-0.3.zip" 
+    Description="Add more rooms and life to your home."/>
     
     <!-- SexyBastatrdo's Mods -->
     <Mod Id="sb_BeautyExpansion" Name="Beauty Expansion (Plastic Surgery)" 
