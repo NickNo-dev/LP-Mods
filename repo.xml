@@ -7,8 +7,8 @@
     Description="Run your own porn company in LifePlay."
     Msg="Thanks for installing PornEmpire! If you find any bugs, please report on F95 or Discord. Thanks. - NickNo"/>
     
-    <Mod Id="nn_NPCManager" Name="NickNo's NPC Manager" Version="1.3" 
-    Path="NickNo/nn_NPCManager-1.3.zip" 
+    <Mod Id="nn_NPCManager" Name="NickNo's NPC Manager" Version="1.4" 
+    Path="NickNo/nn_NPCManager-1.4.zip" 
     Description="Manage NPCs, Relatives, Relationships etc. Use with care!"/>
     
     <Mod Id="nn_HomeExpander" Name="NickNo's Home Extensions" Version="0.3 Beta" 
