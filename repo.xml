@@ -18,7 +18,7 @@
     <!-- Rizean's Mods+Tools -->
     <Mod Id="ri_patches" Name="Rizean's Patches" 
     Description="Fixes bugs in many different mods. (sb_BetterPregnancy, sb_PartyAndNightlife, sb_PimpYourGirl, sb_TheNewGoodbye)"
-    Version="1.0" Path="https://github.com/Rizean/ri_patches/blob/main/dist/ri_patches.zip"/>
+    Version="1.0" Path="https://github.com/Rizean/ri_patches/raw/main/dist/ri_patches.zip"/>
     
     <!-- SexyBastatrdo's Mods -->
     <Mod Id="sb_BeautyExpansion" Name="Beauty Expansion (Plastic Surgery)" 
