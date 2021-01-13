@@ -15,6 +15,11 @@
     Path="NickNo/nn_HomeExpander-0.4.zip" 
     Description="Add more rooms and life to your home."/>
     
+    <!-- Rizean's Mods+Tools -->
+    <Mod Id="ri_patches" Name="Rizean's Patches" 
+    Description="Fixes bugs in many different mods."
+    Version="1.0" Path="https://github.com/Rizean/ri_patches/blob/main/dist/ri_patches.zip"/>
+    
     <!-- SexyBastatrdo's Mods -->
     <Mod Id="sb_BeautyExpansion" Name="Beauty Expansion (Plastic Surgery)" 
     Description="Adds different beauty treatments to salons and plastic surgery with some story events."
