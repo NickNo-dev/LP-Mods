@@ -21,7 +21,7 @@
     Description="Fixes bugs in many different mods. (sb_BetterPregnancy, sb_PartyAndNightlife, sb_PimpYourGirl, sb_TheNewGoodbye)"
     Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patches.zip"/ -->
     
-    <Mod Id="ri_patches" Name="Rizean's Better Bregnancy patches" 
+    <Mod Id="ri_patches" Name="Rizean's Better Pregnancy patches" 
     Description="Fixes bugs in 'Better Pregnancy (Pregnancy Improvement)'. Install after the main mod!" Depends="sb_BetterPregnancy"
     Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_BetterPregnancy.zip"/>
     
