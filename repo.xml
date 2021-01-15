@@ -12,6 +12,10 @@
     Path="NickNo/nn_NPCManager-1.5.zip" 
     Description="Manage NPCs, Relatives, Relationships etc. Use with care!"/>
     
+    <Mod Id="nn_NPCManager" Name="NickNo's NPC Manager" Version="1.6" 
+    Path="NickNo/nn_NPCManager-1.6.zip" 
+    Description="Manage NPCs, Relatives, Relationships etc. Use with care!"/>
+    
     <Mod Id="nn_HomeExpander" Name="NickNo's Home Extensions" Version="0.4 Beta" 
     Path="NickNo/nn_HomeExpander-0.4.zip" 
     Description="Add more rooms and life to your home."/>
