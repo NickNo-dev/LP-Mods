@@ -21,21 +21,25 @@
     Description="Fixes bugs in many different mods. (sb_BetterPregnancy, sb_PartyAndNightlife, sb_PimpYourGirl, sb_TheNewGoodbye)"
     Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patches.zip"/ -->
     
-    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean's Better Pregnancy patches" 
+    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean's Better Pregnancy patches (bugfixes)" 
     Description="Fixes bugs in 'Better Pregnancy (Pregnancy Improvement)'. Install after the main mod!" Depends="sb_BetterPregnancy"
-    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_BetterPregnancy.zip"/>
+    Version="p1.6b" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_BetterPregnancy.zip"
+    Msg="This mod will patch/overwrite the original better pregnancy mod. Install the original to revert the patch."/>
     
-    <Mod Id="ri_patch_sb_PartyAndNightlife" Name="Rizean's Party and Nightlife patches" 
+    <Mod Id="ri_patch_sb_PartyAndNightlife" Name="Rizean's Party and Nightlife patches (bugfixes)" 
     Description="Fixes bugs in 'Party And Nightlife (House Party and Events)'. Install after the main mod!" Depends="sb_PartyAndNightlife"
-    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PartyAndNightlife.zip"/>
+    Version="p1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PartyAndNightlife.zip"
+    Msg="This mod will patch/overwrite the original party and nightlife mod. Install the original to revert the patch."/>
     
-    <Mod Id="ri_patch_sb_PimpYourGirl" Name="Rizean's Pimp your Girl patches" 
+    <Mod Id="ri_patch_sb_PimpYourGirl" Name="Rizean's Pimp your Girl patches (bugfixes)" 
     Description="Fixes bugs in 'Pimp Your Girl (Sexwork Improvement)'. Install after the main mod!" Depends="sb_PimpYourGirl"
-    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PimpYourGirl.zip"/>
+    Version="p1.3" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PimpYourGirl.zip"
+    Msg="This mod will patch/overwrite the original pimp your girl mod. Install the original to revert the patch."/>
 
-    <Mod Id="ri_patch_sb_TheNewGoodbye" Name="Rizean's The New Goodbye patches" 
+    <Mod Id="ri_patch_sb_TheNewGoodbye" Name="Rizean's The New Goodbye patches (bugfixes)" 
     Description="Fixes bugs in 'The New Goodbye (Date Improvements)'. Install after the main mod!" Depends="sb_TheNewGoodbye"
-    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_TheNewGoodbye.zip"/>
+    Version="p1.0a" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_TheNewGoodbye.zip"
+    Msg="This mod will patch/overwrite the original the new goodbye mod. Install the original to revert the patch."/>
     
     <!-- SexyBastatrdo's Mods -->
     <Mod Id="sb_BeautyExpansion" Name="SexyBastardo's Beauty Expansion (Plastic Surgery)" 
