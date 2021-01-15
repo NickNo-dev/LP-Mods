@@ -17,42 +17,58 @@
     Description="Add more rooms and life to your home."/>
     
     <!-- Rizean's Mods+Tools -->
-    <Mod Id="ri_patches" Name="Rizean's Patches" 
+    <!-- Mod Id="ri_patches" Name="Rizean's Patches" 
     Description="Fixes bugs in many different mods. (sb_BetterPregnancy, sb_PartyAndNightlife, sb_PimpYourGirl, sb_TheNewGoodbye)"
-    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patches.zip"/>
+    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patches.zip"/ -->
+    
+    <Mod Id="ri_patches" Name="Rizean's Better Bregnancy patches" 
+    Description="Fixes bugs in 'Better Pregnancy (Pregnancy Improvement)'. Install after the main mod!" Depends="sb_BetterPregnancy"
+    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_BetterPregnancy.zip"/>
+    
+    <Mod Id="ri_patches" Name="Rizean's Party and Nightlife patches" 
+    Description="Fixes bugs in 'Party And Nightlife (House Party and Events)'. Install after the main mod!" Depends="sb_PartyAndNightlife"
+    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PartyAndNightlife.zip"/>
+    
+    <Mod Id="ri_patches" Name="Rizean's Pimp your Girl patches" 
+    Description="Fixes bugs in 'Pimp Your Girl (Sexwork Improvement)'. Install after the main mod!" Depends="sb_PimpYourGirl"
+    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PimpYourGirl.zip"/>
+
+    <Mod Id="ri_patches" Name="Rizean's The New Goodbye patches" 
+    Description="Fixes bugs in 'The New Goodbye (Date Improvements)'. Install after the main mod!" Depends="sb_TheNewGoodbye"
+    Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_TheNewGoodbye.zip"/>
     
     <!-- SexyBastatrdo's Mods -->
-    <Mod Id="sb_BeautyExpansion" Name="Beauty Expansion (Plastic Surgery)" 
+    <Mod Id="sb_BeautyExpansion" Name="SexyBastardo's Beauty Expansion (Plastic Surgery)" 
     Description="Adds different beauty treatments to salons and plastic surgery with some story events."
     Version="1.3" Path="SexyBastardo/sb_BeautyExpansion-1.3.zip"/>
     
-    <Mod Id="sb_BetterPregnancy" Name="Better Pregnancy (Pregnancy Improvement)" 
+    <Mod Id="sb_BetterPregnancy" Name="SexyBastardo's Better Pregnancy (Pregnancy Improvement)" 
     Description="This is a HUGE addition to base pregnancy (around 1200% more content, not a joke :D)." 
     Version="1.6b" Path="SexyBastardo/sb_BetterPregnancy-1.6b.zip"/>
     
-    <Mod Id="sb_PimpYourGirl" Name="Pimp Your Girl (Sexwork Improvement)" Version="1.3" 
+    <Mod Id="sb_PimpYourGirl" Name="SexyBastardo's Pimp Your Girl (Sexwork Improvement)" Version="1.3" 
     Description="Adding a lot of possibilities to pimp out your girls." 
     Path="SexyBastardo/sb_PimpYourGirl-1.3.zip"/>
     
-    <Mod Id="sb_TheNewGoodbye" Name="The New Goodbye (Date Improvements)" Version="1.0a" 
+    <Mod Id="sb_TheNewGoodbye" Name="SexyBastardo's The New Goodbye (Date Improvements)" Version="1.0a" 
     Description="Complete rework of the 'Say goodbye to your companion' scenes" 
     Path="SexyBastardo/sb_TheNewGoodbye-1.0a.zip"/>
     
-    <Mod Id="sb_PartyAndNightlife" Name="Party And Nightlife (House Party and Events)" Version="1.0" 
+    <Mod Id="sb_PartyAndNightlife" Name="SexyBastardo's Party And Nightlife (House Party and Events)" Version="1.0" 
     Description="Improves the house party and adds new nightlife stuff."
     Path="SexyBastardo/sb_PartyAndNightlife-1.0.zip"/>
     
-    <Mod Id="sb_WeightAndFitness" Name="Body Weight and Fitness" Version="V1.0" 
+    <Mod Id="sb_WeightAndFitness" Name="SexyBastardo's Body Weight and Fitness" Version="V1.0" 
     Description="Adds weight gain and loss for player and NPCs"
     Path="SexyBastardo/sb_WeightAndFitness-1.0.zip"/>
     
     <!-- tkwas' mods -->
-    <Mod Id="r8kie_additional_activities" Name="Additional Scenes" Version="31.10.2019" 
+    <Mod Id="r8kie_additional_activities" Name="r8kie's Additional Scenes" Version="31.10.2019" 
     Description="Add additional scenes during all type of activities." 
     Path="tkwas/r8kie_additional_activities.zip"/>
     
     <!-- VinnyB's mods -->
-    <Mod Id="breaking_not_bad" Name="Better Breakups" Version="v2" 
+    <Mod Id="breaking_not_bad" Name="VinnyB's Better Breakups" Version="v2" 
     Description="Adds and modifies some events so that NPC breakups happen with or without you." 
     Path="VinnyB/breaking_not_bad.zip"/>
     
@@ -71,7 +87,7 @@
     Version="1.0" Path="Yarla/yarla_characterpack2.zip"/>
     
     <!-- n1ck's mods -->
-    <Mod Id="n1ck_DazPresets" Name="n1cks character presets" 
+    <Mod Id="n1ck_DazPresets" Name="n1ck's character presets" 
     Description="13 male and female characters and 44 presets" 
     Version="1.0" Path="n1ck/n1ck_DazPresets.zip"/>
     
