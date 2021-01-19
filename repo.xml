@@ -16,8 +16,8 @@
     Path="NickNo/nn_HomeExpander-0.4.zip" 
     Description="Add more rooms and life to your home."/>
     
-    <Mod Id="nn_GangsOfLifePlay" Name="NickNo's Gangs of LifePlay: Kingpin" Version="0.1 Beta" 
-    Path="NickNo/nn_GangsOfLifePlay-0.1.zip" 
+    <Mod Id="nn_GangsOfLifePlay" Name="NickNo's Gangs of LifePlay: Kingpin" Version="0.2 Beta" 
+    Path="NickNo/nn_GangsOfLifePlay-0.2.zip" 
     Description="You are the boss. The crime boss!"/>
     
     <!-- Rizean's Mods+Tools -->
