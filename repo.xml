@@ -153,9 +153,9 @@
     Description="Contain 3 shops - Arts - Bank and Jewelry shop" Depends="vim_RoomPresets"
     Path="Raddeck/rk_MoneyMaker-1.0.1.zip"/>
     
-    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.0.2"
+    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.0.3"
     Description="Add more funny/silly interactions to the game!"
-    Path="Raddeck/rk_MoreInteractions-1.0.2.zip"/>
+    Path="Raddeck/rk_MoreInteractions-1.0.3.zip"/>
     
     <Mod Id="rk_MoreRides" Name="Raddeck's More Rides Module" Version="1.0.1"
     Description="Give the option to buy/sell/trade a bike and/or motorcycle!"
