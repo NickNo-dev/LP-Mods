@@ -134,6 +134,10 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_EroticShop-1.0.1.zip"/>
     
+    <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.0"
+    Description="The mod for cheating in LifePlay!"
+    Path="Raddeck/rk_God_Mod-1.0.0.zip"/>
+    
     <Mod Id="rk_IceCreamShop" Name="Raddeck's Ice Cream Shop Module" Version="1.0.1"
     Description="Give the option to buy/eat ice cream desserts!"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
