@@ -175,9 +175,9 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_SeaFoodShop-1.0.1.zip"/>
     
-    <Mod Id="rk_ShopAddons" Name="Raddeck's Shop Add-On Module" Version="1.0.1"
-    Description="Add more stores - Contain 11 shops - Eating/drinking/smoking/sex-shop!"
-    Path="Raddeck/rk_ShopAddons-1.0.1.zip"/>
+    <Mod Id="rk_ShopAddons" Name="Raddeck's Shop Add-On Module" Version="1.0.2"
+    Description="Add more stuffs inside stores - Contain 11 shops - Eating/drinking/smoking/sex-shop!"
+    Path="Raddeck/rk_ShopAddons-1.0.2.zip"/>
     
     <Mod Id="rk_VapeShop" Name="Raddeck's Vape Shop Module" Version="1.0.1"
     Description="Add options to buy/smoke vape juices!"
