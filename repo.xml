@@ -209,10 +209,10 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_VeganShop-1.0.2.zip"/>
     
-    <Mod Id="rk_Weed_biz" Name="Raddeck's Weed Business Module" Version="1.0.4"
+    <Mod Id="rk_Weed_biz" Name="Raddeck's Weed Business Module" Version="1.0.5"
     Description="Start your own weed business, make more money!" Depends="nn_GangsOfLifePlay"
     Msg="ATTENTION: You need rk_Personal_Inventories mod to be enable. If you enable the Weed Shop Mod, you will have more locations to buy weed"
-    Path="Raddeck/rk_Weed_biz-1.0.4.zip"/>
+    Path="Raddeck/rk_Weed_biz-1.0.5.zip"/>
     
     <Mod Id="rk_WeedShop" Name="Raddeck's Weed Shop Module" Version="1.0.2"
     Description="You can buy and smoke weed at different places!" Depends="rk_Personal_Inventories"
