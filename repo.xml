@@ -194,6 +194,11 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_SeaFoodShop-1.0.2.zip"/>
     
+    <Mod Id="rk_Sex_Guru" Name="Raddeck's Sex Guru Module" Version="1.0.0"
+    Description="Start your own religious community!" Depends="rk_Home_Inventories"
+    Msg="ATTENTION: You also need these mods (rk_ShopAddons and rk_MoneyMaker)"
+    Path="Raddeck/rk_Sex_Guru-1.0.0.zip"/>
+    
     <Mod Id="rk_ShopAddons" Name="Raddeck's Shop Add-On Module" Version="1.0.4"
     Description="Add more stuffs inside stores - Contain 11 shops - Eating/drinking/smoking/sex-shop!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: You also need rk_Personal_Inventories mod to be enable."
