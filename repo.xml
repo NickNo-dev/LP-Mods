@@ -167,10 +167,10 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Mobile_Shop-1.0.3.zip"/>
     
-    <Mod Id="rk_MoneyMaker" Name="Raddeck's Money Maker Module" Version="1.0.2"
+    <Mod Id="rk_MoneyMaker" Name="Raddeck's Money Maker Module" Version="1.0.3"
     Description="Contain 3 shops - Arts - Bank and Jewelry shop" Depends="vim_RoomPresets"
     Msg="You also need rk_Home_Inventories mod to be enable."
-    Path="Raddeck/rk_MoneyMaker-1.0.2.zip"/>
+    Path="Raddeck/rk_MoneyMaker-1.0.3.zip"/>
     
     <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.0.7"
     Description="Add more funny/silly interactions to the game!"
