@@ -143,7 +143,7 @@
     Description="The mod for cheating in LifePlay!"
     Path="Raddeck/rk_God_Mod-1.0.1.zip"/>
     
-    <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Iventories Mod" Version="1.0.3"
+    <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Inventories Mod" Version="1.0.3"
     Description="Better way to store your items - Focused on my mods items!"
     Path="Raddeck/rk_Home_Inventories-1.0.3.zip"/>
     
@@ -180,9 +180,9 @@
     Description="Give the option to buy/sell/trade a bike and/or motorcycle!" Depends="rk_Home_Inventories"
     Path="Raddeck/rk_MoreRides-1.0.3.zip"/>
     
-    <Mod Id="rk_Personal_Inventories" Name="Raddeck's Personal Iventories Mod" Version="1.0.3"
+    <Mod Id="rk_Personal_Inventories" Name="Raddeck's Personal Inventories Mod" Version="1.0.4"
     Description="Better way to store your personal items - Focused on my mods items!"
-    Path="Raddeck/rk_Personal_Inventories-1.0.3.zip"/>
+    Path="Raddeck/rk_Personal_Inventories-1.0.4.zip"/>
     
     <Mod Id="rk_PopCornsShop" Name="Raddeck's Popcorns Shop Module" Version="1.0.2"
     Description="Give the option to buy/eat Popcorns!" Depends="rk_Home_Inventories"
