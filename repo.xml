@@ -139,9 +139,9 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_EroticShop-1.0.4.zip"/>
     
-    <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.1"
+    <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.2"
     Description="The mod for cheating in LifePlay!"
-    Path="Raddeck/rk_God_Mod-1.0.1.zip"/>
+    Path="Raddeck/rk_God_Mod-1.0.2.zip"/>
     
     <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Inventories Mod" Version="1.0.3"
     Description="Better way to store your items - Focused on my mods items!"
