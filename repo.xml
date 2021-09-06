@@ -139,9 +139,9 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_EroticShop-1.0.4.zip"/>
     
-    <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.2"
+    <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.3"
     Description="The mod for cheating in LifePlay!"
-    Path="Raddeck/rk_God_Mod-1.0.2.zip"/>
+    Path="Raddeck/rk_God_Mod-1.0.3.zip"/>
     
     <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Inventories Mod" Version="1.0.4"
     Description="Better way to store your items - Focused on my mods items!"
@@ -172,13 +172,17 @@
     Msg="You also need rk_Home_Inventories mod to be enable."
     Path="Raddeck/rk_MoneyMaker-1.0.3.zip"/>
     
-    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.0.10"
+    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.0.11"
     Description="Add more funny/silly interactions to the game!"
-    Path="Raddeck/rk_MoreInteractions-1.0.10.zip"/>
+    Path="Raddeck/rk_MoreInteractions-1.0.11.zip"/>
     
     <Mod Id="rk_MoreRides" Name="Raddeck's More Rides Module" Version="1.0.7"
     Description="Give the option to buy/sell/trade a bike, car and/or motorcycle!" Depends="rk_Home_Inventories"
     Path="Raddeck/rk_MoreRides-1.0.7.zip"/>
+    
+    <Mod Id="rk_My_Neighbors" Name="Raddeck's My Neighbors Module" Version="1.0.0"
+    Description="Different stories with your neighbors!"
+    Path="Raddeck/rk_My_Neighbors-1.0.0.zip"/>
     
     <Mod Id="rk_Personal_Inventories" Name="Raddeck's Personal Inventories Mod" Version="1.0.4"
     Description="Better way to store your personal items - Focused on my mods items!"
