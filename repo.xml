@@ -172,9 +172,9 @@
     Msg="You also need rk_Home_Inventories mod to be enable."
     Path="Raddeck/rk_MoneyMaker-1.0.3.zip"/>
     
-    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.0.11"
+    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.1.0"
     Description="Add more funny/silly interactions to the game!"
-    Path="Raddeck/rk_MoreInteractions-1.0.11.zip"/>
+    Path="Raddeck/rk_MoreInteractions-1.1.0.zip"/>
     
     <Mod Id="rk_MoreRides" Name="Raddeck's More Rides Module" Version="1.0.7"
     Description="Give the option to buy/sell/trade a bike, car and/or motorcycle!" Depends="rk_Home_Inventories"
