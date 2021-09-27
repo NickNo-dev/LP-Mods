@@ -143,9 +143,9 @@
     Description="The mod for cheating in LifePlay!"
     Path="Raddeck/rk_God_Mod-1.0.3.zip"/>
     
-    <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Inventories Mod" Version="1.0.4"
+    <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Inventories Mod" Version="1.0.5"
     Description="Better way to store your items - Focused on my mods items!"
-    Path="Raddeck/rk_Home_Inventories-1.0.4.zip"/>
+    Path="Raddeck/rk_Home_Inventories-1.0.5.zip"/>
     
     <Mod Id="rk_IceCreamShop" Name="Raddeck's Ice Cream Shop Module" Version="1.0.2"
     Description="Give the option to buy/eat ice cream desserts!" Depends="rk_Home_Inventories"
