@@ -109,10 +109,10 @@
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Art_items_Shop-1.0.4.zip"/>
     
-    <Mod Id="rk_BakeryShop" Name="Raddeck's Bakery Shop Module" Version="1.0.3" 
+    <Mod Id="rk_BakeryShop" Name="Raddeck's Bakery Shop Module" Version="1.0.4" 
     Description="Give the option to buy/eat pastry and bread!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_BakeryShop-1.0.3.zip"/>
+    Path="Raddeck/rk_BakeryShop-1.0.4.zip"/>
     
     <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.1" 
     Description="Give the option to deposit/withdrawn your money!"
