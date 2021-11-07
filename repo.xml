@@ -104,10 +104,10 @@
     Version="1.0" Path="n1ck/n1ck_DazPresets.zip"/>
     
     <!-- Raddeck's Mods -->
-    <Mod Id="rk_Art_items_Shop" Name="Raddeck's Art Shop Module" Version="1.0.3" 
+    <Mod Id="rk_Art_items_Shop" Name="Raddeck's Art Shop Module" Version="1.0.4" 
     Description="Give the option to buy/trade/sell art items!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_Art_items_Shop-1.0.3.zip"/>
+    Path="Raddeck/rk_Art_items_Shop-1.0.4.zip"/>
     
     <Mod Id="rk_BakeryShop" Name="Raddeck's Bakery Shop Module" Version="1.0.3" 
     Description="Give the option to buy/eat pastry and bread!" Depends="rk_Home_Inventories"
