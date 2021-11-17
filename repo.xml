@@ -25,13 +25,13 @@
     Description="Fixes bugs in many different mods. (sb_BetterPregnancy, sb_PartyAndNightlife, sb_PimpYourGirl, sb_TheNewGoodbye)"
     Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patches.zip"/ -->
 
-    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean Realism"
+    <Mod Id="ri_Realism" Name="Rizean Realism"
          Description="Realism - Overrides many actions to add a degree of realism i.e., perversion 0 can't whore them self's out. This should be the first mod you load to give other mods the chance to override it."
          Depends=""
          Version="0.1.0"
          Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/build/rizean_realism_0.1.0.zip"/>
 
-    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean CNC/BDSM"
+    <Mod Id="ri_CNC_BDSM" Name="Rizean CNC/BDSM"
          Description="CNC/BDSM - Adds new scenes and overrides/expands some core scenes with more options."
          Depends=""
          Version="0.0.1"
