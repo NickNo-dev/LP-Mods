@@ -1,232 +1,243 @@
 <Repo>
     <!-- #Current LifePlay Version: 3.20 -->
     <!-- #Current Launcher Version: 1.4.4 -->
-    
+
     <!-- NickNo's Mods -->
-    <Mod Id="nn_PornEmpire" Name="NickNo's Porn Empire" Version="0.7 Beta" 
-    Path="NickNo/nn_PornEmpire-0.7.zip" 
+    <Mod Id="nn_PornEmpire" Name="NickNo's Porn Empire" Version="0.7 Beta"
+    Path="NickNo/nn_PornEmpire-0.7.zip"
     Description="Run your own porn company in LifePlay."
     Msg="Thanks for installing PornEmpire! If you find any bugs, please report on F95 or Discord. Thanks. - NickNo"/>
-    
-    <Mod Id="nn_NPCManager" Name="NickNo's NPC Manager" Version="1.6" 
-    Path="NickNo/nn_NPCManager-1.6.zip" 
+
+    <Mod Id="nn_NPCManager" Name="NickNo's NPC Manager" Version="1.6"
+    Path="NickNo/nn_NPCManager-1.6.zip"
     Description="Manage NPCs, Relatives, Relationships etc. Use with care!"/>
-    
-    <Mod Id="nn_HomeExpander" Name="NickNo's Home Extensions" Version="0.4 Beta" 
-    Path="NickNo/nn_HomeExpander-0.4.zip" 
+
+    <Mod Id="nn_HomeExpander" Name="NickNo's Home Extensions" Version="0.4 Beta"
+    Path="NickNo/nn_HomeExpander-0.4.zip"
     Description="Add more rooms and life to your home."/>
-    
-    <Mod Id="nn_GangsOfLifePlay" Name="NickNo's Gangs of LifePlay: Kingpin" Version="0.2 Beta" 
-    Path="NickNo/nn_GangsOfLifePlay-0.2.zip" 
+
+    <Mod Id="nn_GangsOfLifePlay" Name="NickNo's Gangs of LifePlay: Kingpin" Version="0.2 Beta"
+    Path="NickNo/nn_GangsOfLifePlay-0.2.zip"
     Description="You are the boss. The crime boss!"/>
-    
+
     <!-- Rizean's Mods+Tools -->
     <!-- Mod Id="ri_patches" Name="Rizean's Patches" 
     Description="Fixes bugs in many different mods. (sb_BetterPregnancy, sb_PartyAndNightlife, sb_PimpYourGirl, sb_TheNewGoodbye)"
     Version="1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patches.zip"/ -->
-    
-    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean's Better Pregnancy patches (bugfixes)" 
-    Description="Fixes bugs in 'Better Pregnancy (Pregnancy Improvement)'. Install after the main mod!" Depends="sb_BetterPregnancy"
-    Version="p1.6b" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_BetterPregnancy.zip"
-    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!" 
-    isPatch="1"/>
-    
-    <Mod Id="ri_patch_sb_PartyAndNightlife" Name="Rizean's Party and Nightlife patches (bugfixes)" 
-    Description="Fixes bugs in 'Party And Nightlife (House Party and Events)'. Install after the main mod!" Depends="sb_PartyAndNightlife"
-    Version="p1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PartyAndNightlife.zip"
-    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!" 
-    isPatch="1"/>
-    
-    <Mod Id="ri_patch_sb_PimpYourGirl" Name="Rizean's Pimp your Girl patches (bugfixes)" 
-    Description="Fixes bugs in 'Pimp Your Girl (Sexwork Improvement)'. Install after the main mod!" Depends="sb_PimpYourGirl"
-    Version="p1.3" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PimpYourGirl.zip"
-    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!" 
-    isPatch="1"/>
 
-    <Mod Id="ri_patch_sb_TheNewGoodbye" Name="Rizean's The New Goodbye patches (bugfixes)" 
-    Description="Fixes bugs in 'The New Goodbye (Date Improvements)'. Install after the main mod!" Depends="sb_TheNewGoodbye"
-    Version="p1.0a" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_TheNewGoodbye.zip"
-    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!" 
-    isPatch="1"/>
-    
+    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean Realism"
+         Description="Realism - Overrides many actions to add a degree of realism i.e., perversion 0 can't whore them self's out. This should be the first mod you load to give other mods the chance to override it."
+         Depends=""
+         Version="0.1.0"
+         Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/build/rizean_realism_0.1.0.zip"/>
+
+    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean CNC/BDSM"
+         Description="CNC/BDSM - Adds new scenes and overrides/expands some core scenes with more options."
+         Depends=""
+         Version="0.0.1"
+         Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/build/rizean_cnc_bdsm_0.0.1.zip"/>
+
+<!--    <Mod Id="ri_patch_sb_BetterPregnancy" Name="Rizean's Better Pregnancy patches (bugfixes)"-->
+<!--    Description="Fixes bugs in 'Better Pregnancy (Pregnancy Improvement)'. Install after the main mod!" Depends="sb_BetterPregnancy"-->
+<!--    Version="p1.6b" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_BetterPregnancy.zip"-->
+<!--    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!"-->
+<!--    isPatch="1"/>-->
+
+<!--    <Mod Id="ri_patch_sb_PartyAndNightlife" Name="Rizean's Party and Nightlife patches (bugfixes)"-->
+<!--    Description="Fixes bugs in 'Party And Nightlife (House Party and Events)'. Install after the main mod!" Depends="sb_PartyAndNightlife"-->
+<!--    Version="p1.0" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PartyAndNightlife.zip"-->
+<!--    isPatch="1"/>-->
+
+<!--    <Mod Id="ri_patch_sb_PimpYourGirl" Name="Rizean's Pimp your Girl patches (bugfixes)"-->
+<!--    Description="Fixes bugs in 'Pimp Your Girl (Sexwork Improvement)'. Install after the main mod!" Depends="sb_PimpYourGirl"-->
+<!--    Version="p1.3" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_PimpYourGirl.zip"-->
+<!--    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!"-->
+<!--    isPatch="1"/>-->
+
+<!--    <Mod Id="ri_patch_sb_TheNewGoodbye" Name="Rizean's The New Goodbye patches (bugfixes)"-->
+<!--    Description="Fixes bugs in 'The New Goodbye (Date Improvements)'. Install after the main mod!" Depends="sb_TheNewGoodbye"-->
+<!--    Version="p1.0a" Path="https://raw.githubusercontent.com/Rizean/ri_patches/main/dist/ri_patch_sb_TheNewGoodbye.zip"-->
+<!--    Msg="This mod will patch the original mod at runtime. Please ensure it is BELOW the original in the mod order!"-->
+<!--    isPatch="1"/>-->
+
     <!-- SexyBastatrdo's Mods -->
-    <Mod Id="sb_BeautyExpansion" Name="SexyBastardo's Beauty Expansion (Plastic Surgery)" 
+    <Mod Id="sb_BeautyExpansion" Name="SexyBastardo's Beauty Expansion (Plastic Surgery)"
     Description="Adds different beauty treatments to salons and plastic surgery with some story events."
     Version="1.3" Path="SexyBastardo/sb_BeautyExpansion-1.3.zip"/>
-    
-    <Mod Id="sb_BetterPregnancy" Name="SexyBastardo's Better Pregnancy (Pregnancy Improvement)" 
-    Description="This is a HUGE addition to base pregnancy (around 1200% more content, not a joke :D)." 
+
+    <Mod Id="sb_BetterPregnancy" Name="SexyBastardo's Better Pregnancy (Pregnancy Improvement)"
+    Description="This is a HUGE addition to base pregnancy (around 1200% more content, not a joke :D)."
     Version="1.6b" Path="SexyBastardo/sb_BetterPregnancy-1.6b.zip"/>
-    
-    <Mod Id="sb_PimpYourGirl" Name="SexyBastardo's Pimp Your Girl (Sexwork Improvement)" Version="1.3" 
-    Description="Adding a lot of possibilities to pimp out your girls." 
+
+    <Mod Id="sb_PimpYourGirl" Name="SexyBastardo's Pimp Your Girl (Sexwork Improvement)" Version="1.3"
+    Description="Adding a lot of possibilities to pimp out your girls."
     Path="SexyBastardo/sb_PimpYourGirl-1.3.zip"/>
-    
-    <Mod Id="sb_TheNewGoodbye" Name="SexyBastardo's The New Goodbye (Date Improvements)" Version="1.0a" 
-    Description="Complete rework of the 'Say goodbye to your companion' scenes" 
+
+    <Mod Id="sb_TheNewGoodbye" Name="SexyBastardo's The New Goodbye (Date Improvements)" Version="1.0a"
+    Description="Complete rework of the 'Say goodbye to your companion' scenes"
     Path="SexyBastardo/sb_TheNewGoodbye-1.0a.zip"/>
-    
-    <Mod Id="sb_PartyAndNightlife" Name="SexyBastardo's Party And Nightlife (House Party and Events)" Version="1.0" 
+
+    <Mod Id="sb_PartyAndNightlife" Name="SexyBastardo's Party And Nightlife (House Party and Events)" Version="1.0"
     Description="Improves the house party and adds new nightlife stuff."
     Path="SexyBastardo/sb_PartyAndNightlife-1.0.zip"/>
-    
-    <Mod Id="sb_WeightAndFitness" Name="SexyBastardo's Body Weight and Fitness" Version="V1.0" 
+
+    <Mod Id="sb_WeightAndFitness" Name="SexyBastardo's Body Weight and Fitness" Version="V1.0"
     Description="Adds weight gain and loss for player and NPCs"
     Path="SexyBastardo/sb_WeightAndFitness-1.0.zip"/>
-    
+
     <!-- tkwas' mods -->
-    <Mod Id="r8kie_additional_activities" Name="r8kie's Additional Scenes" Version="31.10.2019" 
-    Description="Add additional scenes during all type of activities." 
+    <Mod Id="r8kie_additional_activities" Name="r8kie's Additional Scenes" Version="31.10.2019"
+    Description="Add additional scenes during all type of activities."
     Path="tkwas/r8kie_additional_activities.zip"/>
-    
+
     <!-- VinnyB's mods -->
-    <Mod Id="breaking_not_bad" Name="VinnyB's Better Breakups" Version="v2" 
-    Description="Adds and modifies some events so that NPC breakups happen with or without you." 
+    <Mod Id="breaking_not_bad" Name="VinnyB's Better Breakups" Version="v2"
+    Description="Adds and modifies some events so that NPC breakups happen with or without you."
     Path="VinnyB/breaking_not_bad.zip"/>
-    
+
     <!-- Vima's Mods -->
-    <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.1" 
-    Description="10 bed room presets for you (updated: 23.01.2020)" 
+    <Mod Id="vim_RoomPresets" Name="Vima's Bedroom Presets" Version="1.1"
+    Description="10 bed room presets for you (updated: 23.01.2020)"
     Path="Vima/vim_RoomPresets.zip"/>
-    
+
     <!-- Yarla's Mods -->
-    <Mod Id="yarla_CharacterPack1" Name="Yarla's Character Pack" 
-    Description="20 male and female character presets" 
+    <Mod Id="yarla_CharacterPack1" Name="Yarla's Character Pack"
+    Description="20 male and female character presets"
     Version="1.1" Path="Yarla/yarla_characterpack.zip"/>
-    
-    <Mod Id="yarla_CharacterPack2" Name="Yarla's Character Pack 2" 
-    Description="28 male and female character presets" 
+
+    <Mod Id="yarla_CharacterPack2" Name="Yarla's Character Pack 2"
+    Description="28 male and female character presets"
     Version="1.0" Path="Yarla/yarla_characterpack2.zip"/>
-    
+
     <!-- n1ck's mods -->
-    <Mod Id="n1ck_DazPresets" Name="n1ck's character presets" 
-    Description="13 male and female characters and 44 presets" 
+    <Mod Id="n1ck_DazPresets" Name="n1ck's character presets"
+    Description="13 male and female characters and 44 presets"
     Version="1.0" Path="n1ck/n1ck_DazPresets.zip"/>
-    
+
     <!-- Raddeck's Mods -->
-    <Mod Id="rk_Art_items_Shop" Name="Raddeck's Art Shop Module" Version="1.0.4" 
+    <Mod Id="rk_Art_items_Shop" Name="Raddeck's Art Shop Module" Version="1.0.4"
     Description="Give the option to buy/trade/sell art items!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Art_items_Shop-1.0.4.zip"/>
-    
-    <Mod Id="rk_BakeryShop" Name="Raddeck's Bakery Shop Module" Version="1.0.4" 
+
+    <Mod Id="rk_BakeryShop" Name="Raddeck's Bakery Shop Module" Version="1.0.4"
     Description="Give the option to buy/eat pastry and bread!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_BakeryShop-1.0.4.zip"/>
-    
-    <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.1" 
+
+    <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.1"
     Description="Give the option to deposit/withdrawn your money!"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Bank_shop-1.0.1.zip"/>
-    
+
     <Mod Id="rk_CigarsShop" Name="Raddeck's Cigars Shop Module" Version="1.0.2"
     Description="Give the option to buy/smoke cigars!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_CigarsShop-1.0.2.zip"/>
 
-    <Mod Id="rk_Computer_Shop" Name="Raddeck's Computer Shop Module" Version="1.0.3" 
+    <Mod Id="rk_Computer_Shop" Name="Raddeck's Computer Shop Module" Version="1.0.3"
     Description="Add option to buy computers,... at some stores !" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Computer_Shop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_ConfectioneryShop" Name="Raddeck's Confectionery Shop Module" Version="1.0.4"
     Description="Give the option to buy/eat candy!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_ConfectioneryShop-1.0.4.zip"/>
-    
+
     <Mod Id="rk_EroticShop" Name="Raddeck's Erotic Shop Module" Version="1.0.4"
     Description="Give the option to buy erotic products such as: dildo, fleshlight,...!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_EroticShop-1.0.4.zip"/>
-    
+
     <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.3"
     Description="The mod for cheating in LifePlay!"
     Path="Raddeck/rk_God_Mod-1.0.3.zip"/>
-    
+
     <Mod Id="rk_Home_Inventories" Name="Raddeck's Home Inventories Mod" Version="1.0.5"
     Description="Better way to store your items - Focused on my mods items!"
     Path="Raddeck/rk_Home_Inventories-1.0.5.zip"/>
-    
+
     <Mod Id="rk_IceCreamShop" Name="Raddeck's Ice Cream Shop Module" Version="1.0.2"
     Description="Give the option to buy/eat ice cream desserts!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_IceCreamShop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_JewelryShop" Name="Raddeck's Jewelry Shop Module" Version="1.0.2"
     Description="Give the option to buy,trade or sell jewelry and few extras!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_JewelryShop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_MeatShop" Name="Raddeck's Meat Shop Module" Version="1.0.2"
     Description="Give the option to buy/eat meat dishes!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_MeatShop-1.0.2.zip"/>
-    
-    <Mod Id="rk_Mobile_Shop" Name="Raddeck's Mobile Shop Module" Version="1.0.4" 
+
+    <Mod Id="rk_Mobile_Shop" Name="Raddeck's Mobile Shop Module" Version="1.0.4"
     Description="Add option to buy mobile phone,... at some stores !" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Mobile_Shop-1.0.4.zip"/>
-    
+
     <Mod Id="rk_MoneyMaker" Name="Raddeck's Money Maker Module" Version="1.0.3"
     Description="Contain 3 shops - Arts - Bank and Jewelry shop" Depends="vim_RoomPresets"
     Msg="You also need rk_Home_Inventories mod to be enable."
     Path="Raddeck/rk_MoneyMaker-1.0.3.zip"/>
-    
+
     <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.1.0"
     Description="Add more funny/silly interactions to the game!"
     Path="Raddeck/rk_MoreInteractions-1.1.0.zip"/>
-    
+
     <Mod Id="rk_MoreRides" Name="Raddeck's More Rides Module" Version="1.0.7"
     Description="Give the option to buy/sell/trade a bike, car and/or motorcycle!" Depends="rk_Home_Inventories"
     Path="Raddeck/rk_MoreRides-1.0.7.zip"/>
-    
+
     <Mod Id="rk_My_Neighbors" Name="Raddeck's My Neighbors Module" Version="1.0.1"
     Description="Different stories with your neighbors!"
     Path="Raddeck/rk_My_Neighbors-1.0.1.zip"/>
-    
+
     <Mod Id="rk_Personal_Inventories" Name="Raddeck's Personal Inventories Mod" Version="1.0.4"
     Description="Better way to store your personal items - Focused on my mods items!"
     Path="Raddeck/rk_Personal_Inventories-1.0.4.zip"/>
-    
+
     <Mod Id="rk_PopCornsShop" Name="Raddeck's Popcorns Shop Module" Version="1.0.2"
     Description="Give the option to buy/eat Popcorns!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_PopCornsShop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_SeaFoodShop" Name="Raddeck's Seafood Shop Module" Version="1.0.2"
     Description="Give the option to buy/eat seafoods!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_SeaFoodShop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_Sex_Guru" Name="Raddeck's Sex Guru Module" Version="1.0.1"
     Description="Start your own religious community!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: You also need these mods (rk_ShopAddons and rk_MoneyMaker)"
     Path="Raddeck/rk_Sex_Guru-1.0.1.zip"/>
-    
+
     <Mod Id="rk_ShopAddons" Name="Raddeck's Shop Add-On Module" Version="1.0.6"
     Description="Add more stuffs inside stores - Contain 11 shops - Eating/drinking/smoking/sex-shop!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: You also need rk_Personal_Inventories mod to be enable."
     Path="Raddeck/rk_ShopAddons-1.0.6.zip"/>
-    
+
     <Mod Id="rk_VapeShop" Name="Raddeck's Vape Shop Module" Version="1.0.2"
     Description="Add options to buy/smoke vape juices!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_VapeShop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_VeganShop" Name="Raddeck's Vegan Shop Module" Version="1.0.2"
     Description="Add options to buy/eat vegan meals!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_VeganShop-1.0.2.zip"/>
-    
+
     <Mod Id="rk_Weed_biz" Name="Raddeck's Weed Business Module" Version="1.0.5"
     Description="Start your own weed business, make more money!" Depends="nn_GangsOfLifePlay"
     Msg="ATTENTION: You need rk_Personal_Inventories mod to be enable. If you enable the Weed Shop Mod, you will have more locations to buy weed"
     Path="Raddeck/rk_Weed_biz-1.0.5.zip"/>
-    
+
     <Mod Id="rk_WeedShop" Name="Raddeck's Weed Shop Module" Version="1.0.2"
     Description="You can buy and smoke weed at different places!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_WeedShop-1.0.2.zip"/>
-    
-    
+
+
 </Repo>
