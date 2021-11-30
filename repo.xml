@@ -125,10 +125,10 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_BakeryShop-1.0.4.zip"/>
 
-    <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.1"
+    <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.2"
     Description="Give the option to deposit/withdrawn your money!"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_Bank_shop-1.0.1.zip"/>
+    Path="Raddeck/rk_Bank_shop-1.0.2.zip"/>
 
     <Mod Id="rk_CigarsShop" Name="Raddeck's Cigars Shop Module" Version="1.0.2"
     Description="Give the option to buy/smoke cigars!" Depends="rk_Personal_Inventories"
