@@ -130,15 +130,15 @@
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_Bank_shop-1.0.2.zip"/>
 
-    <Mod Id="rk_CigarsShop" Name="Raddeck's Cigars Shop Module" Version="1.0.2"
+    <Mod Id="rk_CigarsShop" Name="Raddeck's Cigars Shop Module" Version="1.0.3"
     Description="Give the option to buy/smoke cigars!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_CigarsShop-1.0.2.zip"/>
+    Path="Raddeck/rk_CigarsShop-1.0.3.zip"/>
 
-    <Mod Id="rk_Computer_Shop" Name="Raddeck's Computer Shop Module" Version="1.0.3"
+    <Mod Id="rk_Computer_Shop" Name="Raddeck's Computer Shop Module" Version="1.0.4"
     Description="Add option to buy computers,... at some stores !" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_Computer_Shop-1.0.2.zip"/>
+    Path="Raddeck/rk_Computer_Shop-1.0.4.zip"/>
 
     <Mod Id="rk_ConfectioneryShop" Name="Raddeck's Confectionery Shop Module" Version="1.0.4"
     Description="Give the option to buy/eat candy!" Depends="rk_Personal_Inventories"
