@@ -191,9 +191,9 @@
     Description="Give the option to buy/sell/trade a bike, car and/or motorcycle!" Depends="rk_Home_Inventories"
     Path="Raddeck/rk_MoreRides-1.0.7.zip"/>
 
-    <Mod Id="rk_My_Neighbors" Name="Raddeck's My Neighbors Module" Version="1.0.1"
+    <Mod Id="rk_My_Neighbors" Name="Raddeck's My Neighbors Module" Version="1.0.2"
     Description="Different stories with your neighbors!"
-    Path="Raddeck/rk_My_Neighbors-1.0.1.zip"/>
+    Path="Raddeck/rk_My_Neighbors-1.0.2.zip"/>
 
     <Mod Id="rk_Personal_Inventories" Name="Raddeck's Personal Inventories Mod" Version="1.0.4"
     Description="Better way to store your personal items - Focused on my mods items!"
