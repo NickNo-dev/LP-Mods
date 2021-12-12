@@ -125,10 +125,10 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_BakeryShop-1.0.4.zip"/>
 
-    <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.2"
+    <Mod Id="rk_Bank_shop" Name="Raddeck's Bank Module" Version="1.0.3"
     Description="Give the option to deposit/withdrawn your money!"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_Bank_shop-1.0.2.zip"/>
+    Path="Raddeck/rk_Bank_shop-1.0.3.zip"/>
 
     <Mod Id="rk_CigarsShop" Name="Raddeck's Cigars Shop Module" Version="1.0.3"
     Description="Give the option to buy/smoke cigars!" Depends="rk_Personal_Inventories"
@@ -145,10 +145,10 @@
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
     Path="Raddeck/rk_ConfectioneryShop-1.0.4.zip"/>
 
-    <Mod Id="rk_EroticShop" Name="Raddeck's Erotic Shop Module" Version="1.0.4"
+    <Mod Id="rk_EroticShop" Name="Raddeck's Erotic Shop Module" Version="1.0.5"
     Description="Give the option to buy erotic products such as: dildo, fleshlight,...!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_EroticShop-1.0.4.zip"/>
+    Path="Raddeck/rk_EroticShop-1.0.5.zip"/>
 
     <Mod Id="rk_God_Mod" Name="Raddeck's God Mod" Version="1.0.3"
     Description="The mod for cheating in LifePlay!"
@@ -158,34 +158,34 @@
     Description="Better way to store your items - Focused on my mods items!"
     Path="Raddeck/rk_Home_Inventories-1.0.5.zip"/>
 
-    <Mod Id="rk_IceCreamShop" Name="Raddeck's Ice Cream Shop Module" Version="1.0.2"
+    <Mod Id="rk_IceCreamShop" Name="Raddeck's Ice Cream Shop Module" Version="1.0.3"
     Description="Give the option to buy/eat ice cream desserts!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_IceCreamShop-1.0.2.zip"/>
+    Path="Raddeck/rk_IceCreamShop-1.0.3.zip"/>
 
-    <Mod Id="rk_JewelryShop" Name="Raddeck's Jewelry Shop Module" Version="1.0.2"
+    <Mod Id="rk_JewelryShop" Name="Raddeck's Jewelry Shop Module" Version="1.0.3"
     Description="Give the option to buy,trade or sell jewelry and few extras!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Money Maker Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_JewelryShop-1.0.2.zip"/>
+    Path="Raddeck/rk_JewelryShop-1.0.3.zip"/>
 
-    <Mod Id="rk_MeatShop" Name="Raddeck's Meat Shop Module" Version="1.0.2"
+    <Mod Id="rk_MeatShop" Name="Raddeck's Meat Shop Module" Version="1.0.3"
     Description="Give the option to buy/eat meat dishes!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_MeatShop-1.0.2.zip"/>
+    Path="Raddeck/rk_MeatShop-1.0.3.zip"/>
 
-    <Mod Id="rk_Mobile_Shop" Name="Raddeck's Mobile Shop Module" Version="1.0.4"
+    <Mod Id="rk_Mobile_Shop" Name="Raddeck's Mobile Shop Module" Version="1.0.5"
     Description="Add option to buy mobile phone,... at some stores !" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_Mobile_Shop-1.0.4.zip"/>
+    Path="Raddeck/rk_Mobile_Shop-1.0.5.zip"/>
 
-    <Mod Id="rk_MoneyMaker" Name="Raddeck's Money Maker Module" Version="1.0.3"
+    <Mod Id="rk_MoneyMaker" Name="Raddeck's Money Maker Module" Version="1.0.4"
     Description="Contain 3 shops - Arts - Bank and Jewelry shop" Depends="vim_RoomPresets"
     Msg="You also need rk_Home_Inventories mod to be enable."
-    Path="Raddeck/rk_MoneyMaker-1.0.3.zip"/>
+    Path="Raddeck/rk_MoneyMaker-1.0.4.zip"/>
 
-    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.1.0"
+    <Mod Id="rk_MoreInteractions" Name="Raddeck's More Interactions Module" Version="1.1.1"
     Description="Add more funny/silly interactions to the game!"
-    Path="Raddeck/rk_MoreInteractions-1.1.0.zip"/>
+    Path="Raddeck/rk_MoreInteractions-1.1.1.zip"/>
 
     <Mod Id="rk_MoreRides" Name="Raddeck's More Rides Module" Version="1.0.7"
     Description="Give the option to buy/sell/trade a bike, car and/or motorcycle!" Depends="rk_Home_Inventories"
@@ -195,49 +195,53 @@
     Description="Different stories with your neighbors!"
     Path="Raddeck/rk_My_Neighbors-1.0.2.zip"/>
 
+    <Mod Id="rk_OnlineFoodShop" Name="Raddeck's Online Food Shop" Version="1.0.1"
+    Description="Buy drinks and meals online - Focused on my mods!" Depends="rk_Home_Inventories"
+    Path="Raddeck/rk_OnlineFoodShop-1.0.1.zip"/>
+    
     <Mod Id="rk_Personal_Inventories" Name="Raddeck's Personal Inventories Mod" Version="1.0.4"
     Description="Better way to store your personal items - Focused on my mods items!"
     Path="Raddeck/rk_Personal_Inventories-1.0.4.zip"/>
 
-    <Mod Id="rk_PopCornsShop" Name="Raddeck's Popcorns Shop Module" Version="1.0.2"
+    <Mod Id="rk_PopCornsShop" Name="Raddeck's Popcorns Shop Module" Version="1.0.3"
     Description="Give the option to buy/eat Popcorns!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_PopCornsShop-1.0.2.zip"/>
+    Path="Raddeck/rk_PopCornsShop-1.0.3.zip"/>
 
-    <Mod Id="rk_SeaFoodShop" Name="Raddeck's Seafood Shop Module" Version="1.0.2"
+    <Mod Id="rk_SeaFoodShop" Name="Raddeck's Seafood Shop Module" Version="1.0.3"
     Description="Give the option to buy/eat seafoods!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_SeaFoodShop-1.0.2.zip"/>
+    Path="Raddeck/rk_SeaFoodShop-1.0.3.zip"/>
 
-    <Mod Id="rk_Sex_Guru" Name="Raddeck's Sex Guru Module" Version="1.0.1"
+    <Mod Id="rk_Sex_Guru" Name="Raddeck's Sex Guru Module" Version="1.0.2"
     Description="Start your own religious community!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: You also need these mods (rk_ShopAddons and rk_MoneyMaker)"
-    Path="Raddeck/rk_Sex_Guru-1.0.1.zip"/>
+    Path="Raddeck/rk_Sex_Guru-1.0.2.zip"/>
 
-    <Mod Id="rk_ShopAddons" Name="Raddeck's Shop Add-On Module" Version="1.0.6"
+    <Mod Id="rk_ShopAddons" Name="Raddeck's Shop Add-On Module" Version="1.0.7"
     Description="Add more stuffs inside stores - Contain 11 shops - Eating/drinking/smoking/sex-shop!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: You also need rk_Personal_Inventories mod to be enable."
-    Path="Raddeck/rk_ShopAddons-1.0.6.zip"/>
+    Path="Raddeck/rk_ShopAddons-1.0.7.zip"/>
 
-    <Mod Id="rk_VapeShop" Name="Raddeck's Vape Shop Module" Version="1.0.2"
+    <Mod Id="rk_VapeShop" Name="Raddeck's Vape Shop Module" Version="1.0.3"
     Description="Add options to buy/smoke vape juices!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_VapeShop-1.0.2.zip"/>
+    Path="Raddeck/rk_VapeShop-1.0.3.zip"/>
 
-    <Mod Id="rk_VeganShop" Name="Raddeck's Vegan Shop Module" Version="1.0.2"
+    <Mod Id="rk_VeganShop" Name="Raddeck's Vegan Shop Module" Version="1.0.3"
     Description="Add options to buy/eat vegan meals!" Depends="rk_Home_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_VeganShop-1.0.2.zip"/>
+    Path="Raddeck/rk_VeganShop-1.0.3.zip"/>
 
-    <Mod Id="rk_Weed_biz" Name="Raddeck's Weed Business Module" Version="1.0.5"
+    <Mod Id="rk_Weed_biz" Name="Raddeck's Weed Business Module" Version="1.0.6"
     Description="Start your own weed business, make more money!" Depends="nn_GangsOfLifePlay"
     Msg="ATTENTION: You need rk_Personal_Inventories mod to be enable. If you enable the Weed Shop Mod, you will have more locations to buy weed"
-    Path="Raddeck/rk_Weed_biz-1.0.5.zip"/>
+    Path="Raddeck/rk_Weed_biz-1.0.6.zip"/>
 
-    <Mod Id="rk_WeedShop" Name="Raddeck's Weed Shop Module" Version="1.0.2"
+    <Mod Id="rk_WeedShop" Name="Raddeck's Weed Shop Module" Version="1.0.3"
     Description="You can buy and smoke weed at different places!" Depends="rk_Personal_Inventories"
     Msg="ATTENTION: If you have already installed the Shop Add-On Mod, you don't need this mod (same content...)"
-    Path="Raddeck/rk_WeedShop-1.0.2.zip"/>
+    Path="Raddeck/rk_WeedShop-1.0.3.zip"/>
 
 
 </Repo>
